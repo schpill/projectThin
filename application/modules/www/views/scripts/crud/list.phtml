@@ -1,0 +1,131 @@
+<?php includes('partials/header/classic.phtml'); ?>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <!-- start: Content -->
+            <div id="content" class="span12">
+                <div class="row-fluid">
+                    <div class="span1">&nbsp;</div>
+                    <div class="widget span10">
+                        <div class="widget-header clearfix">
+                            <h3><i class="icon-list"></i>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo \Thin\Html\Helper::display($this->title); ?></h3>
+                        </div>
+    <div class="widget-body">
+    <?php if (null !== $this->search): ?>
+    <input type="hidden" id="indexCrudFieldSearch" value="0" />
+    <?php echo $this->search; ?>
+    <?php endif; ?>
+    <form id="FTVCrudForm" method="post"><input type="hidden" id="crud_num_page" name="crud_num_page" value="<?php echo \Thin\Crud::checkEmpty('crud_num_page'); ?>" /><input type="hidden" id="crud_order_direction" name="crud_order_direction" value="<?php echo \Thin\Crud::checkEmpty('crud_order_direction'); ?>" /><input type="hidden" id="crud_order" name="crud_order" value="<?php echo \Thin\Crud::checkEmpty('crud_order'); ?>" /><input type="hidden" id="crud_where" name="crud_where" value="<?php echo \Thin\Crud::checkEmpty('crud_where'); ?>" /><input type="hidden" id="crud_type_export" name="crud_type_export" value="" /></form>
+        <?php if (true === $this->config['addable']): ?>
+            <div class="span10">
+            <button id="addCrudItem" type="button" class="btn" onclick="document.location.href = '<?php echo URLSITE . 'admin/add/' . request()->getEntity() . '/' . request()->getTable(); ?>';"><i class="icon-plus"></i> <?php echo \Thin\Html\Helper::display($this->config['titleAdd']); ?></button><p />
+            </div>
+        <?php else: ?>
+            <div class="span10">&nbsp;</div>
+        <?php endif; ?>
+        <?php echo $this->content; ?>
+    <?php if (null !== $this->pagination): ?>
+    <div class="row-fluid">
+        <div class="span12">
+            <?php echo $this->pagination; ?>
+        </div>
+    </div>
+    <?php endif; ?>
+    <?php if (count($this->export)): ?>
+    <div class="row-fluid">
+        <div class="span12">
+            <span class="label label-info">Export</span>&nbsp;&nbsp;
+            <span>
+                <?php foreach ($this->export as $typeExport): ?>
+                <img alt="Export <?php echo \Thin\Inflector::upper($typeExport); ?>" title="Export <?php echo \Thin\Inflector::upper($typeExport); ?>" src="<?php urlsite(); ?>css/crud/<?php echo \Thin\Inflector::lower($typeExport); ?>.png" style="cursor: pointer;" onclick="<?php if(\Thin\Inflector::lower($typeExport) == 'pdf'): ?>alert('L\'export PDF prend quelques secondes, merci de patienter.'); <?php endif; ?>crudExport('<?php echo \Thin\Inflector::lower($typeExport); ?>');" />&nbsp;&nbsp;
+                <?php endforeach; ?>
+            </span>
+        </div>
+    </div>
+    <?php endif; ?>
+</div>
+</div>
+    <div class="span1">&nbsp;</div>
+</div>
+    <script type="text/javascript">
+        var searchCrud;
+        function orderGoPage(field, direction)
+        {
+            $('#FTVCrudForm').action = document.URL;
+            $('#crud_num_page').val(1);
+            $('#crud_order_direction').val(direction);
+            $('#crud_order').val(field);
+            $('#FTVCrudForm').submit();
+        }
+
+        function crudExport(typeExport)
+        {
+            $('#FTVCrudForm').action = document.URL;
+            $('#crud_type_export').val(typeExport);
+            $('#FTVCrudForm').submit();
+        }
+
+        function paginationGoPage(page)
+        {
+            $('#FTVCrudForm').action = document.URL;
+            $('#crud_num_page').val(page);
+            $('#FTVCrudForm').submit();
+        }
+
+        function makeCrudSearch()
+        {
+            $('#FTVCrudForm').action = document.URL;
+            $('#crud_num_page').val(1);
+            for (var i = 0 ; i <= numFieldsSearch ; i++) {
+                var field = searchFields[i];
+                var searchValue = $('#crudSearchValue_' + i).val();
+                if (searchValue.length > 0 && searchValue != 'crudNothing') {
+                    var operator = $('#crudSearchOperator_' + i).val();
+                    if (operator == 'LIKE' || operator == 'NOT LIKE') {
+                        searchValue = '%' + searchValue + '%';
+                    } else if (operator == 'START') {
+                        operator = 'LIKESTART';
+                        searchValue = searchValue + '%';
+                    } else if (operator == 'END') {
+                        operator = 'LIKEEND';
+                        searchValue = '%' + searchValue;
+                    }
+                    var query = field + '%%' + operator + '%%' + "'" + searchValue + "'" + '##';
+                    searchCrud += query;
+                }
+            }
+            $('#crud_where').val(searchCrud);
+            $('#FTVCrudForm').submit();
+        }
+
+        function addRowSearch(field, from)
+        {
+            var indexCrudFieldSearch = parseInt($('#indexCrudFieldSearch').val());
+            if (indexCrudFieldSearch < 1) {
+                numFieldsSearch = indexCrudFieldSearch = parseInt(numFieldsSearch) + 1;
+            }
+
+            var nextIndex = indexCrudFieldSearch++;
+            searchFields.push(field);
+            var html = '<div class="controls" id="crudControl_' + nextIndex + '">';
+            html += $('#crudControl_' + from).html();
+            html += '</div>';
+            var firstRegexp = new RegExp("_" + from, "g");
+            html = html.replace(firstRegexp, "_" + nextIndex);
+            html = html.split(from + ")").join(nextIndex + ')');
+            if (!html.match('icon-trash')) {
+                var strFind = '<i class="icon-plus"></i></a>';
+                var strReplace = '<i class="icon-plus"></i></a>&nbsp;&nbsp;<a class="btn" href="#" onclick="delRowSearch(' + nextIndex + '); return false;"><i class="icon-trash"></i></a>';
+
+                html = html.split(strFind).join(strReplace);
+            }
+
+            $('#crudControl_' + from).after("\n\n\t\t" + html);
+        }
+
+        function delRowSearch(index)
+        {
+            $('#crudControl_' + index).slideUp();
+            $('#crudSearchValue_' + index).val('crudNothing');
+        }
+    </script>
+<?php includes('partials/footer/classic.phtml'); ?>

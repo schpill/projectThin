@@ -1,0 +1,7 @@
+php_value upload_max_filesize 56M
+php_value post_max_size 56M
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	RewriteRule  ^$ web/    [L]
+	RewriteRule  (.*) web/$1?from_htaccess=true [L]
+</IfModule>

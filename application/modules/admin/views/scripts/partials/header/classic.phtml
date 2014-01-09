@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8] -->
+<html lang="fr">
+<!-- <![endif] -->
+    <head>
+        <meta charset="utf-8" />
+        <!-- %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"} -->
+        <title>Admin - <?php echo $this->titleAdmin; ?></title>
+        <meta content="Admin Dashboard" name="description" />
+        <meta content="Thin Framework" name="generator" />
+        <meta content="Gérald Plusquellec http://www.geraldplusquellec.me" name="author" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link href="/assets/img/admin.png" rel="shortcut icon" />
+        <link href="/assets/img/apple-touch-icon-114x114-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114" />
+        <link href="/assets/img/apple-touch-icon-72x72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72" />
+        <link href="/assets/img/apple-touch-icon-57x57-precomposed.png" rel="apple-touch-icon-precomposed" />
+        <link href="/assets/css/admin.min.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/assets/css/responsive.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/assets/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/assets/css/fontello.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/assets/css/fonts.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/assets/css/icomoon.css" rel="stylesheet" />
+        <link href="/assets/css/glyphicons.css" rel="stylesheet" />
+        <link href="/assets/css/halflings.css" rel="stylesheet" />
+        <link href="/assets/css/entypo.css" rel="stylesheet" />
+        <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/0.0.11/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+        <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.0.2/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+        <link href="/assets/css/admin.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/assets/css/jquery.fancybox.css" media="screen" rel="stylesheet" type="text/css" />
+        <script src="/assets/js/jquery.min.js" type="text/javascript"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="/assets/js/jquery.fancybox.pack.js" type="text/javascript"></script>
+        <script src="/assets/js/jquery.fancybox-media.js" type="text/javascript"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+        <script src="/assets/js/respond.js"></script>
+        <script src="/assets/js/css3.js"></script>
+        <script src="/assets/js/bkg.js"></script>
+        <script src="/assets/js/ph.js" type="text/javascript"></script>
+        <script src="/assets/js/script.js" type="text/javascript"></script>
+        <script src="//cdn.wysibb.com/js/jquery.wysibb.min.js"></script>
+        <script src="/assets/js/bbfr.js"></script>
+        <link rel="stylesheet" href="//cdn.wysibb.com/css/default/wbbtheme.css" type="text/css" />
+        <script>
+            CURLANG = WBBLANG['fr'] || WBBLANG['en'] || CURLANG;
+            $(document).ready(function() {
+                $(".wysibb").wysibb();
+            });
+        </script>
+        <script type="text/javascript" src="//js.nicedit.com/nicEdit-latest.js"></script>
+        <script type="text/javascript" src="/assets/js/web.js"></script>
+    </head>
+    <body>
+        <div class="navbar navbar-fixed-top">
+            <div class="container">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="nav-collapse collapse" id="navbar-main">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <h1 class="brand">
+                                <a href="/backadmin/dashboard">
+                                    <i class="icon-cogs"></i> <?php echo $this->titleAdmin; ?> - Admin
+                                </a>
+                            </h1>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav pull-right">
+                        <?php $session = session('admin'); ?>
+                        <?php if (null !== $session->getUser()): ?>
+                        <li><a target="_site" href="/"><i class="icon-external-link"></i> Afficher le site</a></li>
+                        <li><a href="/backadmin/logout"><i class="icon-off"></i> Déconnexion</a></li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <?php $session = session('admin'); ?>
+        <?php if (null !== $session->getUser()): ?>
+        <?php if (container()->getAction() != 'dashboard'): ?>
+        <div onclick="thinMenu();" id="thinTools">
+            <div class="thinTools-icon">
+                <i class="icon-cogs"></i>
+            </div>
+        </div>
+        <div id="thinLeftMenu">
+            <ul class="nav">
+                <li style="text-align: right;"><a href="#" onclick="thinMenu(); return false;"><i class="icon-remove"></i>&nbsp;</a></li>
+                <?php foreach($this->types as $type): ?>
+                <?php if(ake(\Thin\Inflector::lower($type), \Thin\Data::$_fields)): ?>
+                <li class="dropdown bigLi" style="top: -20px;">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="return false;">
+                        <?php echo ucfirst(\Thin\Inflector::lower(\Thin\Html\Helper::adminPlural($type))); ?>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="lc"><a href="/backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="icon-list"></i> Liste</a></li>
+                        <li class="lc"><a href="/backadmin/item_add/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="icon-plus"></i> Ajouter</a></li>
+                        <li class="lc"><a href="/backadmin/import-<?php echo \Thin\Html\Helper::display($type); ?>"><i class="icon-folder-open"></i> Importer</a></li>
+                    </ul>
+                </li>
+                <?php endif; ?>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <?php endif; ?>
+        <?php endif; ?>

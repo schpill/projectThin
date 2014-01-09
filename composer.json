@@ -1,0 +1,22 @@
+{
+    "name": "Thin framework",
+    "description": "Thin framework",
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+        "atoum/atoum": "master-dev"
+    },
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Gerald Plusquellec",
+            "email": "me@geraldplusquellec.me"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.4.0"
+    }
+}

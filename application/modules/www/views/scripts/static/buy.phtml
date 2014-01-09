@@ -1,0 +1,52 @@
+<?php includes('partials/header/classic.phtml'); ?>
+<div class="ctner" id="bodyWrapper">
+    <section id="bodySectionL">
+        <article>
+            <p>Commander</p>
+            <?php if (null === $this->member): ?>
+                <p>
+                    <form action="<?php urlsite(); ?>login.html" method="post" id="loginForm">
+                    <fieldset>
+                        <legend>Connectez-vous</legend>
+                        <label for="email">Courriel</label>&nbsp;&nbsp;&nbsp;
+                        <input type="email" required name="email" id="email" value="<?php request()->getEmail(); ?>" /><br /><br />
+                        <label for="email">Mot de passe</label>&nbsp;&nbsp;&nbsp;
+                        <input type="password" required name="password" id="password" /><br /><br />
+                        <input value="OK" type="button" onclick="document.getElementById('loginForm').submit();" />
+                    </fieldset>
+                    </form>
+                </p>
+                <p><a href="<?php urlsite(); ?>register.html">Pas encore inscrit(e) ?</a></p>
+            <?php else: ?>
+                <p>
+                    Bonjour <?php echo $this->member->getFirstname(); ?> <?php echo $this->member->getName(); ?>,
+                    <br />
+                    <?php if(1 > $this->cart->count()): ?>
+                        Le panier est vide.
+                    <?php else: ?>
+                        Rappel de votre panier
+                        <?php $i = 0; foreach($this->cart->content() as $rowId => $row): ?>
+                        <?php if($i < 1): ?><ul><?php endif; ?>
+                        <li>
+                            <p>Article : <?php echo $row->getName(); ?></p>
+                            <p>Prix unitaire : <?php echo $row->getPrice(); ?> $ CAD</p>
+                            <p>Quantité : <?php echo $row->getQty(); ?></p>
+                            <p>Sous-total : <?php echo $row->getSubtotal(); ?> $ CAD</p>
+                        </li>
+                        <?php $i++; endforeach; ?>
+                        <?php if($i > 0): ?>
+                          </ul>
+                          <p><strong>TOTAL : <?php echo $this->cart->total(); ?> $ CAD</strong></p>
+                        <?php endif; ?>
+                        <p>Informations de livraison</p>
+                        <p><?php echo $this->member->getAddress(); ?></p>
+                        <p><?php echo $this->member->getZip(); ?></p>
+                        <p><?php echo $this->member->getCity(); ?></p>
+                        <p><a href="#" onclick="return false;"><img src="<?php urlsite(); ?>assets/img/paypal.jpg" /></a></p>
+                    <?php endif; ?>
+                </p>
+            <?php endif; ?>
+       </article>
+    </section>
+</div>
+<?php includes('partials/footer/classic.phtml'); ?>

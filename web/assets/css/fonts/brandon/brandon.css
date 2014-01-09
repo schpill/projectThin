@@ -1,0 +1,131 @@
+@font-face {
+    font-family: 'brandon';
+    src: url('brandonnormal100-webfont.eot');
+    src: url('brandonnormal100-webfont.eot?#iefix') format('embedded-opentype'),
+    url('brandonnormal100-webfont.woff') format('woff'),
+    url('brandonnormal100-webfont.ttf') format('truetype'),
+    url('brandonnormal100-webfont.svg#entypo') format('svg');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'brandon';
+    src: url('brandonnormal300-webfont.eot');
+    src: url('brandonnormal300-webfont.eot?#iefix') format('embedded-opentype'),
+    url('brandonnormal300-webfont.woff') format('woff'),
+    url('brandonnormal300-webfont.ttf') format('truetype'),
+    url('brandonnormal300-webfont.svg#entypo') format('svg');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'brandon';
+    src: url('brandonnormal400-webfont.eot');
+    src: url('brandonnormal400-webfont.eot?#iefix') format('embedded-opentype'),
+    url('brandonnormal400-webfont.woff') format('woff'),
+    url('brandonnormal400-webfont.ttf') format('truetype'),
+    url('brandonnormal400-webfont.svg#entypo') format('svg');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'brandon';
+    src: url('brandonnormal500-webfont.eot');
+    src: url('brandonnormal500-webfont.eot?#iefix') format('embedded-opentype'),
+    url('brandonnormal500-webfont.woff') format('woff'),
+    url('brandonnormal500-webfont.ttf') format('truetype'),
+    url('brandonnormal500-webfont.svg#entypo') format('svg');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'brandon';
+    src: url('brandonnormal700-webfont.eot');
+    src: url('brandonnormal700-webfont.eot?#iefix') format('embedded-opentype'),
+    url('brandonnormal700-webfont.woff') format('woff'),
+    url('brandonnormal700-webfont.ttf') format('truetype'),
+    url('brandonnormal700-webfont.svg#entypo') format('svg');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'brandon';
+    src: url('brandonnormal900-webfont.eot');
+    src: url('brandonnormal900-webfont.eot?#iefix') format('embedded-opentype'),
+    url('brandonnormal900-webfont.woff') format('woff'),
+    url('brandonnormal900-webfont.ttf') format('truetype'),
+    url('brandonnormal900-webfont.svg#entypo') format('svg');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'brandon';
+    src: url('brandonitalic100-webfont.eot');
+    src: url('brandonitalic100-webfont.eot?#iefix') format('embedded-opentype'),
+    url('brandonitalic100-webfont.woff') format('woff'),
+    url('brandonitalic100-webfont.ttf') format('truetype'),
+    url('brandonitalic100-webfont.svg#entypo') format('svg');
+    font-weight: 100;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'brandon';
+    src: url('brandonitalic300-webfont.eot');
+    src: url('brandonitalic300-webfont.eot?#iefix') format('embedded-opentype'),
+    url('brandonitalic300-webfont.woff') format('woff'),
+    url('brandonitalic300-webfont.ttf') format('truetype'),
+    url('brandonitalic300-webfont.svg#entypo') format('svg');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'brandon';
+    src: url('brandonitalic400-webfont.eot');
+    src: url('brandonitalic400-webfont.eot?#iefix') format('embedded-opentype'),
+    url('brandonitalic400-webfont.woff') format('woff'),
+    url('brandonitalic400-webfont.ttf') format('truetype'),
+    url('brandonitalic400-webfont.svg#entypo') format('svg');
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'brandon';
+    src: url('brandonitalic500-webfont.eot');
+    src: url('brandonitalic500-webfont.eot?#iefix') format('embedded-opentype'),
+    url('brandonitalic500-webfont.woff') format('woff'),
+    url('brandonitalic500-webfont.ttf') format('truetype'),
+    url('brandonitalic500-webfont.svg#entypo') format('svg');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'brandon';
+    src: url('brandonitalic700-webfont.eot');
+    src: url('brandonitalic700-webfont.eot?#iefix') format('embedded-opentype'),
+    url('brandonitalic700-webfont.woff') format('woff'),
+    url('brandonitalic700-webfont.ttf') format('truetype'),
+    url('brandonitalic700-webfont.svg#entypo') format('svg');
+    font-weight: 700;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'brandon';
+    src: url('brandonitalic900-webfont.eot');
+    src: url('brandonitalic900-webfont.eot?#iefix') format('embedded-opentype'),
+    url('brandonitalic900-webfont.woff') format('woff'),
+    url('brandonitalic900-webfont.ttf') format('truetype'),
+    url('brandonitalic900-webfont.svg#entypo') format('svg');
+    font-weight: 900;
+    font-style: italic;
+}

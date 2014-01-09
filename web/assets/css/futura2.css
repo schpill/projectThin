@@ -1,0 +1,459 @@
+@font-face {
+    font-family: 'futurastd_bold_obl';
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-boldoblique-webfont.eot');
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-boldoblique-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-boldoblique-webfont.woff') format('woff'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-boldoblique-webfont.ttf') format('truetype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-boldoblique-webfont.svg#futurastd_bold_obl') format('svg');
+    font-weight: 700;
+    font-style: normal;
+
+}
+
+
+
+/*
+@font-face {
+    font-family: 'futurastd_bold';
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-bold-webfont.eot');
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-bold-webfont.woff') format('woff'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-bold-webfont.ttf') format('truetype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-bold-webfont.svg#futurastd_bold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'futurastd_book';
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-book-webfont.eot');
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-book-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-book-webfont.woff') format('woff'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-book-webfont.ttf') format('truetype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-book-webfont.svg#futurastd_book') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+*/
+
+
+@font-face {
+    font-family: 'futurastd_cond_bold';
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedbold-webfont.eot');
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedbold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedbold-webfont.woff') format('woff'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedbold-webfont.ttf') format('truetype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedbold-webfont.svg#futurastd_cond_bold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'futurastd_book_obl';
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-bookoblique-webfont.eot');
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-bookoblique-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-bookoblique-webfont.woff') format('woff'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-bookoblique-webfont.ttf') format('truetype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-bookoblique-webfont.svg#futurastd_book_obl') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'futurastd_cond';
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensed-webfont.eot');
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensed-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensed-webfont.woff') format('woff'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensed-webfont.ttf') format('truetype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensed-webfont.svg#futurastd_cond') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'futurastd_book_cond_lite';
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedlight-webfont.eot');
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedlight-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedlight-webfont.woff') format('woff'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedlight-webfont.ttf') format('truetype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedlight-webfont.svg#futurastd_book_cond_lite') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'futurastd_cond_bold_obl';
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedboldobl-webfont.eot');
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedboldobl-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedboldobl-webfont.woff') format('woff'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedboldobl-webfont.ttf') format('truetype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedboldobl-webfont.svg#futurastd_cond_bold_obl') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'futurastd_cond_xtrbd';
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedextrabd-webfont.eot');
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedextrabd-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedextrabd-webfont.woff') format('woff'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedextrabd-webfont.ttf') format('truetype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedextrabd-webfont.svg#futurastd_cond_xtrbd') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'futurastd_cond_xtrbd_obl';
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condextraboldobl-webfont.eot');
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condextraboldobl-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condextraboldobl-webfont.woff') format('woff'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condextraboldobl-webfont.ttf') format('truetype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condextraboldobl-webfont.svg#futurastd_cond_xtrbd_obl') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'futurastd_cond_lite_obl';
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedlightobl-webfont.eot');
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedlightobl-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedlightobl-webfont.woff') format('woff'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedlightobl-webfont.ttf') format('truetype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedlightobl-webfont.svg#futurastd_cond_lite_obl') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'futurastd_cond_obl';
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedoblique-webfont.eot');
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedoblique-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedoblique-webfont.woff') format('woff'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedoblique-webfont.ttf') format('truetype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-condensedoblique-webfont.svg#futurastd_cond_obl') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'futurastd_hvy';
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-heavy-webfont.eot');
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-heavy-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-heavy-webfont.woff') format('woff'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-heavy-webfont.ttf') format('truetype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-heavy-webfont.svg#futurastd_hvy') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'futurastd_xtrbd';
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-extrabold-webfont.eot');
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-extrabold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-extrabold-webfont.woff') format('woff'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-extrabold-webfont.ttf') format('truetype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-extrabold-webfont.svg#futurastd_xtrbd') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'futurastd_xtrabd_obl';
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-extraboldoblique-webfont.eot');
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-extraboldoblique-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-extraboldoblique-webfont.woff') format('woff'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-extraboldoblique-webfont.ttf') format('truetype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-extraboldoblique-webfont.svg#futurastd_xtrabd_obl') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'futurastd_lite_obl';
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-lightoblique-webfont.eot');
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-lightoblique-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-lightoblique-webfont.woff') format('woff'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-lightoblique-webfont.ttf') format('truetype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-lightoblique-webfont.svg#futurastd_lite_obl') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'futurastd_hvy_obl';
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-heavyoblique-webfont.eot');
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-heavyoblique-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-heavyoblique-webfont.woff') format('woff'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-heavyoblique-webfont.ttf') format('truetype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-heavyoblique-webfont.svg#futurastd_hvy_obl') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'futurastd_lite';
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-light-webfont.eot');
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-light-webfont.woff') format('woff'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-light-webfont.ttf') format('truetype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-light-webfont.svg#futurastd_lite') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'futurastd_mdm_obl';
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-mediumoblique-webfont.eot');
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-mediumoblique-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-mediumoblique-webfont.woff') format('woff'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-mediumoblique-webfont.ttf') format('truetype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-mediumoblique-webfont.svg#futurastd_mdm_obl') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'futurastd_mdm';
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-medium-webfont.eot');
+    src: url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-medium-webfont.woff') format('woff'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-medium-webfont.ttf') format('truetype'),
+         url('http://www.saratogawire.com/media/css/fonts/futura/futurastd-medium-webfont.svg#futurastd_mdm') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+/*@font-face{
+    font-family:"futurastd_bold";
+    src: url("fonts/futura/FuturaStd-Bold.eot");
+    src: local("☺"), url('http://www.saratogawire.com/media/css/fonts/futura/FuturaStd-Bold.eot?#iefix') format('embedded-opentype'), url("fonts/futura/FuturaStd-Bold.otf") format("opentype"), url("fonts/futura/FuturaStd-Bold.woff") format("woff"), url("fonts/futura/FuturaStd-Bold.ttf") format("truetype"), url("fonts/futura/FuturaStd-Bold.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family:"futurastd_bold_obl";
+    src: url("fonts/futura/FuturaStd-BoldOblique.eot") format("eot");
+    src: local("☺"), url("fonts/futura/FuturaStd-BoldOblique.otf") format("opentype"), url("fonts/futura/FuturaStd-BoldOblique.woff") format("woff"), url("fonts/futura/FuturaStd-BoldOblique.ttf") format("truetype"), url("fonts/futura/FuturaStd-BoldOblique.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family:"futurastd_book";
+    src: url("fonts/futura/FuturaStd-Book.eot") format("eot");
+    src: local("☺"), url("fonts/futura/FuturaStd-Book.otf") format("opentype"), url("fonts/futura/FuturaStd-Book.woff") format("woff"), url("fonts/futura/FuturaStd-Book.ttf") format("truetype"), url("fonts/futura/FuturaStd-Book.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family:"futurastd_book_obl";
+    src: url("fonts/futura/FuturaStd-BookOblique.eot") format("eot");
+    src: local("☺"), url("fonts/futura/FuturaStd-BookOblique.otf") format("opentype"), url("fonts/futura/FuturaStd-BookOblique.woff") format("woff"), url("fonts/futura/FuturaStd-BookOblique.ttf") format("truetype"), url("fonts/futura/FuturaStd-BookOblique.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family:"futurastd_cond";
+    src: url("fonts/futura/FuturaStd-Condensed.eot") format("eot");
+    src: local("☺"), url("fonts/futura/FuturaStd-Condensed.otf") format("opentype"), url("fonts/futura/FuturaStd-Condensed.woff") format("woff"), url("fonts/futura/FuturaStd-Condensed.ttf") format("truetype"), url("fonts/futura/FuturaStd-Condensed.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face{
+    font-family:"futurastd_cond_bold";
+    src: url("fonts/futura/FuturaStd-CondensedBold.eot") format("eot");
+    src: local("☺"), url("fonts/futura/FuturaStd-CondensedBold.otf") format("opentype"), url("fonts/futura/FuturaStd-CondensedBold.woff") format("woff"), url("fonts/futura/FuturaStd-CondensedBold.ttf") format("truetype"), url("fonts/futura/FuturaStd-CondensedBold.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family:"futurastd_cond_bold_obl";
+    src: url("fonts/futura/FuturaStd-CondensedBoldObl.eot") format("eot");
+    src: local("☺"), url("fonts/futura/FuturaStd-CondensedBoldObl.otf") format("opentype"), url("fonts/futura/FuturaStd-CondensedBoldObl.woff") format("woff"), url("fonts/futura/FuturaStd-CondensedBoldObl.ttf") format("truetype"), url("fonts/futura/FuturaStd-CondensedBoldObl.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family:"futurastd_cond_xtrbd";
+    src: url("fonts/futura/FuturaStd-CondensedExtraBd.eot") format("eot");
+    src: local("☺"), url("fonts/futura/FuturaStd-CondensedExtraBd.otf") format("opentype"), url("fonts/futura/FuturaStd-CondensedExtraBd.woff") format("woff"), url("fonts/futura/FuturaStd-CondensedExtraBd.ttf") format("truetype"), url("fonts/futura/FuturaStd-CondensedExtraBd.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family:"futurastd_book_cond_lite";
+    src: url("fonts/futura/FuturaStd-CondensedLight.eot") format("eot");
+    src: local("☺"), url("fonts/futura/FuturaStd-CondensedLight.otf") format("opentype"), url("fonts/futura/FuturaStd-CondensedLight.woff") format("woff"), url("fonts/futura/FuturaStd-CondensedLight.ttf") format("truetype"), url("fonts/futura/FuturaStd-CondensedLight.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family:"futurastd_cond_lite_obl";
+    src: url("fonts/futura/FuturaStd-CondensedLightObl.eot") format("eot");
+    src: local("☺"), url("fonts/futura/FuturaStd-CondensedLightObl.otf") format("opentype"), url("fonts/futura/FuturaStd-CondensedLightObl.woff") format("woff"), url("fonts/futura/FuturaStd-CondensedLightObl.ttf") format("truetype"), url("fonts/futura/FuturaStd-CondensedLightObl.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face{
+    font-family:"futurastd_cond_obl";
+    src: url("fonts/futura/FuturaStd-CondensedOblique.eot") format("eot");
+    src: local("☺"), url("fonts/futura/FuturaStd-CondensedOblique.otf") format("opentype"), url("fonts/futura/FuturaStd-CondensedOblique.woff") format("woff"), url("fonts/futura/FuturaStd-CondensedOblique.ttf") format("truetype"), url("fonts/futura/FuturaStd-CondensedOblique.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family:"futurastd_cond_xtrbd_obl";
+    src: url("fonts/futura/FuturaStd-CondExtraBoldObl.eot") format("eot");
+    src: local("☺"), url("fonts/futura/FuturaStd-CondExtraBoldObl.otf") format("opentype"), url("fonts/futura/FuturaStd-CondExtraBoldObl.woff") format("woff"), url("fonts/futura/FuturaStd-CondExtraBoldObl.ttf") format("truetype"), url("fonts/futura/FuturaStd-CondExtraBoldObl.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family:"futurastd_xtrbd";
+    src: url("fonts/futura/FuturaStd-ExtraBold.eot") format("eot");
+    src: local("☺"), url("fonts/futura/FuturaStd-ExtraBold.otf") format("opentype"), url("fonts/futura/FuturaStd-ExtraBold.woff") format("woff"), url("fonts/futura/FuturaStd-ExtraBold.ttf") format("truetype"), url("fonts/futura/FuturaStd-ExtraBold.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family:"futurastd_xtrabd_obl";
+    src: url("fonts/futura/FuturaStd-ExtraBoldOblique.eot") format("eot");
+    src: local("☺"), url("fonts/futura/FuturaStd-ExtraBoldOblique.otf") format("opentype"), url("fonts/futura/FuturaStd-ExtraBoldOblique.woff") format("woff"), url("fonts/futura/FuturaStd-ExtraBoldOblique.ttf") format("truetype"), url("fonts/futura/FuturaStd-ExtraBoldOblique.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family:"futurastd_hvy";
+    src: url("fonts/futura/FuturaStd-Heavy.eot") format("eot");
+    src: local("☺"), url("fonts/futura/FuturaStd-Heavy.otf") format("opentype"), url("fonts/futura/FuturaStd-Heavy.woff") format("woff"), url("fonts/futura/FuturaStd-Heavy.ttf") format("truetype"), url("fonts/futura/FuturaStd-Heavy.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face{
+    font-family:"futurastd_hvy_obl";
+    src: url("fonts/futura/FuturaStd-HeavyOblique.eot") format("eot");
+    src: local("☺"), url("fonts/futura/FuturaStd-HeavyOblique.otf") format("opentype"), url("fonts/futura/FuturaStd-HeavyOblique.woff") format("woff"), url("fonts/futura/FuturaStd-HeavyOblique.ttf") format("truetype"), url("fonts/futura/FuturaStd-HeavyOblique.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family:"futurastd_lite";
+    src: url("fonts/futura/FuturaStd-Light.eot") format("eot");
+    src: local("☺"), url("fonts/futura/FuturaStd-Light.otf") format("opentype"), url("fonts/futura/FuturaStd-Light.woff") format("woff"), url("fonts/futura/FuturaStd-Light.ttf") format("truetype"), url("fonts/futura/FuturaStd-Light.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family:"futurastd_lite_obl";
+    src: url("fonts/futura/FuturaStd-LightOblique.eot") format("eot");
+    src: local("☺"), url("fonts/futura/FuturaStd-LightOblique.otf") format("opentype"), url("fonts/futura/FuturaStd-LightOblique.woff") format("woff"), url("fonts/futura/FuturaStd-LightOblique.ttf") format("truetype"), url("fonts/futura/FuturaStd-LightOblique.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family:futurastd_mdm;
+    src: url("fonts/futura/FuturaStd-Medium.eot") format("eot");
+    src: local("☺"), url("fonts/futura/FuturaStd-Medium.otf") format("opentype"), url("fonts/futura/FuturaStd-Medium.woff") format("woff"), url("fonts/futura/FuturaStd-Medium.ttf") format("truetype"), url("fonts/futura/FuturaStd-Medium.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family:futurastd_mdm_obl;
+    src: url("fonts/futura/FuturaStd-MediumOblique.eot") format("eot");
+    src: local("☺"), url("fonts/futura/FuturaStd-MediumOblique.otf") format("opentype"), url("fonts/futura/FuturaStd-MediumOblique.woff") format("woff"), url("fonts/futura/FuturaStd-MediumOblique.ttf") format("truetype"), url("fonts/futura/FuturaStd-MediumOblique.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face{
+    font-family:adellebsc;
+    src: url("fonts/adelle/AdelleBasic_Regular.otf");
+}
+@font-face{
+    font-family:adellebsc_itl;
+    src: url("fonts/adelle/AdelleBasic_Italic.otf");
+}
+*/
+@font-face{
+    font-family:adellebsc_bld_itl;
+    src: url("fonts/adelle/AdelleBasic_BoldItalic.otf");
+}
+@font-face{
+    font-family:adellebsc_bld;
+    src: url("fonts/adelle/AdelleBasic_Bold.otf");
+}

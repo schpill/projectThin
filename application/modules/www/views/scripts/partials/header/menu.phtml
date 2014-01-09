@@ -1,0 +1,35 @@
+            <form action="<?php urlsite(); ?>member/logout" method="post" id="logoutForm">
+                <input type="hidden" id="url_logout" name="url_logout" value="" />
+            </form>
+            <nav class="navbar-secondary hidden-xs">
+                <a href="" onclick="<?php if(null === $this->member): ?>webJS.showDivConnect();<?php else: ?>webJS.go('<?php urlsite(); ?>member');<?php endif; ?> return false;"<?php if (\ThinHelper\Html::isPage('member')): ?> class="active"<?php endif; ?>>
+                    <?php if(null === $this->member): ?><?php __('connexion', 'menu', 'register'); ?><?php else: ?><?php __('mon compte', 'menu', 'account'); ?><?php endif; ?></a>
+                    <?php if(null !== $this->member): ?> <a href="" onclick="$('#url_logout').val(document.URL); $('#logoutForm').submit(); return false;"><?php __('déconnexion', 'menu', 'logout'); ?></a><?php endif; ?> <a href="" onclick="setAppLanguage('<?php if ('fr' == getLanguage()): ?>uk<?php else: ?>fr<?php endif; ?>'); return false;"><?php if ('fr' == getLanguage()): ?>en<?php else: ?>fr<?php endif; ?></a>
+            </nav>
+
+            <nav class="navbar navbar-default navbar-static-top fcontainer_12" role="navigation">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-cc">
+                        <span class="sr-only">Menu</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand visible-xs" href="#"><img src="<?php urlsite(); ?>assets/img/logo_cc_mobile.png" alt="" /></a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-cc" style="position: relative; left: 20px;">
+                    <ul class="nav navbar-nav">
+                        <li<?php if (\ThinHelper\Html::isPage('vendors')): ?> class="active"<?php endif; ?>><a href="<?php urlsite(); ?>vendors"><?php __('Fournisseurs', 'menu', 'vendors'); ?></a></li>
+                        <li<?php if (\ThinHelper\Html::isPage('about')): ?> class="active"<?php endif; ?>><a href="<?php urlsite(); ?>about"><?php __('&Agrave; propos', 'menu', 'about'); ?></a></li>
+                        <li><a class="hidden-xs logo-nav" href="<?php urlsite(); ?>"><img src="<?php urlsite(); ?>assets/img/logo_cc.png" alt="" /></a></li>
+                        <li<?php if (\ThinHelper\Html::isPage('contact')): ?> class="active"<?php endif; ?>><a href="<?php urlsite(); ?>contact">Contact</a></li>
+                        <li<?php if (\ThinHelper\Html::isPage('member')): ?> class="active"<?php endif; ?>><a href="<?php urlsite(); ?>member"><?php __('Devenir membre', 'menu', 'Become member'); ?></a></li>
+                        <li class="visible-xs"><a href="" onclick="<?php if(null === $this->member): ?>webJS.showDivConnect();<?php else: ?>webJS.go('<?php urlsite(); ?>member');<?php endif; ?> return false;"<?php if (\ThinHelper\Html::isPage('member')): ?> class="active"<?php endif; ?>><?php if(null === $this->member): ?><?php __('connexion', 'menu', 'register'); ?><?php else: ?><?php __('mon compte', 'menu', 'account'); ?><?php endif; ?></a></li>
+                        <?php if(null !== $this->member): ?><li class="visible-xs"><a href="<?php urlsite(); ?>member/logout"><?php __('déconnexion', 'menu', 'logout'); ?></a></li><?php endif; ?>
+                        <li class="visible-xs"><a href="" onclick="setAppLanguage('<?php if ('fr' == getLanguage()): ?>uk<?php else: ?>fr<?php endif; ?>'); return false;"><?php if ('fr' == getLanguage()): ?>en<?php else: ?>fr<?php endif; ?></a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </nav>

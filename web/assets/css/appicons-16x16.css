@@ -1,0 +1,64 @@
+[class^="appicon-"] {
+                background-image: url("appicons-16x16.png");
+                background-position: 16px 16px;
+                background-repeat: no-repeat;
+                display: inline-block;
+                height: 16px;
+                vertical-align: text-top;
+                width: 16px;
+            }
+
+.appicon-accept{ background-position: 0 0;  } 
+.appicon-add{ background-position: -17px 0;  } 
+.appicon-amazon{ background-position: -34px 0;  } 
+.appicon-bell{ background-position: -51px 0;  } 
+.appicon-bell_add{ background-position: -68px 0;  } 
+.appicon-bell_delete{ background-position: -85px 0;  } 
+.appicon-bell_error{ background-position: -102px 0;  } 
+.appicon-bell_go{ background-position: -119px 0;  } 
+.appicon-bell_link{ background-position: -136px 0;  } 
+.appicon-bestbuy{ background-position: -153px 0;  } 
+.appicon-card_gift{ background-position: -170px 0;  } 
+.appicon-card_gift_2{ background-position: -187px 0;  } 
+.appicon-cog{ background-position: -204px 0;  } 
+.appicon-cog_add{ background-position: -221px 0;  } 
+.appicon-cog_delete{ background-position: -238px 0;  } 
+.appicon-cog_edit{ background-position: -255px 0;  } 
+.appicon-cog_error{ background-position: -272px 0;  } 
+.appicon-cog_go{ background-position: -289px 0;  } 
+.appicon-contact_email{ background-position: -306px 0;  } 
+.appicon-craigslist{ background-position: -323px 0;  } 
+.appicon-documents_email{ background-position: -340px 0;  } 
+.appicon-ebay-new{ background-position: -357px 0;  } 
+.appicon-ebay{ background-position: -374px 0;  } 
+.appicon-email{ background-position: -391px 0;  } 
+.appicon-email_add{ background-position: -408px 0;  } 
+.appicon-email_air{ background-position: -425px 0;  } 
+.appicon-email_at_sign{ background-position: -442px 0;  } 
+.appicon-email_attach{ background-position: -459px 0;  } 
+.appicon-email_delete{ background-position: -476px 0;  } 
+.appicon-email_edit{ background-position: -493px 0;  } 
+.appicon-email_error{ background-position: -510px 0;  } 
+.appicon-email_forward{ background-position: -527px 0;  } 
+.appicon-email_go{ background-position: -544px 0;  } 
+.appicon-email_link{ background-position: -561px 0;  } 
+.appicon-email_open{ background-position: -578px 0;  } 
+.appicon-email_open_image{ background-position: -595px 0;  } 
+.appicon-email_send_receive{ background-position: -612px 0;  } 
+.appicon-email_to_friend{ background-position: -629px 0;  } 
+.appicon-emails{ background-position: -646px 0;  } 
+.appicon-emails_stack{ background-position: -663px 0;  } 
+.appicon-etsy{ background-position: -680px 0;  } 
+.appicon-facebook{ background-position: -697px 0;  } 
+.appicon-gift_add{ background-position: -714px 0;  } 
+.appicon-google{ background-position: -731px 0;  } 
+.appicon-help{ background-position: -748px 0;  } 
+.appicon-information{ background-position: -765px 0;  } 
+.appicon-linkedin{ background-position: -782px 0;  } 
+.appicon-sears{ background-position: -799px 0;  } 
+.appicon-shopping{ background-position: -816px 0;  } 
+.appicon-shopstyle{ background-position: -833px 0;  } 
+.appicon-twitter{ background-position: -850px 0;  } 
+.appicon-wishmindr{ background-position: -867px 0;  } 
+.appicon-yahoo{ background-position: -884px 0;  } 
+

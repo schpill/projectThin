@@ -1,0 +1,68 @@
+        <?php if(getLanguage() == 'fr'): ?>
+        <form id="setLanguage" action="" method="post"><input type="hidden" id="app_language" value="<?php echo getLanguage(); ?>" name="app_language" /></form>
+        <div id="connectDiv" class="divConnect fcontainer_12">
+            <div class="sep3"></div>
+            <div class="connectCenter" id="outerConnection">
+                <div class="pull-right ccClose"><button onclick="webJS.showDivConnect();" type="button" class="close ccWhiteColor" data-dismiss="alert" aria-hidden="true">×</button></div>
+                <div class="innerConnection">
+                    <div class="ccUp ccMediumRed h2Connect"><img src="<?php urlsite(); ?>assets/img/sepConnect.png" />&nbsp;&nbsp;&nbsp;se connecter&nbsp;&nbsp;<img src="<?php urlsite(); ?>assets/img/sepConnect.png" /></div>
+                    <div class="sep2"></div>
+                    <p class="first">
+                        <form class="vertical-form formSignIn" id="loginForm" action="<?php urlsite(); ?>member/login" method="post">
+                            <input type="email" name="email_connect" id="email_connect" class="input ccLineUp ccWhite ccSmallInput" required="" placeholder="Courriel" />
+                            <input type="password" name="password_connect" id="password_connect" class="input ccLineUp ccWhite ccSmallInput" required="" placeholder="Mot de passe" />
+
+                            <div class="rememberMe">
+                                <a class="ccBold ccWhiteColor" href="<?php urlsite(); ?>member/lost">Mot de passe oublié?</a>
+                            </div>
+                            <!--[if lte IE 8]>
+                                <a href="" id="ieSignButton" onclick="webJS.connect('fr'); return false;" class="ccUp inputSize">connexion</a>
+                            <![endif]-->
+                            <!--[if gt IE 8]>
+                                <a href="" onclick="webJS.connect('fr'); return false;" class="btnForm ccUp inputSize">connexion</a>
+                            <![endif]-->
+                            <!--[if !IE]> <-->
+                                <a href="#" onclick="webJS.connect('fr'); return false;" class="btnForm ccUp inputSize">connexion</a>
+                            <!--> <![endif]-->
+                            <div class="ccGreyConnect ccSmall">Vous n'avez pas de compte C&amp;C? <a class="ccBold" href="<?php urlsite(); ?>member">S'inscrire</a></div>
+                        </form>
+                    </p>
+                    <div class="sep2"></div>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
+        <?php if(getLanguage() == 'uk'): ?>
+        <form id="setLanguage" action="" method="post"><input type="hidden" id="app_language" value="<?php echo getLanguage(); ?>" name="app_language" /></form>
+        <div id="connectDiv" class="divConnect fcontainer_12">
+            <div class="sep3"></div>
+            <div class="connectCenter" id="outerConnection">
+                <div class="pull-right ccClose"><button onclick="webJS.showDivConnect();" type="button" class="close ccWhiteColor" data-dismiss="alert" aria-hidden="true">×</button></div>
+                <div class="innerConnection">
+                    <div class="ccUp ccMediumRed h2Connect"><img src="<?php urlsite(); ?>assets/img/sepConnect.png" />&nbsp;&nbsp;&nbsp;Sign in&nbsp;&nbsp;<img src="<?php urlsite(); ?>assets/img/sepConnect.png" /></div>
+                    <div class="sep2"></div>
+                    <p class="first">
+                        <form class="vertical-form formSignIn" id="loginForm" action="<?php urlsite(); ?>member/login" method="post">
+                            <input type="email" name="email_connect" id="email_connect" class="input ccLineUp ccWhite ccSmallInput" required="" placeholder="Email" />
+                            <input type="password" name="password_connect" id="password_connect" class="input ccLineUp ccWhite ccSmallInput" required="" placeholder="Password"  />
+
+                            <div class="rememberMe">
+                                <a class="ccBold ccWhiteColor" href="<?php urlsite(); ?>member/lost">Password lost?</a>
+                            </div>
+                            <!--[if lte IE 8]>
+                                <a href="" id="ieSignButton" onclick="webJS.connect('en'); return false;" class="ccUp inputSize">sign in</a>
+                            <![endif]-->
+                            <!--[if gt IE 8]>
+                                <a href="" onclick="webJS.connect('en'); return false;" class="btnForm ccUp inputSize">sign in</a>
+                            <![endif]-->
+                            <!--[if !IE]> <-->
+                            <a href="" onclick="webJS.connect('en'); return false;" class="btnForm ccUp inputSize">sign in</a>
+                            <!--> <![endif]-->
+                            <div class="ccGreyConnect ccSmall">You have not an account C&amp;C? <a class="ccBold" href="<?php urlsite(); ?>member">Register</a></div>
+                        </form>
+                    </p>
+                    <div class="sep2"></div>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>

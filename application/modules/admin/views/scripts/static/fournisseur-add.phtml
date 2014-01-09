@@ -1,0 +1,269 @@
+<?php includes('partials/header/classic.phtml'); ?>
+<script>
+    CURLANG = WBBLANG['fr'] || WBBLANG['en'] || CURLANG;
+    $(document).ready(function() {
+        $("#tagline").wysibb();
+        $("#tagline_en").wysibb();
+        $("#description").wysibb();
+        $("#description_en").wysibb();
+        $("#resume").wysibb();
+        $("#resume_en").wysibb();
+        $("#services").wysibb();
+        $("#services_en").wysibb();
+    });
+</script>
+<!-- Main Content -->
+    <div id="content" role="main">
+        <section class="section">
+            <div class="container">
+                <div class="page-header">
+                    <h1>
+                        Ajouter un fournisseur
+                    </h1>
+                </div>
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span11">
+                        <form class="form-horizontal" action="<?php urlsite(); ?>admin/item_add/<?php echo $this->type; ?>" id="form_add" method="post">
+                            <fieldset>
+                                <legend>Informations administratives</legend>
+                                <div class="control-group">
+                                    <label class="control-label" for="name">Nom du fournisseur (Marque)</label>
+                                    <div class="controls">
+                                        <input type="text" required name="name" id="name" placeholder="Nom du fournisseur" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="place">Ordre</label>
+                                    <div class="controls">
+                                        <input type="number" required name="place" id="place" placeholder="Ordre d'affichage" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="average_discount">Rabais moyen (en %)</label>
+                                    <div class="controls">
+                                        <input type="text" required name="average_discount" id="average_discount" placeholder="Rabais moyen (en %)" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="min_discount">Rabais minimum (en  $ CAD)</label>
+                                    <div class="controls">
+                                        <input type="text" required name="min_discount" id="min_discount" placeholder="Rabais minimum (en  $ CAD)" />
+                                    </div>
+                                </div>
+                                <?php \ThinHelper\Html::formUploadFile('PDF FR', 'brochure'); ?>
+                                <?php \ThinHelper\Html::formUploadFile('PDF EN', 'brochure_en'); ?>
+                                <div class="control-group">
+                                    <label class="control-label" for="description">Description FR</label>
+                                    <div class="controls">
+                                        <div class="sep"></div>
+                                        <textarea style="width: 100%;" name="description" id="description" placeholder="Description FR"></textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="description_en">Description EN</label>
+                                    <div class="controls">
+                                        <div class="sep"></div>
+                                        <textarea style="width: 100%;" name="description_en" id="description_en" placeholder="Description EN"></textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="resume">Extrait FR</label>
+                                    <div class="controls">
+                                        <div class="sep"></div>
+                                        <textarea style="width: 100%;" name="resume" id="resume" placeholder="Extrait FR"></textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="resume_en">Extrait EN</label>
+                                    <div class="controls">
+                                        <div class="sep"></div>
+                                        <textarea style="width: 100%;" name="resume_en" id="resume_en" placeholder="Extrait EN"></textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="tagline">Tagline FR</label>
+                                    <div class="controls">
+                                        <div class="sep"></div>
+                                        <textarea style="width: 100%;" name="tagline" id="tagline" placeholder="Tagline FR"></textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="tagline_en">Tagline EN</label>
+                                    <div class="controls">
+                                        <div class="sep"></div>
+                                        <textarea style="width: 100%;" name="tagline_en" id="tagline_en" placeholder="Tagline EN"></textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="services">Services FR</label>
+                                    <div class="controls">
+                                        <div class="sep"></div>
+                                        <textarea style="width: 100%;" name="services" id="services" placeholder="Services FR"></textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="services_en">Services EN</label>
+                                    <div class="controls">
+                                        <div class="sep"></div>
+                                        <textarea style="width: 100%;" name="services_en" id="services_en" placeholder="Services EN"></textarea>
+                                    </div>
+                                </div>
+                                <?php \ThinHelper\Html::formSelectEntity(
+                                    array(
+                                        'entity' => 'categorie',
+                                        'required' => true,
+                                        'id' => 'category',
+                                        'label' => 'Catégorie',
+                                        'sort' => 'name',
+                                        'fields' => array('name')
+                                    )
+                                ); ?>
+                                <?php \ThinHelper\Html::formSelectEntity(
+                                    array(
+                                        'entity' => 'categorie',
+                                        'required' => false,
+                                        'id' => 'category_2',
+                                        'label' => 'Catégorie 2',
+                                        'sort' => 'name',
+                                        'fields' => array('name')
+                                    )
+                                ); ?>
+                                <div class="control-group">
+                                    <label class="control-label" for="zone">Zone de vente 1</label>
+                                    <div class="controls">
+                                        <select required name="zone" id="zone">
+                                            <option value="">Choisir</option>
+                                            <option value="1">Montréal et ses environs</option>
+                                            <option value="2">Québec et ses environs</option>
+                                            <option value="3">Toronto et ses environs</option>
+                                            <option value="4">Ottawa et ses environs</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="zone2">Zone de vente 2</label>
+                                    <div class="controls">
+                                        <select name="zone2" id="zone2">
+                                            <option value="">Choisir</option>
+                                            <option value="1">Montréal et ses environs</option>
+                                            <option value="2">Québec et ses environs</option>
+                                            <option value="3">Toronto et ses environs</option>
+                                            <option value="4">Ottawa et ses environs</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="zone3">Zone de vente 3</label>
+                                    <div class="controls">
+                                        <select name="zone3" id="zone3">
+                                            <option value="">Choisir</option>
+                                            <option value="1">Montréal et ses environs</option>
+                                            <option value="2">Québec et ses environs</option>
+                                            <option value="3">Toronto et ses environs</option>
+                                            <option value="4">Ottawa et ses environs</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="zone4">Zone de vente 4</label>
+                                    <div class="controls">
+                                        <select name="zone4" id="zone4">
+                                            <option value="">Choisir</option>
+                                            <option value="1">Montréal et ses environs</option>
+                                            <option value="2">Québec et ses environs</option>
+                                            <option value="3">Toronto et ses environs</option>
+                                            <option value="4">Ottawa et ses environs</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="contact1">Contact</label>
+                                    <div class="controls">
+                                        <input type="text" required name="contact" id="contact" placeholder="Contact" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="email_contact">Email Contact</label>
+                                    <div class="controls">
+                                        <input type="email" name="email_contact" id="email_contact" placeholder="Email Contact" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="tel_contact">Téléphone Contact</label>
+                                    <div class="controls">
+                                        <input type="text" name="tel_contact" id="tel_contact" placeholder="Téléphone Contact" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="website">Site web</label>
+                                    <div class="controls">
+                                        <input type="text" name="website" id="website" placeholder="Site web" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="address">Adresse</label>
+                                    <div class="controls">
+                                        <textarea name="address" id="address" required placeholder="Adresse"></textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="zip">Code postal</label>
+                                    <div class="controls">
+                                        <input type="text" name="zip" id="zip" placeholder="Code postal" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="city">Ville</label>
+                                    <div class="controls">
+                                        <input type="text" name="city" id="city" required placeholder="Ville" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>Informations de connexion</legend>
+                                <div class="control-group">
+                                    <label class="control-label" for="username">Identifiant</label>
+                                    <div class="controls">
+                                        <input type="text" name="username" id="username" required placeholder="Identifiant" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="password">Mot de passe</lab
+                                <?php \ThinHelper\Html::formUploadFile('Vidéo N°3', 'video3'); ?>el>
+                                    <div class="controls">
+                                        <input type="password" name="password" id="password" required placeholder="Mot de passe" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>Documents associés</legend>
+                                <?php \ThinHelper\Html::formUploadImage('Logo', 'logo', true); ?>
+                                <?php \ThinHelper\Html::formUploadImage('Image N°1 (200X250)', 'image1'); ?>
+                                <?php \ThinHelper\Html::formUploadImage('Image N°2 (600X300)', 'image2'); ?>
+                                <?php \ThinHelper\Html::formUploadImage('Image N°3 (600X300)', 'image3'); ?>
+                                <?php \ThinHelper\Html::formUploadImage('Image N°4 (600X300)', 'image4'); ?>
+                                <?php \ThinHelper\Html::formUploadImage('Image N°5 (600X300)', 'image5'); ?>
+                                <?php \ThinHelper\Html::formUploadImage('Image N°6 (600X300)', 'image6'); ?>
+                                <?php \ThinHelper\Html::formUploadImage('Image N°7 (600X300)', 'image7'); ?>
+                                <?php \ThinHelper\Html::formUploadImage('Image N°8 (600X300)', 'image8'); ?>
+                                <?php \ThinHelper\Html::formUploadImage('Image N°9 (600X300)', 'image9'); ?>
+                                <?php \ThinHelper\Html::formUploadImage('Image N°10 (600X300)', 'image10'); ?>
+                                <?php \ThinHelper\Html::formUploadFile('Vidéo N°1', 'video1'); ?>
+                                <?php \ThinHelper\Html::formUploadFile('Vidéo N°2', 'video2'); ?>
+                                <?php \ThinHelper\Html::formUploadFile('Vidéo N°3', 'video3'); ?>
+                            </fieldset>
+                                <div>
+                                    <div class="controls">
+                                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                                        <button type="reset" class="btn btn-danger">Annuler</button>
+                                    </div>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+<?php includes('partials/footer/classic.phtml'); ?>
+
