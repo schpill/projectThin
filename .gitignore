@@ -57,7 +57,3 @@ Icon?
 ehthumbs.db
 Thumbs.db
 composer.lock
-
-/storage
-/data
-/vendor

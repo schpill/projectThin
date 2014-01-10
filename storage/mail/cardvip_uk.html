@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Card VIP</title>
+        <style>
+            .card {
+                width: 459px;
+                height: 322px;
+                background: url(http://img4.hostingpics.net/pics/986288358516cardvipempty.png);
+                background-repeat: no-repeat;
+                text-align: center;
+            }
+
+            .gold {
+                color: #FFE491;
+            }
+
+            .name {
+                font-family: Oswald;
+                font-weight: 700;
+                font-size: 26px;
+                top: 215px;
+                position: relative;
+            }
+
+            .number {
+                font-family: Oswald;
+                font-weight: 400;
+                font-size: 14px;
+                top: 25px;
+                position: relative;
+                text-align:right;
+                left: -35px;
+                text-transform: uppercase;
+            }
+
+            .validity {
+                font-family: Oswald;
+                font-weight: 400;
+                font-size: 14px;
+                position: relative;
+                text-align:left;
+                left: 28px;
+                top: 8px;
+            }
+
+            .container {
+                width: 500px;
+                margin: 0 auto;
+            }
+        </style>
+        <link href='http://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <div class="container">
+            <div class="card">
+                <div class="gold name">##name##</div>
+                <div class="gold number">N° ##num##</div>
+                <div class="gold validity">Expire on ##date##</div>
+            </div>
+        </div>
+    </body>
+</html>
