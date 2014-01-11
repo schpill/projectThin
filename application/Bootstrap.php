@@ -41,6 +41,12 @@
             Config::load('routes', false);
 
             $iniData    = include(APPLICATION_PATH . DS . 'config' . DS . 'ini.php');
+
+            $envIni     = APPLICATION_PATH . DS . 'config' . DS . Inflector::lower(APPLICATION_ENV) . '.php';
+            if (File::exists($envIni)) {
+                $iniData += include($envIni);
+            }
+
             $ini        = new Iniconfig;
 
             $ini->populate($iniData);

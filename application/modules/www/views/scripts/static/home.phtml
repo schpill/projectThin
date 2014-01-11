@@ -1,37 +1,7 @@
 <?php includes('partials/header/classic.phtml'); ?>
-       <section id="bodySectionL" class="prodMain">
-       <article>
-<!-- ###################################### CONTENU CENTRAL ############################################# -->
-
-<div id="searchBar">
-    <div>Catalogue de produits </div>
-    <div><a href="#">Grandeur</a></div>
-    <div>
-        <form id="simpleSearchForm" action="">
-          <fieldset>
-            <input type="text" placeholder="Rechercher par mot-clé" name="search" id="search" value="">
-            <input type="submit" value="Rechercher">
-          </fieldset>
-        </form>
-    </div>
-</div>
-
-<div id="listProd">
-    <?php if (count($this->products)): ?>
-    <?php $i = 1; foreach ($this->products as $product): ?>
-    <?php if (1 == $i): ?><div class="prodListRow"><?php endif; ?>
-        <div class="prodItem">
-            <a href="<?php urlsite(); ?>produit_<?php echo $product->getId(); ?>_<?php echo \Thin\Html\Helper::display(\Thin\Inflector::slugify($product->getName())); ?>.html"><img src="<?php echo $product->image_1; ?>" alt="<?php echo \Thin\Html\Helper::display($product->getName()); ?>" width="231" height="181" /></a>
-            <a class="prodItemTitle" href="<?php urlsite(); ?>produit_<?php echo $product->getId(); ?>_<?php echo \Thin\Html\Helper::display(\Thin\Inflector::slugify($product->getName())); ?>.html"><?php echo \Thin\Html\Helper::display($product->getName()); ?></a>
-            <p class="prodItemDesc"><?php echo \Thin\Html\Helper::bbdecode($product->getDescriptionFr()); ?></p>
-            <a href="<?php urlsite(); ?>produit_<?php echo $product->getId(); ?>_<?php echo \Thin\Html\Helper::display(\Thin\Inflector::slugify($product->getName())); ?>.html" class="moreLnk">En savoir plus<span>&nbsp;›</span></a>
-        </div>
-    <?php if (3 == $i): $i = 0; ?></div><?php endif; ?>
-    <?php $i++; endforeach; ?>
-    <?php if (1 <> $i): ?></div><?php endif; ?>
-    <?php endif; ?>
-</div>
-<!-- ###################################### CONTENU CENTRAL ############################################# -->
-       </article>
-   </section>
+          <div class="row-fluid">
+            <div class="span12">
+              OK
+            </div>
+          </div>
 <?php includes('partials/footer/classic.phtml'); ?>

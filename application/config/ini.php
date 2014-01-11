@@ -8,6 +8,8 @@
 
     $environment    = APPLICATION_ENV;
 
+    /* END SETUP */
+
     /* PRODUCTION CONFIG */
 
     $smtp = new Ini;

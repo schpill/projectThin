@@ -39,36 +39,6 @@
                 'orderListDirection'    => 'ASC'
             )
         ),
-        'client' => array(
-            'fields' => array(
-                'genre'         => array('label' => 'Civilité', 'type' => 'custom', 'custom' => 'return \\ThinService\\Admin::vocabulary(array(1 => "Monsieur", 2 => "Madame", 3 => "Mademoiselle"), "genre", "Civilité");', 'customSearch' => 'return \\ThinService\\Admin::vocabulary(array(1 => "Monsieur", 2 => "Madame", 3 => "Mademoiselle"), "genre", "Civilité", true, "##i##");', 'contentList' => array('getValueVocabulary', array(1 => "Monsieur", 2 => "Madame", 3 => "Mademoiselle"), array())),
-                'name'          => array('label' => 'Nom'),
-                'firstname'     => array('label' => 'Prénom'),
-                'phone'         => array('label' => 'N° tél', 'noList' => true),
-                'mobile'        => array('label' => 'N° Cell', 'noList' => true),
-                'email'         => array('label' => 'Courriel'),
-                'password'      => array('label' => 'Mot de passe', 'noList' => true, 'notSearchable' => true),
-                'address'       => array('label' => 'Adresse', 'noList' => true),
-                'zip'           => array('label' => 'Code postal', 'noList' => true),
-                'city'          => array('label' => 'Ville', 'noList' => true),
-            ),
-            'settings' => array(
-                'orderList'             => 'date_create',
-                'orderListDirection'    => 'DESC'
-            )
-        ),
-        'genre' => array(
-            'fields' => array(
-                'name'    => array('label' => 'Nom')
-            ),
-            'settings' => array(
-                'relationships' => array(
-                    'films' => array('type' => 'manyToMany', 'onDelete' => 'cascade'),
-                ),
-                'orderList' => 'name',
-                'orderListDirection'    => 'ASC'
-            )
-        ),
         'categorie' => array(
             'fields' => array(
                 'name'    => array('label' => 'Nom')
@@ -90,15 +60,6 @@
                     'produits' => array('type' => 'manyToMany', 'onDelete' => 'cascade'),
                 ),
                 'orderList' => 'name',
-                'orderListDirection'    => 'ASC'
-            )
-        ),
-        'test' => array(
-            'fields' => array(
-                'pdf'    => array('label' => 'Brochure', 'type' => 'file')
-            ),
-            'settings' => array(
-                'orderList' => 'pdf',
                 'orderListDirection'    => 'ASC'
             )
         ),
@@ -319,7 +280,7 @@
                         'type'      => 'multiple'
                     ),
                     'etat'          => array(
-                        'type'      => 'unique'
+                        'type'      => 'multiple'
                     ),
                     'description_fr'=> array(
                         'type'      => 'fulltext'
@@ -344,69 +305,7 @@
                 'orderList'          => 'name',
                 'orderListDirection' => 'ASC'
             )
-        ),
-        /* table plateforme */
-        'plateforme' => array(
-            'fields' => array(
-                'name'    => array('label' => 'Nom')
-            ),
-            'settings' => array(
-                'relationships' => array(
-                    'films' => array('type' => 'manyToMany', 'onDelete' => 'cascade'),
-                    'episodes' => array('type' => 'manyToMany', 'onDelete' => 'cascade'),
-                ),
-                'orderList'             => 'name',
-                'orderListDirection'    => 'ASC',
-                'itemsByPage'           => 25,
-            )
-        ),
-        'saison' => array(
-            'fields' => array(
-                'num'    => array('label' => 'Numéro', 'type' => 'custom', 'custom' => 'return \\ThinService\\Admin::makeSaisons();', 'customSearch' => 'return \\ThinService\\Admin::makeSaisons("##i##");')
-            ),
-            'settings' => array(
-                'orderList' => 'num',
-                'orderListDirection'    => 'ASC'
-            )
-        ),
-        'film' => array(
-            'fields' => array(
-                'plateforme'    => array('type' => 'data', 'entity' => 'plateforme', 'fields' => array('name'), 'sort' => 'name', 'contentList' => array('getValueEntity', 'plateforme', 'name')),
-                'video_id'      => array('label' => 'ID Video', 'noList' => true, 'notSearchable' => true),
-                'title'         => array('label' => 'Titre'),
-                'image'         => array('label' => 'Affiche', 'type' => 'image', 'noList' => true, 'notSearchable' => true),
-                'director'      => array('label' => 'Réalisateur', 'notRequired' => true),
-                'genre'         => array('type' => 'data', 'entity' => 'genre', 'fields' => array('name'), 'sort' => 'name', 'contentList' => array('getValueEntity', 'genre', 'name')),
-                'country'       => array('label' => 'Pays', 'notRequired' => true, 'notSearchable' => true),
-                'year'          => array('label' => 'Année de sortie', 'notRequired' => true, 'notSearchable' => true),
-                'duration'      => array('label' => 'Durée', 'notRequired' => true, 'notSearchable' => true),
-                'synopsys'      => array('label' => 'Histoire', 'type' => 'html', 'noList' => true, 'notRequired' => true, 'notSearchable' => true),
-                'actors'        => array('label' => 'Acteurs', 'type' => 'textarea', 'noList' => true, 'notRequired' => true),
-            ),
-            'settings' => array(
-                'relationships' => array(
-                    'genre' => array('type' => 'manyToOne', 'onDelete' => 'cascade'),
-                    'plateforme' => array('type' => 'manyToOne', 'onDelete' => 'cascade'),
-                ),
-                'orderList' => 'title',
-                'orderListDirection'    => 'ASC'
-            )
-        ),
-        'episode' => array(
-            'fields' => array(
-                'serie'    => array('label' => 'Série', 'type' => 'data', 'entity' => 'serie', 'fields' => array('title'), 'sort' => 'title', 'contentList' => array('getValueEntity', 'plateforme', 'title')),
-                'saison'         => array('type' => 'data', 'entity' => 'genre', 'fields' => array('name'), 'sort' => 'name', 'contentList' => array('getValueEntity', 'genre', 'name')),
-                'plateforme'    => array('type' => 'data', 'entity' => 'plateforme', 'fields' => array('name'), 'sort' => 'name', 'contentList' => array('getValueEntity', 'plateforme', 'name')),
-                'video_id'      => array('label' => 'ID Video', 'noList' => true),
-                'num'           => array('label' => 'Numéro', 'type' => 'custom', 'custom' => 'return \\ThinService\\Admin::makeEpisodes();', 'customSearch' => 'return \\ThinService\\Admin::makeEpisodes("##i##");'),
-                'title'         => array('label' => 'Titre', 'notRequired' => true),
-                'resume'        => array('type' => 'textarea', 'label' => 'Résumé', 'notRequired' => true),
-            ),
-            'settings' => array(
-                'orderList' => 'serie',
-                'orderListDirection'    => 'ASC'
-            )
-        ),
+        )
     );
 
     return $datas;
