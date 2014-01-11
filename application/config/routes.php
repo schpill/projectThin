@@ -117,6 +117,13 @@
     $adminLogout->setAction('logout');
     array_push($routes['collection'], $adminLogout);
 
+    $adminNoRight = new Route();
+    $adminNoRight->setPath('backadmin/noRight');
+    $adminNoRight->setModule('admin');
+    $adminNoRight->setController('static');
+    $adminNoRight->setAction('no-right');
+    array_push($routes['collection'], $adminNoRight);
+
     $adminDashboard = new Route();
     $adminDashboard->setPath('backadmin/dashboard');
     $adminDashboard->setModule('admin');
@@ -139,6 +146,14 @@
     $adminImport->setAction('import');
     $adminImport->setParam1('type');
     array_push($routes['collection'], $adminImport);
+
+    $adminEmptyCache = new Route();
+    $adminEmptyCache->setPath('backadmin/emptyCache-(.*)');
+    $adminEmptyCache->setModule('admin');
+    $adminEmptyCache->setController('static');
+    $adminEmptyCache->setAction('empty-cache');
+    $adminEmptyCache->setParam1('type');
+    array_push($routes['collection'], $adminEmptyCache);
 
     $adminAddItem = new Route();
     $adminAddItem->setPath('backadmin/item_add/(.*)');
@@ -167,6 +182,16 @@
     $adminEditItem->setParam2('id');
     $adminEditItem->setParam3('key');
     array_push($routes['collection'], $adminEditItem);
+
+    $adminDuplicateItem = new Route();
+    $adminDuplicateItem->setPath('backadmin/item_duplicate/(.*)/(.*)/(.*)');
+    $adminDuplicateItem->setModule('admin');
+    $adminDuplicateItem->setController('static');
+    $adminDuplicateItem->setAction('item-duplicate');
+    $adminDuplicateItem->setParam1('type');
+    $adminDuplicateItem->setParam2('id');
+    $adminDuplicateItem->setParam3('key');
+    array_push($routes['collection'], $adminDuplicateItem);
 
     $adminDeleteItem = new Route();
     $adminDeleteItem->setPath('backadmin/item_delete/(.*)/(.*)/(.*)');

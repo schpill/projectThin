@@ -7,35 +7,34 @@
     $user->setLogin('gplusquellec');
     $user->setFirstname('Gerald');
     $user->setLastname('Plusquellec');
-    $user->setRole('admin');
-    $user->setPages(
+    $user->setRights(
         array(
-            'youtube',/*
-            'apikeys',
-            'tests',
-            'etats',
-            'collections',
-            'categories',*/
-            'produit',/*
-            'clients',
-            'films',
-            'series',
-            'genres',
-            'saisons',
-            'episodes',
-            'plateformes'*/
+            'youtube' => array(
+                'list'          => true,
+                'add'           => true,
+                'duplicate'     => true,
+                'view'          => true,
+                'delete'        => true,
+                'edit'          => true,
+                'import'        => true,
+                'export'        => true,
+                'search'        => true,
+                'empty_cache'   => true,
+            ),
+            'produit' => array(
+                'list'          => true,
+                'add'           => true,
+                'duplicate'     => true,
+                'view'          => true,
+                'edit'          => true,
+                'delete'        => true,
+                'import'        => true,
+                'export'        => true,
+                'search'        => true,
+                'empty_cache'   => true,
+            ),
         )
     );
-    array_push($acl, $user);
-
-    $user = new ACL;
-    $user->setPassword('3119fa3edbf614f8e047dfc82001177a');
-    $user->setEmail('orochon@pilouf.ca');
-    $user->setLogin('orochon');
-    $user->setFirstname('Olivier');
-    $user->setLastname('Rochon');
-    $user->setRole('admin');
-    $user->setPages(array('etat', 'collection', 'categorie', 'produit', 'client'));
     array_push($acl, $user);
 
     return $acl;

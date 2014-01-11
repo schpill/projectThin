@@ -92,12 +92,24 @@
 
         public static function options($type, $item, $plus = '')
         {
-            $options = '<td class="pull-center" style="text-align: center; font-size: 120%;"><a href="/backadmin/item_view/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '"><i title="afficher" class="icon-file"></i></a>&nbsp;&nbsp;&nbsp;';
-            $options .= '<a href="/backadmin/item_edit/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '"><i title="éditer" class="icon-edit"></i></a>&nbsp;&nbsp;&nbsp;';
+            $options = '';
+            if (can($type, 'view')) {
+                $options .= '<td class="pull-center" style="text-align: center; font-size: 120%;"><a href="/backadmin/item_view/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '"><i title="afficher" class="icon-file"></i></a>&nbsp;&nbsp;&nbsp;';
+            }
+            if (can($type, 'duplicate')) {
+                $options .= '<a href="/backadmin/item_duplicate/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '"><i title="dupliquer" class="icon-copy"></i></a>&nbsp;&nbsp;&nbsp;';
+            }
+            if (can($type, 'edit')) {
+                $options .= '<a href="/backadmin/item_edit/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '"><i title="éditer" class="icon-edit"></i></a>&nbsp;&nbsp;&nbsp;';
+            }
             if (!strlen($plus)) {
-                $options .= '<a href="#" onclick="if (confirm(\'Confirmez-vous la suppression de cet élément ?\')) document.location.href = \'/backadmin/item_delete/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '\'; return false;"><i title="supprimer" class="icon-trash"></i></a></td>';
+                if (can($type, 'delete')) {
+                    $options .= '<a href="#" onclick="if (confirm(\'Confirmez-vous la suppression de cet élément ?\')) document.location.href = \'/backadmin/item_delete/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '\'; return false;"><i title="supprimer" class="icon-trash"></i></a></td>';
+                }
             } else {
-                $options .= '<a href="#" onclick="if (confirm(\'Confirmez-vous la suppression de cet élément ?\')) document.location.href = \'/backadmin/item_delete/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '\'; return false;"><i title="supprimer" class="icon-trash"></i></a>' . $plus . '</td>';
+                if (can($type, 'delete')) {
+                    $options .= '<a href="#" onclick="if (confirm(\'Confirmez-vous la suppression de cet élément ?\')) document.location.href = \'/backadmin/item_delete/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '\'; return false;"><i title="supprimer" class="icon-trash"></i></a>' . $plus . '</td>';
+                }
             }
             return $options;
         }
@@ -119,18 +131,15 @@
         public static function formSelectEntity(array $config)
         {
             $type       = $config['entity'];
-            $db         = new \Thin\Querydata($type);
-            $data       = $db->all()->order($config['sort'])->get();/*Data::query($config['entity'], '', 0, 0, $config['sort']);*/
+            $db         = new Querydata($type);
+            $data       = $db->all()->order($config['sort'])->get();
             $settings   = ake($type, Data::$_settings) ? Data::$_settings[$type] : array();
             $require    = (true === $config['required']) ? 'required' : '';
             $val        = (ake($config['id'], $_POST)) ? $_POST[$config['id']] : '';
 
             if (ake('value', $config)) {
                 $val = $config["value"];
-            }/* elseif (ake('defaultValues', $settings)) {
-                $valObj =\Thin\Data::query($type, $config['id'] . ' = ' . $settings['defaultValues'][$config['id']]);
-                dieDump($valObj);
-            }*/
+            }
 
             $html = '<div class="control-group">';
             $html .= '<label class="control-label" for="' . $config['id'] . '">' . $config['label'] . '</label>';
@@ -163,7 +172,7 @@
         {
             $type       = $config['entity'];
             $db         = new Querydata($type);
-            // $data = Data::query($config['entity'], '', 0, 0, $config['sort']);
+
             $data       = $db->all()->order($config['sort'])->get();
 
             $html = '<select id="' . $config['id'] . '">';
@@ -298,7 +307,7 @@
                             $search .= '<input type="text" id="crudSearchValue_' . $i . '" value="" />';
                         }
                     }
-                    $search .= '&nbsp;&nbsp;<a class="btn" href="#" onclick="addRowSearch(\'' . $field . '\', ' . $i . '); return false;"><i class="icon-plus"></i></a>';
+                    $search .= '&nbsp;&nbsp;<span class="btn btn-success" href="#" onclick="addRowSearch(\'' . $field . '\', ' . $i . '); return false;"><i class="icon-plus"></i></span>';
                     $search .= '</div>' . NL;
                     $search .= '</div>' . NL;
                     $i++;

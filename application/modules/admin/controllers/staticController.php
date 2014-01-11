@@ -9,10 +9,17 @@
             $type = Arrays::last($tab);
             $action = container()->getAction();
             if (!empty($action)) {
-                if (!Arrays::inArray($action, array('login', 'logout', 'dashboard'))) {
+                if (!Arrays::inArray($action, array('login', 'logout', 'dashboard', 'no-right'))) {
                     $session = $this->checkSession();
                     $this->view->user   = $session->getUser();
-                    $types              = $session->getUser()->getPages();
+                    $acls               = $session->getUser()->getRights();
+                    $types = array();
+                    if (count($acls) && null !== $this->view->user) {
+                        foreach ($acls as $type => $rights) {
+                            Data::$_rights[$type] = $rights;
+                            array_push($types, $type);
+                        }
+                    }
                     asort($types);
                     $this->view->types  = $types;
                 }
@@ -56,6 +63,9 @@
         {
             $type = request()->getType();
             if (!empty($type)) {
+                if (false === can($type, 'import')) {
+                    $this->_noRight();
+                }
                 $this->view->action = (null === request()->getAction()) ? 1 : request()->getAction();
                 $this->view->title  = 'Import';
 
@@ -87,11 +97,18 @@
                         Data::add($type, $data);
                     }
                     File::delete($_POST['file']);
-                    Utils::go(URLSITE . 'backadmin/item/' . $type);
+                    Router::redirect('/backadmin/item/' . $type);
                 }
             } else {
-                Utils::go(URLSITE . 'backadmin/dashboard');
+                $route = new Route;
+                $route->setAction('dashboard');
+                $this->forward($route);
             }
+        }
+
+        public function  noRightAction()
+        {
+
         }
 
         public function loginAction()
@@ -106,17 +123,31 @@
                     $route->setAction('dashboard');
                     $this->forward($route);
                 } else {
-                    Utils::go(URLSITE . 'noRight');
+                    $this->_noRight();
                 }
             }
             $this->view->title = 'Se connecter';
+        }
+
+        private function _noRight()
+        {
+            $route = new Route;
+            $route->setAction('no-right');
+            $this->forward($route);
         }
 
         public function dashboardAction()
         {
             $session            = $this->checkSession();
             $this->view->user   = $session->getUser();
-            $types              = $session->getUser()->getPages();
+            $acls               = $session->getUser()->getRights();
+            $types = array();
+            if (count($acls) && null !== $this->view->user) {
+                foreach ($acls as $type => $rights) {
+                    Data::$_rights[$type] = $rights;
+                    array_push($types, $type);
+                }
+            }
             asort($types);
             $this->view->types  = $types;
             $this->view->title  = 'Tableau de bord';
@@ -125,8 +156,16 @@
 
         public function itemAction()
         {
-            $tab = explode('/', $_SERVER['REQUEST_URI']);
-            $type = Arrays::last($tab);
+            $type = request()->getType();
+            if (null === $type) {
+                $tab = explode('/', $_SERVER['REQUEST_URI']);
+                $type = Arrays::last($tab);
+            }
+
+            if (false === can($type, 'list')) {
+                $this->_noRight();
+            }
+
             if (File::exists(APPLICATION_PATH . DS . 'modules' . DS . 'admin' . DS . 'views' . DS . 'scripts' . DS . 'static' . DS . Inflector::lower($type) . '-list.phtml')) {
                 $this->view->viewRenderer(APPLICATION_PATH . DS . 'modules' . DS . 'admin' . DS . 'views' . DS . 'scripts' . DS . 'static' . DS . Inflector::lower($type) . '-list.phtml');
             } else {
@@ -221,6 +260,9 @@
         {
             $tab = explode('/', $_SERVER['REQUEST_URI']);
             $type = Arrays::last($tab);
+            if (false === can($type, 'add')) {
+                $this->_noRight();
+            }
             if (count($_POST)) {
                 Data::add($type);
                 Utils::go(URLSITE . 'backadmin/item/' . $type);
@@ -240,6 +282,9 @@
             $type   = request()->getType();
             $id     = request()->getId();
             $key    = request()->getKey();
+            if (false === can($type, 'view')) {
+                $this->_noRight();
+            }
             $check  = \ThinHelper\Html::checkKey($id, $key);
             if (false === $check) {
                 Utils::go(URLSITE . 'backadmin/item/' . $type);
@@ -259,15 +304,18 @@
         public function itemEditAction()
         {
             $type   = request()->getType();
+            if (false === can($type, 'edit')) {
+                $this->_noRight();
+            }
             $id     = request()->getId();
             $key    = request()->getKey();
             $check  = \ThinHelper\Html::checkKey($id, $key);
             if (false === $check) {
-                Utils::go(URLSITE . 'backadmin/item/' . $type);
+                Router::redirect('/backadmin/item/' . $type);
             }
             if (count($_POST)) {
                 Data::edit($type, $id);
-                Utils::go(URLSITE . 'backadmin/item/' . $type);
+                Router::redirect('/backadmin/item/' . $type);
             }
             $item   = Data::getById($type, $id);
             if (File::exists(APPLICATION_PATH . DS . 'modules' . DS . 'admin' . DS . 'views' . DS . 'scripts' . DS . 'static' . DS . Inflector::lower($type) . '-edit.phtml')) {
@@ -282,9 +330,41 @@
             $this->view->model = Data::getModel($type);
         }
 
+        public function itemDuplicateAction()
+        {
+            $type   = request()->getType();
+            if (false === can($type, 'duplicate')) {
+                $this->_noRight();
+            }
+            $id     = request()->getId();
+            $key    = request()->getKey();
+            $check  = \ThinHelper\Html::checkKey($id, $key);
+            if (false === $check) {
+                Router::redirect('/backadmin/item/' . $type);
+            }
+            if (count($_POST)) {
+                Data::add($type);
+                Router::redirect('/backadmin/item/' . $type);
+            }
+            $item   = Data::getById($type, $id);
+            if (File::exists(APPLICATION_PATH . DS . 'modules' . DS . 'admin' . DS . 'views' . DS . 'scripts' . DS . 'static' . DS . Inflector::lower($type) . '-duplicate.phtml')) {
+                $this->view->viewRenderer(APPLICATION_PATH . DS . 'modules' . DS . 'admin' . DS . 'views' . DS . 'scripts' . DS . 'static' . DS . Inflector::lower($type) . '-duplicate.phtml');
+            } else {
+                $this->view->viewRenderer(APPLICATION_PATH . DS . 'modules' . DS . 'admin' . DS . 'views' . DS . 'scripts' . DS . 'static' . DS . 'default-duplicate.phtml');
+            }
+            $this->view->title  = 'Dupliquer';
+            $this->view->type   = $type;
+            $this->view->item   = $item;
+            $this->view->key    = $key;
+            $this->view->model = Data::getModel($type);
+        }
+
         public function itemDeleteAction()
         {
             $type   = request()->getType();
+            if (false === can($type, 'delete')) {
+                $this->_noRight();
+            }
             $id     = request()->getId();
             $key    = request()->getKey();
             $check  = \ThinHelper\Html::checkKey($id, $key);
@@ -363,6 +443,20 @@
                 }
             }
             return $form;
+        }
+
+        public function emptyCacheAction()
+        {
+            $type = request()->getType();
+            if (false === can($type, 'empty_cache')) {
+                $this->_noRight();
+            }
+            if (null !== $type) {
+                if (ake($type, Data::$_settings)) {
+                    Data::emptyCache($type);
+                }
+            }
+            Router::redirect('/backadmin/item/' . $type);
         }
 
         public function postDispatch()

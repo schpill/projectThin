@@ -288,11 +288,11 @@ function message( type, title, content, duration ) {
 ;
 
 function thinMenu() {
-    if(jQuery("#thinTools").is(":visible")) {
-        jQuery("#thinLeftMenu").fadeIn();
-        jQuery("#thinTools").fadeOut();
+    if(jQuery("#thinLeftMenu").is(":visible")) {
+        jQuery("#thinLeftMenu").slideUp();
+        jQuery("#mainMenu").slideDown();
     } else {
-        jQuery("#thinLeftMenu").fadeOut();
-        jQuery("#thinTools").fadeIn();
+        jQuery("#mainMenu").slideUp();
+        jQuery("#thinLeftMenu").slideDown();
     }
 }
