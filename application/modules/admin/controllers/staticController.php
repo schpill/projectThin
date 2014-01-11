@@ -206,8 +206,8 @@
                         $results = array_intersect($results, $res);
                     }
                 }
-                $db         = new Querydata($type, $results);
-                $results    = $db->order($order, $orderDirection)->get();
+                $db         = new Querydata($type);
+                $results    = $db->order($order, $orderDirection)->get($results);
             } else {
                 $db         = new Querydata($type);
                 $results    = $db->where($whereData)->order($order, $orderDirection)->get();
