@@ -83,6 +83,13 @@
 
         private static function test()
         {
+            // $cool = function($a, $b) {
+            //     return rand($a, $b);
+            // };
+            // container()->closure('cool', $cool);
+
+            // $t =  container()->cool(20, 400);
+            // dieDump($t);
             // $query  = new Querydata('youtube');
             // $query2 = new Querydata('youtube');
             // $res    = $query->where("title LIKE '%p%'")
