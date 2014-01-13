@@ -86,6 +86,9 @@
                     'entity'        => 'categorie',
                     'fields'        => array('name'),
                     'sort'          => 'name',
+                    'checkValue'    => function ($val) {
+                        return $val;
+                    },
                     'contentList'   => array('getValueEntity', 'categorie', 'name')
                 ),
                 'collection'        => array(
