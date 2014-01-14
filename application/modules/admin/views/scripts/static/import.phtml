@@ -12,7 +12,7 @@
                 <div class="row-fluid">
                     <div class="span12">
                         <?php if (1 === $this->action): ?>
-                        <form action="/backadmin/import-<?php echo request()->getType(); ?>" method="post" id="importform" enctype="multipart/form-data" class="form-inline">
+                        <form action="<?php urlsite(); ?>backadmin/import-<?php echo request()->getType(); ?>" method="post" id="importform" enctype="multipart/form-data" class="form-inline">
                             <input type="hidden" name="MAX_FILE_SIZE" value="100000000000" />
                             <input type="hidden" name="action" value="2" />
                             <input required type="file" name="csv" /><p />
@@ -27,7 +27,7 @@
                         </form>
                         <?php endif; ?>
                         <?php if (2 === $this->action): ?>
-                            <form action="/backadmin/import-<?php echo request()->getType(); ?>" method="post" id="importform" class="form-inline">
+                            <form action="<?php urlsite(); ?>backadmin/import-<?php echo request()->getType(); ?>" method="post" id="importform" class="form-inline">
                             <input type="hidden" name="file" value="<?php echo $this->file; ?>" />
                             <input type="hidden" name="separator" value="<?php echo $this->separator; ?>" />
                             <input type="hidden" name="action" value="3" />

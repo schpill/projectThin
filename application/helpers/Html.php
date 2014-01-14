@@ -46,7 +46,7 @@
                                 <div class="control-group">
                                     <label class="control-label" for="' . $id . '">' . $label . '</label>
                                     <div class="controls">
-                                        <iframe id="iframe_' . $id . '" style="height: 75px; border: none;" class="span8" src="/assets/js/upload2.php?field=' . $id . '"></iframe>
+                                        <iframe id="iframe_' . $id . '" style="height: 75px; border: none;" class="span8" src="'.URLSITE.'assets/js/upload2.php?field=' . $id . '"></iframe>
                                         <input ' . $require . ' type="hidden" name="' . $id . '" id="' . $id . '" value="' . $value . '" />';
             if (null !== $value) {
                 if (strlen($value)) {
@@ -70,7 +70,7 @@
                                 <div class="control-group">
                                     <label class="control-label" for="' . $id . '">' . $label . '</label>
                                     <div class="controls">
-                                        <iframe id="iframe_' . $id . '" style="height: 75px; border: none;' . $ifrCss . '" class="span8" src="/assets/js/file_upload2.php?field=' . $id . '"></iframe>
+                                        <iframe id="iframe_' . $id . '" style="height: 75px; border: none;' . $ifrCss . '" class="span8" src="'.URLSITE.'assets/js/file_upload2.php?field=' . $id . '"></iframe>
                                         <input ' . $require . ' type="hidden" name="' . $id . '" id="' . $id . '" value="' . $value . '" />';
             if (null !== $value) {
                 if (strlen($value)) {
@@ -94,21 +94,21 @@
         {
             $options = '';
             if (can($type, 'view')) {
-                $options .= '<td class="pull-center" style="text-align: center; font-size: 120%;"><a href="/backadmin/item_view/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '"><i title="afficher" class="icon-file"></i></a>&nbsp;&nbsp;&nbsp;';
+                $options .= '<td class="pull-center" style="text-align: center; font-size: 120%;"><a href="'.URLSITE.'backadmin/item_view/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '"><i title="afficher" class="icon-file"></i></a>&nbsp;&nbsp;&nbsp;';
             }
             if (can($type, 'duplicate')) {
-                $options .= '<a href="/backadmin/item_duplicate/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '"><i title="dupliquer" class="icon-copy"></i></a>&nbsp;&nbsp;&nbsp;';
+                $options .= '<a href="'.URLSITE.'backadmin/item_duplicate/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '"><i title="dupliquer" class="icon-copy"></i></a>&nbsp;&nbsp;&nbsp;';
             }
             if (can($type, 'edit')) {
-                $options .= '<a href="/backadmin/item_edit/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '"><i title="éditer" class="icon-edit"></i></a>&nbsp;&nbsp;&nbsp;';
+                $options .= '<a href="'.URLSITE.'backadmin/item_edit/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '"><i title="éditer" class="icon-edit"></i></a>&nbsp;&nbsp;&nbsp;';
             }
             if (!strlen($plus)) {
                 if (can($type, 'delete')) {
-                    $options .= '<a href="#" onclick="if (confirm(\'Confirmez-vous la suppression de cet élément ?\')) document.location.href = \'/backadmin/item_delete/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '\'; return false;"><i title="supprimer" class="icon-trash"></i></a></td>';
+                    $options .= '<a href="#" onclick="if (confirm(\'Confirmez-vous la suppression de cet élément ?\')) document.location.href = \''.URLSITE.'backadmin/item_delete/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '\'; return false;"><i title="supprimer" class="icon-trash"></i></a></td>';
                 }
             } else {
                 if (can($type, 'delete')) {
-                    $options .= '<a href="#" onclick="if (confirm(\'Confirmez-vous la suppression de cet élément ?\')) document.location.href = \'/backadmin/item_delete/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '\'; return false;"><i title="supprimer" class="icon-trash"></i></a>' . $plus . '</td>';
+                    $options .= '<a href="#" onclick="if (confirm(\'Confirmez-vous la suppression de cet élément ?\')) document.location.href = \''.URLSITE.'backadmin/item_delete/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '\'; return false;"><i title="supprimer" class="icon-trash"></i></a>' . $plus . '</td>';
                 }
             }
             return $options;
@@ -203,7 +203,7 @@
             $orderDirection = (null === request()->getOrderDirection()) ? (ake('orderListDirection', $settings)) ? $settings['orderListDirection'] : 'DESC' : request()->getOrderDirection();
 
 
-            $html = '<form action="/backadmin/item/' . $type . '" id="listForm" method="post">
+            $html = '<form action="'.URLSITE.'backadmin/item/' . $type . '" id="listForm" method="post">
             <input type="hidden" name="page" id="page" value="' . $page . '" /><input type="hidden" name="order" id="order" value="' . $order . '" /><input type="hidden" name="order_direction" id="order_direction"  value="' . $orderDirection . '" /><input type="hidden" id="where" name="where" value="' . \Thin\Crud::checkEmpty('where') .'" /><input type="hidden" id="type_export" name="type_export" value="" />
             <table style="clear: both;" class="table table-striped tablesorter table-bordered table-condensed table-hover">
                         <thead>
@@ -228,7 +228,7 @@
                         </thead>
                         <tbody>';
             foreach ($data as $item) {
-                $html .= '<tr ondblclick="document.location.href = \'/backadmin/item_edit/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '\';">';
+                $html .= '<tr ondblclick="document.location.href = \''.URLSITE.'backadmin/item_edit/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '\';">';
                 foreach ($fields as $field => $fieldInfos) {
                     $value = (!empty($item->$field)) ? $item->$field : null;
                     if (!ake('content', $fieldInfos)) {

@@ -26,7 +26,7 @@
     <?php endif; ?>
     <?php endforeach; ?>
             <div>
-                <button id="printCrud" type="button" class="btn btn-warning" onclick="window.print();"><i class="icon-print icon-white"></i> Imprimer</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="backListCrud" type="button" class="btn btn-info" onclick="document.location.href = '<?php echo '/backadmin/item/' . $this->type; ?>';"><i class="icon-list icon-white"></i> Retour à la liste</button>
+                <button id="printCrud" type="button" class="btn btn-warning" onclick="window.print();"><i class="icon-print icon-white"></i> Imprimer</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="backListCrud" type="button" class="btn btn-info" onclick="document.location.href = '<?php echo '<?php urlsite(); ?>backadmin/item/' . $this->type; ?>';"><i class="icon-list icon-white"></i> Retour à la liste</button>
             </div>
         </div>
     </div>

@@ -97,7 +97,7 @@
                         Data::add($type, $data);
                     }
                     File::delete($_POST['file']);
-                    Router::redirect('/backadmin/item/' . $type);
+                    Router::redirect(URLSITE . 'backadmin/item/' . $type);
                 }
             } else {
                 $route = new Route;
@@ -311,11 +311,11 @@
             $key    = request()->getKey();
             $check  = \ThinHelper\Html::checkKey($id, $key);
             if (false === $check) {
-                Router::redirect('/backadmin/item/' . $type);
+                Router::redirect(URLSITE . 'backadmin/item/' . $type);
             }
             if (count($_POST)) {
                 Data::edit($type, $id);
-                Router::redirect('/backadmin/item/' . $type);
+                Router::redirect(URLSITE . 'backadmin/item/' . $type);
             }
             $item   = Data::getById($type, $id);
             if (File::exists(APPLICATION_PATH . DS . 'modules' . DS . 'admin' . DS . 'views' . DS . 'scripts' . DS . 'static' . DS . Inflector::lower($type) . '-edit.phtml')) {
@@ -340,11 +340,11 @@
             $key    = request()->getKey();
             $check  = \ThinHelper\Html::checkKey($id, $key);
             if (false === $check) {
-                Router::redirect('/backadmin/item/' . $type);
+                Router::redirect(URLSITE . 'backadmin/item/' . $type);
             }
             if (count($_POST)) {
                 Data::add($type);
-                Router::redirect('/backadmin/item/' . $type);
+                Router::redirect(URLSITE . 'backadmin/item/' . $type);
             }
             $item   = Data::getById($type, $id);
             if (File::exists(APPLICATION_PATH . DS . 'modules' . DS . 'admin' . DS . 'views' . DS . 'scripts' . DS . 'static' . DS . Inflector::lower($type) . '-duplicate.phtml')) {
@@ -456,7 +456,7 @@
                     Data::emptyCache($type);
                 }
             }
-            Router::redirect('/backadmin/item/' . $type);
+            Router::redirect(URLSITE . 'backadmin/item/' . $type);
         }
 
         public function postDispatch()

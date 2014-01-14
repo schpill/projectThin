@@ -28,7 +28,7 @@
                     <div class="span11">
                         <?php if(can($this->type, 'add')): ?>
                         <p>
-                            <a href="/backadmin/item_add/<?php echo $this->type; ?>">
+                            <a href="<?php urlsite(); ?>backadmin/item_add/<?php echo $this->type; ?>">
                                 <button id="addCrudItem" type="button" class="btn btn-success">
                                     <i class="icon-plus"></i> Ajouter <?php echo \Thin\Html\Helper::adminSingular($this->type); ?>
                                 </button>
@@ -36,7 +36,7 @@
                         </p>
                         <?php endif; ?>
                         <?php if(can($this->type, 'import')): ?>
-                        <p><a href="/backadmin/import-<?php echo \Thin\Html\Helper::display($this->type); ?>">Import massif</a></p>
+                        <p><a href="<?php urlsite(); ?>backadmin/import-<?php echo \Thin\Html\Helper::display($this->type); ?>">Import massif</a></p>
                         <?php endif; ?>
                     </div>
                     <?php if (!count($this->data)): ?>
@@ -84,7 +84,7 @@
                         <span class="label label-info">Export</span>&nbsp;&nbsp;
                         <span>
                             <?php foreach ($this->export as $typeExport): ?>
-                            <img alt="Export <?php echo \Thin\Inflector::upper($typeExport); ?>" title="Export <?php echo \Thin\Inflector::upper($typeExport); ?>" src="/assets/css/crud/<?php echo \Thin\Inflector::lower($typeExport); ?>.png" style="cursor: pointer;" onclick="<?php if(\Thin\Inflector::lower($typeExport) == 'pdf'): ?>alert('L\'export PDF prend quelques secondes, merci de patienter.'); <?php endif; ?>crudExport('<?php echo \Thin\Inflector::lower($typeExport); ?>');" />&nbsp;&nbsp;
+                            <img alt="Export <?php echo \Thin\Inflector::upper($typeExport); ?>" title="Export <?php echo \Thin\Inflector::upper($typeExport); ?>" src="<?php urlsite(); ?>assets/css/crud/<?php echo \Thin\Inflector::lower($typeExport); ?>.png" style="cursor: pointer;" onclick="<?php if(\Thin\Inflector::lower($typeExport) == 'pdf'): ?>alert('L\'export PDF prend quelques secondes, merci de patienter.'); <?php endif; ?>crudExport('<?php echo \Thin\Inflector::lower($typeExport); ?>');" />&nbsp;&nbsp;
                             <?php endforeach; ?>
                         </span>
                     </div>
