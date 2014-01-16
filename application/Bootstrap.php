@@ -51,23 +51,29 @@
 
             $ini->populate($iniData);
             container()->setConfig($ini);
+            container()->setServerDir(repl(DS . 'application', '', APPLICATION_PATH));
         }
 
         private static function loadDatas()
         {
-            $datas = include(APPLICATION_PATH . DS . 'config' . DS . 'datas.php');
-            foreach ($datas as $entity => $infos) {
-                $fields                     = $infos['fields'];
-                $settings                   = $infos['settings'];
-                Data::$_fields[$entity]     = $fields;
-                Data::$_settings[$entity]   = $settings;
+            $datas = glob(APPLICATION_PATH . DS . 'models' . DS . 'Data' . DS . '*.php');
+            if (count($datas)) {
+                foreach ($datas as $model) {
+                    $infos                      = include($model);
+                    $tab                        = explode(DS, $model);
+                    $entity                     = repl('.php', '', Inflector::lower(end($tab)));
+                    $fields                     = $infos['fields'];
+                    $settings                   = $infos['settings'];
+                    Data::$_fields[$entity]     = $fields;
+                    Data::$_settings[$entity]   = $settings;
+                }
             }
         }
 
         private static function routes()
         {
-            container()->addRoute(time());
-            container()->addRoute(rand(5, 1566698));
+            // container()->addRoute(time());
+            // container()->addRoute(rand(5, 1566698));
         }
 
         private static function dispatch()

@@ -39,14 +39,14 @@
             return (strstr($_SERVER["SERVER_NAME"], 'pilouf.com')) ? true : false;
         }
 
-        public static function formUploadImage($label, $id, $required = false, $value = null)
+        public static function formUploadImage($label, $id, $required = false, $value = null, $type = '')
         {
             $require = (true === $required) ? 'required' : '';
             $html = '
                                 <div class="control-group">
                                     <label class="control-label" for="' . $id . '">' . $label . '</label>
                                     <div class="controls">
-                                        <iframe id="iframe_' . $id . '" style="height: 75px; border: none;" class="span8" src="'.URLSITE.'assets/js/upload2.php?field=' . $id . '"></iframe>
+                                        <iframe id="iframe_' . $id . '" style="height: 75px; border: none;" class="span8" src="' . URLSITE . 'assets/js/upload2.php?field=' . $id . '&type=' . $type . '"></iframe>
                                         <input ' . $require . ' type="hidden" name="' . $id . '" id="' . $id . '" value="' . $value . '" />';
             if (null !== $value) {
                 if (strlen($value)) {
@@ -62,7 +62,7 @@
             echo $html;
         }
 
-        public static function formUploadFile($label, $id, $required = false, $value = null)
+        public static function formUploadFile($label, $id, $required = false, $value = null, $type = '')
         {
             $require = (true === $required) ? 'required' : '';
             $ifrCss = (strlen($value)) ? 'display: none;' : '';
@@ -70,7 +70,7 @@
                                 <div class="control-group">
                                     <label class="control-label" for="' . $id . '">' . $label . '</label>
                                     <div class="controls">
-                                        <iframe id="iframe_' . $id . '" style="height: 75px; border: none;' . $ifrCss . '" class="span8" src="'.URLSITE.'assets/js/file_upload2.php?field=' . $id . '"></iframe>
+                                        <iframe id="iframe_' . $id . '" style="height: 75px; border: none;' . $ifrCss . '" class="span8" src="' . URLSITE . 'assets/js/file_upload2.php?field=' . $id . '&type=' . $type . '"></iframe>
                                         <input ' . $require . ' type="hidden" name="' . $id . '" id="' . $id . '" value="' . $value . '" />';
             if (null !== $value) {
                 if (strlen($value)) {

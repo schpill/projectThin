@@ -29,12 +29,15 @@
         <link href="<?php urlsite(); ?>assets/css/glyphicons.css" rel="stylesheet" />
         <link href="<?php urlsite(); ?>assets/css/halflings.css" rel="stylesheet" />
         <link href="<?php urlsite(); ?>assets/css/entypo.css" rel="stylesheet" />
-        <link href="<?php urlsite(); ?>/cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/0.0.11/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-        <link href="<?php urlsite(); ?>/cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.0.2/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+        <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/0.0.11/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+        <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet" />
         <link href="<?php urlsite(); ?>assets/css/admin.css" media="screen" rel="stylesheet" type="text/css" />
         <link href="<?php urlsite(); ?>assets/css/jquery.fancybox.css" media="screen" rel="stylesheet" type="text/css" />
         <script src="<?php urlsite(); ?>assets/js/jquery.min.js" type="text/javascript"></script>
         <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/locales/bootstrap-datepicker.fr.min.js" type="text/javascript"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/0.0.11/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
         <script src="<?php urlsite(); ?>assets/js/jquery.fancybox.pack.js" type="text/javascript"></script>
         <script src="<?php urlsite(); ?>assets/js/jquery.fancybox-media.js" type="text/javascript"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -43,7 +46,7 @@
         <script src="<?php urlsite(); ?>assets/js/bkg.js"></script>
         <script src="<?php urlsite(); ?>assets/js/ph.js" type="text/javascript"></script>
         <script src="<?php urlsite(); ?>assets/js/script.js" type="text/javascript"></script>
-        <script src="<?php urlsite(); ?>assets/js/web.js" type="text/javascript"></script>
+        <script src="<?php urlsite(); ?>assets/js/web.js?<?php echo filemtime(container()->getServerDir() . DS . 'web' . DS . 'assets' . DS . 'js' . DS . 'web.js'); ?>" type="text/javascript"></script>
         <script src="//cdn.wysibb.com/js/jquery.wysibb.min.js"></script>
         <script src="<?php urlsite(); ?>assets/js/bbfr.js"></script>
         <link rel="stylesheet" href="//cdn.wysibb.com/css/default/wbbtheme.css" type="text/css" />
@@ -91,8 +94,8 @@
         <?php if (null !== $session->getUser()): ?>
         <?php if (container()->getAction() != 'dashboard' && container()->getAction() != 'no-right'): ?>
         <div id="thinLeftMenu">
-            <div class="row-fluid">
-                <p class="pull-right" style="font-size: 30px;"><a class="span12 pull-right" href="#" onclick="thinMenu(); return false;"><i class="icon-remove"></i>&nbsp;</a></p>
+            <div class="row">
+                <div class="span12" style="font-size: 50px;"><a class="pull-right" href="#" onclick="thinMenu(); return false;" onmouseover="this.style.textDecoration = 'none'"><i class="icon-remove"></i></a></div>
                 <div class="span12">
                     <?php $i = 0; foreach ($this->types as $type): ?>
                     <?php if (ake($type, \Thin\Data::$_fields) && ake($type, \Thin\Data::$_rights)):
@@ -107,7 +110,7 @@
                             <li><a href="<?php urlsite(); ?>backadmin/emptyCache-<?php echo \Thin\Html\Helper::display($type); ?>"><i class="icon-trash"></i> Vider le cache</a></li><?php endif; ?>
                         </ul>
                     </div>
-                    <?php if (0 === $i % 4): ?></div></div><div class="row-fluid"><div class="span12"><ul><?php endif; ?>
+                    <?php if (0 === $i % 3): ?></div></div><hr style="color: #2C3E50;" /><div class="row"><div class="span12"><?php endif; ?>
                     <?php endif; ?>
                     <?php endforeach; ?>
                 </div>

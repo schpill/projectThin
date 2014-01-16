@@ -538,3 +538,10 @@ var Thin = (function () {
         $('[data-hover="dropdown"]').dropdownHover();
     });
 })(jQuery, this);
+
+$(document).ready(function() {
+    $('.datepicker').datepicker({
+        format: 'dd-mm-yyyy',
+        language: "fr-FR"
+    });
+});

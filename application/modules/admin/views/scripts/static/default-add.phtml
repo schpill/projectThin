@@ -19,11 +19,12 @@
                             <?php foreach($this->model as $field => $content): ?>
                                 <?php $required = (!ake('notRequired', $content)) ? 'required' : ''; ?>
                                 <?php $label = (ake('label', $content)) ? $content['label'] : ucfirst(\Thin\Inflector::lower($field)); ?>
+                                <?php $placeholder = (ake('placeholder', $content)) ? $content['placeholder'] : $label; ?>
                                 <?php if (!ake('type', $content)): ?>
                                 <div class="control-group">
                                     <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
                                     <div class="controls">
-                                        <input type="text" <?php echo $required; ?> name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $label; ?>" />
+                                        <input type="text" <?php echo $required; ?> name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>" />
                                     </div>
                                 </div>
                                 <?php endif; ?>
@@ -44,18 +45,26 @@
                                     <?php if ('custom' == $content['type']): ?>
                                         <?php echo \Thin\Data::evaluate($content['custom']); ?>
                                     <?php endif; ?>
-                                    <?php if ('image' == $content['type']): ?>
-                                        <?php \ThinHelper\Html::formUploadImage($label, $field); ?>
+                                    <?php if ('image' == $content['type']): $settings = ake('settings', $content) ? $content['settings'] : array(); ?>
+                                        <?php \ThinHelper\Html::formUploadImage($label, $field, false, null, $this->type); ?>
                                     <?php endif; ?>
-                                    <?php if ('file' == $content['type']): ?>
-                                        <?php \ThinHelper\Html::formUploadFile($label, $field); ?>
+                                    <?php if ('file' == $content['type']): $settings = ake('settings', $content) ? $content['settings'] : array(); ?>
+                                        <?php \ThinHelper\Html::formUploadFile($label, $field, false, null, $this->type); ?>
                                     <?php endif; ?>
                                     <?php if ('textarea' == $content['type']): ?>
                                         <div class="control-group">
                                             <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
                                             <div class="controls">
                                                 <div class="sep"></div>
-                                                <textarea <?php echo $required; ?> style="width: 500px; height; 250px;" name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $label; ?>"></textarea>
+                                                <textarea <?php echo $required; ?> style="width: 500px; height; 250px;" name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>"></textarea>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if ('date' == $content['type']): ?>
+                                        <div class="control-group">
+                                            <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                                            <div class="controls">
+                                                <input class="datepicker" type="text" <?php echo $required; ?> name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>" />
                                             </div>
                                         </div>
                                     <?php endif; ?>
@@ -64,7 +73,7 @@
                                             <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
                                             <div class="controls">
                                                 <div class="sep"></div>
-                                                <textarea style="width: 100%;" name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $label; ?>"></textarea>
+                                                <textarea style="width: 100%;" name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>"></textarea>
                                             </div>
                                         </div>
                                         <script>

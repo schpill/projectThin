@@ -1,11 +1,4 @@
 <?php includes('partials/header/classic.phtml'); ?>
-<style>
-    .liList {
-        font-weight: 800;
-        color: #2C3E50;
-        text-transform: uppercase;
-    }
-</style>
 <!-- Main Content -->
     <div id="content" role="main">
         <p style="height: 40px;"></p>
@@ -31,7 +24,7 @@
                                 <li><a href="<?php urlsite(); ?>backadmin/emptyCache-<?php echo \Thin\Html\Helper::display($type); ?>"><i class="icon-trash"></i> Vider le cache</a></li><?php endif; ?>
                             </ul>
                         </div>
-                        <?php if (0 === $i % 4): ?></div></div><div class="row-fluid"><div class="span12"><ul><?php endif; ?>
+                        <?php if (0 === $i % 4): ?></div></div><hr /><div class="row-fluid"><div class="span12"><?php endif; ?>
                         <?php endif; ?>
                         <?php endforeach; ?>
                     </div>

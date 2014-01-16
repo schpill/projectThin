@@ -30,13 +30,16 @@
     $fileupload     = $_FILES["img"]['tmp_name'];
     $name           = $_FILES["img"]["name"];
 
-    $isIframe       = ($_POST["iframe"]) ? true : false;
-    $idarea         = $_POST["idarea"];
+    $isIframe       = false;
+    $idarea         = array_key_exists("idarea", $_POST)    ? $_POST["idarea"]  : '';
+    $type           = array_key_exists("type", $_POST)      ? $_POST["type"]    : '';
 
 
     $postData = array(
         'fileupload' => "@" . $fileupload,
         'name'       => $name,
+        'type'       => $type,
+        'id'         => $idarea,
         'key'        => '239EFGIY052f49d3ed8c8b7f7991ec05513fb5e8'
     );
 
@@ -55,7 +58,18 @@
     } else {
         // use for drag & drop
         if ($tab['code'] == 500) {
-            die($tab['message']);
+            $html = '<html>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+            <script>
+            function redo() {
+                window.parent.document.getElementById("iframe_' . $idarea . '").src = "' . $urlSite . 'assets/js/upload2.php?field=' . $idarea . '&type=' . $type . '";
+            }
+            </script>
+            <body>
+                <p style="color: red; font-weight: bold;">' . stripslashes($tab['message']) . '<br /><a href="#" onclick="redo(); return false;">Recommencer</a><p>
+            </body>
+            </html>';
+            die($html);
         } else {
             echo '<html>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -64,10 +78,17 @@
                 window.parent.document.getElementById("' . $idarea . '_img").src = "' . $tab['message'] . '";
                 window.parent.$("#' . $idarea . '_img").show();
                 window.parent.$("#' . $idarea . '").val("' . $tab['message'] . '");
-                window.parent.$("#iframe_' . $idarea . '").hide();
+                // window.parent.$("#iframe_' . $idarea . '").hide();
+            }
+            function redo() {
+                window.parent.document.getElementById("iframe_' . $idarea . '").src = "' . $urlSite . 'assets/js/upload2.php?field=' . $idarea . '&type=' . $type . '";
+                window.parent.$("#iframe_' . $idarea . '").show();
+                window.parent.$("#' . $idarea . '_img").hide();
+                window.parent.$("#' . $idarea . '").val("");
             }
             </script>
             <body onload="init();">
+            <p><a href="#" onclick="redo(); return false;">Recommencer</a><p>
             </body>
             </html>';
         }
