@@ -89,6 +89,10 @@
 
         private static function test()
         {
+            // $etat = Data::last('etat');
+            // $produit = Data::first('produit');
+            // $produit->setEtat($etat);
+            // dieDump($produit->getEtat() == $etat);
             // $cool = function($a, $b) {
             //     return rand($a, $b);
             // };

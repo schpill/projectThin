@@ -20,6 +20,12 @@
     $smtp->setPassword('tls');
     $smtp->setAuth(true);
 
+    $doctrine = new Ini;
+
+    $confDoctrine = array(
+
+    );
+
     $production['smtp']                 = $smtp;
     $production['default_module']       = 'www';
     $production['default_language']     = 'fr';
