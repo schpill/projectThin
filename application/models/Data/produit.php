@@ -61,7 +61,7 @@
             ),
             'description_fr'    => array(
                 'label'         => 'Description FR',
-                'type'          => 'html',
+                'type'          => 'editor',
                 'canBeNull'     => true,
                 'notExportable' => true,
                 'noList'        => true
