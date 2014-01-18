@@ -31,14 +31,13 @@
     $production['default_language']     = 'fr';
     $production['key']                  = '41ae0aaa8940980fd88d9c2906f1a538';
     $production['encoding']             = 'utf-8';
+    $production['html_not_found']       = include('404tpl.php');
 
     /* PREPRODUCTION CONFIG */
 
     /* STAGING CONFIG */
 
     /* DEVELOPMENT CONFIG */
-
-
 
     /*
         MERGE CONFIG
