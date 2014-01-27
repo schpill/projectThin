@@ -1,0 +1,50 @@
+<?php includes('partials/header/classic.phtml'); ?>
+<!-- Main Content -->
+    <div id="content" role="main">
+        <p style="height: 50px;"></p>
+        <div class="section">
+            <div class="container">
+                <div class="page-header">
+                    <h1>
+                        Import &laquo; <?php echo \Thin\Html\Helper::adminPlural(request()->getType()); ?> &raquo;
+                    </h1>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <?php if (1 === $this->action): ?>
+                        <form action="<?php urlsite(); ?>backadmin/import-<?php echo request()->getType(); ?>" method="post" id="importform" enctype="multipart/form-data" class="form-inline">
+                            <input type="hidden" name="MAX_FILE_SIZE" value="100000000000" />
+                            <input type="hidden" name="action" value="2" />
+                            <input required type="file" name="csv" /><p />
+                            Séparateur <select name="separator">
+                                <option value=";">;</option>
+                                <option value=",">,</option>
+                                <option value="##">##</option>
+                                <option value="%%">%%</option>
+                                <option value=";;">;;</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary">Importer</button>
+                        </form>
+                        <?php endif; ?>
+                        <?php if (2 === $this->action): ?>
+                            <form action="<?php urlsite(); ?>backadmin/import-<?php echo request()->getType(); ?>" method="post" id="importform" class="form-inline">
+                            <input type="hidden" name="file" value="<?php echo $this->file; ?>" />
+                            <input type="hidden" name="separator" value="<?php echo $this->separator; ?>" />
+                            <input type="hidden" name="action" value="3" />
+                            <?php $tmpfields = explode($this->separator, $this->row); ?>
+                            <?php $key = 0; foreach ($tmpfields as $field): ?>
+                            <?php echo $field; ?>&nbsp;&nbsp;
+                            <select name="<?php echo $key; ?>">
+                                <?php foreach ($this->fields as $field => $dummy): ?>
+                                <option value="<?php echo $field; ?>"><?php echo $field; ?></option>
+                                <?php endforeach; ?>
+                            </select><p />
+                            <?php $key++; endforeach; ?>
+                            <button type="submit" class="btn btn-primary">Associer</button>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php includes('partials/footer/classic.phtml'); ?>

@@ -1,0 +1,35 @@
+<?php includes('partials/header/classic.phtml'); $fields = \Thin\Data::$_fields[$this->type];?>
+    <div id="content" role="main">
+        <section class="section">
+            <div class="container">
+                <div class="row-fluid">
+                    <div class="span1">&nbsp;</div>
+                    <div class="widget span10">
+                        <div class="widget-header clearfix">
+                            <h3><i class="icon-list"></i>&nbsp;&nbsp;&nbsp;&nbsp;Afficher <?php echo \Thin\Html\Helper::adminSingular($this->type); ?></h3>
+                        </div>
+    <div class="widget-body">
+    <?php foreach ($fields as $field => $content): ?>
+        <?php $label = (ake('label', $content)) ? $content['label'] : ucfirst(\Thin\Inflector::lower($field)); ?>
+            <?php if(!ake('noView', $content)): ?>
+            <legend><?php echo $label; ?></legend>
+            <?php $value = (!empty($this->item->$field)) ? $this->item->$field : "&nbsp;";
+                    if (ake('contentList', $content)) {
+                        list($f, $e, $v) = $content['contentList'];
+                        if (isset($this->item->$field)) {
+                            $value = \ThinService\Admin::$f($this->item->$field, $e, $v);
+                        }
+                    }
+            ?>
+            <pre class="prettyprint"><?php echo \Thin\Html\Helper::display($value); ?></pre>
+            <p />
+    <?php endif; ?>
+    <?php endforeach; ?>
+            <div>
+                <button id="printCrud" type="button" class="btn btn-warning" onclick="window.print();"><i class="icon-print icon-white"></i> Imprimer</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="backListCrud" type="button" class="btn btn-info" onclick="document.location.href = '<?php echo '<?php urlsite(); ?>backadmin/item/' . $this->type; ?>';"><i class="icon-list icon-white"></i> Retour à la liste</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<?php includes('partials/footer/classic.phtml'); ?>

@@ -1,0 +1,177 @@
+<?php
+    includes('partials/header/classic.phtml');
+    $fields     = isAke(\Thin\Data::$_fields, $this->type);
+    $settings   = isAke(\Thin\Data::$_settings, $this->type);
+    $w          = request()->getWhere();
+?>
+<!-- Main Content -->
+    <script type="text/javascript">
+        var searchCrud;
+    </script>
+    <div id="content" role="main">
+        <section class="section">
+            <div class="container">
+                <div class="page-header">
+                    <h1>
+                        Liste des <?php echo \Thin\Html\Helper::adminPlural($this->type); ?>
+                    </h1>
+                </div>
+                <div class="row-fluid">
+                    <div class="widget-body">
+                    <?php if(can($this->type, 'search')): ?>
+                        <?php if (null !== $this->search): ?>
+                            <input type="hidden" id="indexCrudFieldSearch" value="0" />
+                            <?php echo $this->search; ?>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                    <div class="span1"></div>
+                    <div class="span11">
+                        <?php if(can($this->type, 'add')): ?>
+                        <p>
+                            <a href="<?php urlsite(); ?>backadmin/item_add/<?php echo $this->type; ?>">
+                                <button id="addCrudItem" type="button" class="btn btn-success">
+                                    <i class="icon-plus"></i> Ajouter <?php echo \Thin\Html\Helper::adminSingular($this->type); ?>
+                                </button>
+                            </a>
+                        </p>
+                        <?php endif; ?>
+                        <?php if(can($this->type, 'import')): ?>
+                        <p><a href="<?php urlsite(); ?>backadmin/import-<?php echo \Thin\Html\Helper::display($this->type); ?>">Import massif</a></p>
+                        <?php endif; ?>
+                    </div>
+                    <?php if (!count($this->data)): ?>
+                    <div class="span1"></div>
+                    <div class="span8 alert alert-block alert-<?php if (empty($w)): ?>info<?php else: ?>sds<?php endif; ?> fade in">
+                        <button data-dismiss="alert" class="close" type="button">×</button>
+                        <h4 class="alert-heading">Aucun <?php echo \Thin\Html\Helper::adminSingular($this->type); ?><?php if (!empty($w)): ?> trouvé<?php endif; ?></h4>
+                        <?php if (empty($w)): ?>
+                        <p>Il n'y a pour le moment aucun <?php echo \Thin\Html\Helper::adminSingular($this->type); ?> à afficher.</p>
+                        <?php else: ?>
+                            <p>La requête ne remonte aucun résultat.</p>
+                        <?php endif; ?>
+                    </div>
+                    <div class="span3"></div>
+                    <?php else: ?>
+                    <?php
+                        $show = array();
+                        foreach ($fields as $field => $content) {
+                            $label = (ake('label', $content)) ? $content['label'] : ucfirst(\Thin\Inflector::lower($field));
+                            if(!ake('noList', $content)) {
+                                $infos = array();
+                                $infos['label'] = $label;
+                                if(ake('contentList', $content)) {
+                                    $infos['content'] = $content['contentList'];
+                                }
+                                $show[$field] = $infos;
+                            }
+                        }
+                    ?>
+                    <div class="span1"></div>
+                    <div class="span11">
+                        <p>Affichage des <?php echo \Thin\Html\Helper::adminPlural($this->type); ?> <?php echo $this->first; ?> à <?php echo $this->last; ?> sur <?php echo $this->total; ?></p>
+                        <?php echo $this->pagination; ?>
+                    </div>
+                    <?php \ThinHelper\Html::listTable($this->type, $this->data, $show); ?>
+                    <div class="span1"></div>
+                    <div class="span11">
+                        <?php echo $this->pagination; ?>
+                        <p>Affichage des <?php echo \Thin\Html\Helper::adminPlural($this->type); ?> <?php echo $this->first; ?> à <?php echo $this->last; ?> sur <?php echo $this->total; ?></p>
+                    </div>
+                    <?php if(can($this->type, 'export')): ?>
+                    <?php if (count($this->export)): ?>
+                    <div class="span1"></div>
+                    <div class="span11">
+                        <span class="label label-info">Export</span>&nbsp;&nbsp;
+                        <span>
+                            <?php foreach ($this->export as $typeExport): ?>
+                            <img alt="Export <?php echo \Thin\Inflector::upper($typeExport); ?>" title="Export <?php echo \Thin\Inflector::upper($typeExport); ?>" src="<?php urlsite(); ?>assets/css/crud/<?php echo \Thin\Inflector::lower($typeExport); ?>.png" style="cursor: pointer;" onclick="<?php if(\Thin\Inflector::lower($typeExport) == 'pdf'): ?>alert('L\'export PDF prend quelques secondes, merci de patienter.'); <?php endif; ?>crudExport('<?php echo \Thin\Inflector::lower($typeExport); ?>');" />&nbsp;&nbsp;
+                            <?php endforeach; ?>
+                        </span>
+                    </div>
+                    <?php endif; ?>
+                    <?php endif; ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script type="text/javascript">
+        function orderGoPage(field, direction)
+        {
+            $('#order').val(field);
+            $('#order_direction').val(direction);
+            $('#page').val(1);
+            $('#listForm').submit();
+        }
+
+        function paginationGoPage(page)
+        {
+            $('#page').val(parseInt(page));
+            $('#listForm').submit();
+        }
+
+        function crudExport(typeExport)
+        {
+            $('#type_export').val(typeExport);
+            $('#listForm').submit();
+        }
+
+        function makeCrudSearch()
+        {
+            $('#listForm').action = document.URL;
+            $('#page').val(1);
+            for (var i = 0 ; i <= numFieldsSearch ; i++) {
+                var field = searchFields[i];
+                var searchValue = $('#crudSearchValue_' + i).val();
+                if (searchValue.length > 0 && searchValue != 'crudNothing') {
+                    var operator = $('#crudSearchOperator_' + i).val();
+                    if (operator == 'LIKE' || operator == 'NOT LIKE') {
+                        searchValue = '%' + searchValue + '%';
+                    } else if (operator == 'START') {
+                        operator = 'LIKESTART';
+                        searchValue = searchValue + '%';
+                    } else if (operator == 'END') {
+                        operator = 'LIKEEND';
+                        searchValue = '%' + searchValue;
+                    }
+                    var query = field + '%%' + operator + '%%' + "'" + searchValue + "'" + '##';
+                    searchCrud += query;
+                }
+            }
+            $('#where').val(searchCrud);
+            $('#listForm').submit();
+        }
+
+        function addRowSearch(field, from)
+        {
+            var indexCrudFieldSearch = parseInt($('#indexCrudFieldSearch').val());
+            if (indexCrudFieldSearch < 1) {
+                numFieldsSearch = indexCrudFieldSearch = parseInt(numFieldsSearch) + 1;
+            }
+
+            var nextIndex = indexCrudFieldSearch++;
+            searchFields.push(field);
+            var html = '<hr id="' + nextIndex + '_hr" /><div class="controls" id="crudControl_' + nextIndex + '">';
+            html += $('#crudControl_' + from).html();
+            html += '</div>';
+            var firstRegexp = new RegExp("_" + from, "g");
+            html = html.replace(firstRegexp, "_" + nextIndex);
+            html = html.split(from + ")").join(nextIndex + ')');
+            if (!html.match('icon-trash')) {
+                var strFind = '<i class="icon-plus"></i></span>';
+                var strReplace = '<i class="icon-plus"></i></span>&nbsp;&nbsp;<span class="btn btn-danger" href="#" onclick="delRowSearch(' + nextIndex + '); return false;"><i class="icon-trash"></i></a>';
+
+                html = html.split(strFind).join(strReplace);
+            }
+
+            $('#crudControl_' + from).after("\n\n\t\t" + html);
+        }
+
+        function delRowSearch(index)
+        {
+            $('#crudControl_' + index).slideUp();
+            $('#' + index + '_hr').slideUp();
+            $('#crudSearchValue_' + index).val('crudNothing');
+        }
+    </script>
+<?php includes('partials/footer/classic.phtml'); ?>

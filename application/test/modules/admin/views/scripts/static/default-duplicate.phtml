@@ -1,0 +1,116 @@
+<?php
+    includes('partials/header/classic.phtml');
+    $fields = \Thin\Data::$_fields[$this->type];
+?>
+<script>
+    CURLANG = WBBLANG['fr'] || WBBLANG['en'] || CURLANG;
+</script>
+<!-- Main Content -->
+    <div id="content" role="main">
+        <section class="section">
+            <div class="container">
+                <div class="page-header">
+                    <h1>
+                        Dupliquer <?php echo \Thin\Html\Helper::adminSingular($this->type); ?>
+                    </h1>
+                </div>
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span11">
+                        <form class="form-horizontal" action="<?php urlsite(); ?>backadmin/item_duplicate/<?php echo $this->type; ?>/<?php echo $this->item->getId(); ?>/<?php echo $this->key; ?>" id="form_edit" method="post">
+                            <fieldset>
+                            <?php foreach($fields as $field => $content): ?>
+                            <?php $required = (!ake('notRequired', $content)) ? 'required' : ''; ?>
+                                <?php $label = (ake('label', $content)) ? $content['label'] : ucfirst(\Thin\Inflector::lower($field)); ?>
+                                <?php $placeholder = (ake('placeholder', $content)) ? $content['placeholder'] : $label; ?>
+                                <?php if (!ake('type', $content)): ?>
+                                <div class="control-group">
+                                    <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                                    <div class="controls">
+                                        <input type="text" value="<?php echo \Thin\Html\Helper::display(htmlentities($this->item->$field)); ?>" <?php echo $required; ?> name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>" />
+                                    </div>
+                                </div>
+                                <?php endif; ?>
+                                <?php if (ake('type', $content)): ?>
+                                    <?php if ('data' == $content['type']): ?>
+                                        <?php \ThinHelper\Html::formSelectEntity(
+                                                array(
+                                                    'entity'    => $content['entity'],
+                                                    'required'  => (!empty( $required)) ? true : false,
+                                                    'id'        => $field,
+                                                    'label'     => $label,
+                                                    'sort'      => $content['sort'],
+                                                    'fields'    => $content['fields'],
+                                                    'value'     => htmlentities($this->item->$field)
+                                                )
+                                            );
+                                        ?>
+                                    <?php endif; ?>
+                                    <?php if ('custom' == $content['type']): ?>
+                                        <?php echo \Thin\Data::evaluate($content['custom'], $this->item->$field); ?>
+                                    <?php endif; ?>
+                                    <?php if ('image' == $content['type']): $settings = ake('settings', $content) ? $content['settings'] : array(); ?>
+                                        <?php \ThinHelper\Html::formUploadImage($label, $field, false, $this->item->$field, $this->type); ?>
+                                    <?php endif; ?>
+                                    <?php if ('file' == $content['type']): $settings = ake('settings', $content) ? $content['settings'] : array(); ?>
+                                        <?php \ThinHelper\Html::formUploadFile($label, $field, false, $this->item->$field, $this->type); ?>
+                                    <?php endif; ?>
+                                    <?php if ('textarea' == $content['type']): ?>
+                                        <div class="control-group">
+                                            <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                                            <div class="controls">
+                                                <div class="sep"></div>
+                                                <textarea <?php echo $required; ?> style="width: 500px; height; 250px;" name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>"><?php echo \Thin\Html\Helper::display($this->item->$field); ?></textarea>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if ('editor' == $content['type']): ?>
+                                        <div class="control-group">
+                                            <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                                            <div class="controls">
+                                                <div class="sep"></div>
+                                                <textarea <?php echo $required; ?> class="thinWysiwyg" name="<?php echo $field; ?>" id="<?php echo $field; ?>"><?php echo \Thin\Html\Helper::display($this->item->$field); ?></textarea>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if ('date' == $content['type']): ?>
+                                    <div class="control-group">
+                                        <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                                        <div class="controls">
+                                            <input class="datepicker" type="text" value="<?php echo \Thin\Html\Helper::display(htmlentities($this->item->$field)); ?>" <?php echo $required; ?> name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>" />
+                                        </div>
+                                    </div>
+                                    <?php endif; ?>
+                                    <?php if ('html' == $content['type']): ?>
+                                        <div class="control-group">
+                                            <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                                            <div class="controls">
+                                                <div class="sep"></div>
+                                                <textarea style="width: 100%;" name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>"><?php echo \Thin\Html\Helper::display($this->item->$field); ?></textarea>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            $(document).ready(function() {
+                                                $("#<?php echo $field; ?>").wysibb();
+                                            });
+                                        </script>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                                <div>
+                                    <div class="controls">
+                                        <button type="submit" class="btn btn-primary">Dupliquer <?php echo \Thin\Html\Helper::adminSingular($this->type); ?></button>
+                                        <button type="reset" class="btn btn-danger">Annuler</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+<?php includes('partials/footer/classic.phtml'); ?>
+
+
+

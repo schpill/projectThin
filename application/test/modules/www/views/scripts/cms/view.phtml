@@ -1,0 +1,24 @@
+<?php includes('partials/header/classic.phtml'); ?>
+<!-- Main Content -->
+    <div id="content" role="main">
+        <section class="section">
+            <div class="container">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <?php echo \Thin\Blog::parse($this->page->getContentPage()); ?>
+                    </div>
+                </div>
+                <div class="sep"></div>
+                <div class="row-fluid">
+                    <?php if (null !== $this->session->getUser()): ?>
+                        <?php if ($this->session->getUser() == $this->page->getAuthor()): ?>
+                        <footer>
+                            <a href="<?php urlsite(); ?>cms/edit/<?php echo $this->page->getId(); ?>" class="btn btn-primary btn-small"><i class="icon-edit icon-white"></i> &Eacute;diter</a> <a href="<?php urlsite(); ?>cms/delete/<?php echo $this->page->getId(); ?>" class="btn btn-danger btn-small"><i class="icon-trash icon-white"></i> Effacer</a>
+                        </footer>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </section>
+    </div>
+<?php includes('partials/footer/classic.phtml'); ?>

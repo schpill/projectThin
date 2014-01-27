@@ -1,17 +1,17 @@
 <?php
     namespace ThinService;
+    use \Thin\Session;
 
     class Acl
     {
         public static function check($username, $password, $session)
         {
-            $session = \Thin\Session::instance($session);
-            $file = APPLICATION_PATH . DS . 'config' . DS . 'acl.php';
+            $session = Session::instance($session);
+            $file = APPLICATION_PATH . DS . 'config' . DS . SITE_NAME . DS . 'acl.php';
             $users = include($file);
             foreach ($users as $user) {
                 $login  = $user->getLogin();
                 $pwd    = $user->getPassword();
-
                 if ($username == $login && md5($password) == $pwd) {
                     $session->setUser($user);
                     return false;

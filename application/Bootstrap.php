@@ -40,9 +40,9 @@
             Config::load('models', false);
             Config::load('routes', false);
 
-            $iniData    = include(APPLICATION_PATH . DS . 'config' . DS . 'ini.php');
+            $iniData    = include(APPLICATION_PATH . DS . 'config' . DS . SITE_NAME . DS . 'ini.php');
 
-            $envIni     = APPLICATION_PATH . DS . 'config' . DS . Inflector::lower(APPLICATION_ENV) . '.php';
+            $envIni     = APPLICATION_PATH . DS . 'config' . DS . SITE_NAME . DS . Inflector::lower(APPLICATION_ENV) . '.php';
             if (File::exists($envIni)) {
                 $iniData += include($envIni);
             }
@@ -52,20 +52,30 @@
             $ini->populate($iniData);
             container()->setConfig($ini);
             container()->setServerDir(repl(DS . 'application', '', APPLICATION_PATH));
+            container()->setMultiSite(true);
         }
 
         private static function loadDatas()
         {
-            $datas = glob(APPLICATION_PATH . DS . 'models' . DS . 'Data' . DS . '*.php');
-            if (count($datas)) {
-                foreach ($datas as $model) {
-                    $infos                      = include($model);
-                    $tab                        = explode(DS, $model);
-                    $entity                     = repl('.php', '', Inflector::lower(end($tab)));
-                    $fields                     = $infos['fields'];
-                    $settings                   = $infos['settings'];
-                    Data::$_fields[$entity]     = $fields;
-                    Data::$_settings[$entity]   = $settings;
+            $dirData = STORAGE_PATH . DS . 'data';
+            if (!is_dir(STORAGE_PATH)) {
+                mkdir(STORAGE_PATH, 0777);
+            }
+            if (!is_dir($dirData)) {
+                mkdir($dirData, 0777);
+            }
+            if (is_dir(APPLICATION_PATH . DS . 'models' . DS . 'Data' . DS . SITE_NAME)) {
+                $datas = glob(APPLICATION_PATH . DS . 'models' . DS . 'Data' . DS . SITE_NAME . DS . '*.php');
+                if (count($datas)) {
+                    foreach ($datas as $model) {
+                        $infos                      = include($model);
+                        $tab                        = explode(DS, $model);
+                        $entity                     = repl('.php', '', Inflector::lower(end($tab)));
+                        $fields                     = $infos['fields'];
+                        $settings                   = $infos['settings'];
+                        Data::$_fields[$entity]     = $fields;
+                        Data::$_settings[$entity]   = $settings;
+                    }
                 }
             }
         }
