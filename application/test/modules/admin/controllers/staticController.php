@@ -23,9 +23,9 @@
                     asort($types);
                     $this->view->types  = $types;
                 }
+            } else {
+                $action = $tab[count($tab) - 3];
             }
-
-            $action = $tab[count($tab) - 3];
 
             if (Arrays::inArray($action, array('edit', 'duplicate', 'delete', 'view'))) {
                 $type = $tab[count($tab) - 2];
