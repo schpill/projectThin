@@ -5,6 +5,8 @@
             'resource' => array(),
         ),
         'settings' => array(
-            'checkTuple' => array('key', 'resource')
+            'singular'           => 'Clé API',
+            'plural'             => 'Clés API',
+            'checkTuple'         => array('key', 'resource')
         )
     );

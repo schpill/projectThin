@@ -4,7 +4,11 @@
     {
         public function init()
         {
-            $this->view->titleAdmin = "GP";
+            $ssl = Request::ssl();
+            if (!$ssl) {
+                Router::ssl();
+            }
+            $this->view->titleAdmin = "CMS";
             $tab = explode('/', $_SERVER['REQUEST_URI']);
             $type = Arrays::last($tab);
             $action = container()->getAction();
@@ -12,20 +16,11 @@
                 if (!Arrays::inArray($action, array('login', 'logout', 'dashboard', 'no-right'))) {
                     $session = $this->checkSession();
                     $this->view->user   = $session->getUser();
-                    $acls               = $session->getUser()->getRights();
-                    $types = array();
-                    if (count($acls) && null !== $this->view->user) {
-                        foreach ($acls as $type => $rights) {
-                            Data::$_rights[$type] = $rights;
-                            array_push($types, $type);
-                        }
-                    }
-                    asort($types);
-                    $this->view->types  = $types;
+                    $this->view->types  = $this->getEntities($session);
                 }
+            } else {
+                $action = $tab[count($tab) - 3];
             }
-
-            $action = $tab[count($tab) - 3];
 
             if (Arrays::inArray($action, array('edit', 'duplicate', 'delete', 'view'))) {
                 $type = $tab[count($tab) - 2];
@@ -42,8 +37,39 @@
                 $this->view->request = request();
             }
             if (strlen($type)) {
-                $this->view->_settings  = ake($type, Data::$_settings) ? Data::$_settings[$type] : array();
+                $this->view->_settings  = Arrays::exists($type, Data::$_settings) ? Data::$_settings[$type] : Data::defaultConfig($type);
             }
+
+            $lngs = Cms::getOption('page_languages');
+            $this->view->cms_languages = !empty($lngs) ? explode(',', $lngs) : array();
+            $this->view->pages = Cms::getPages();
+        }
+
+        private function getEntities($session)
+        {
+            $user       = $session->getUser();
+            $entities   = $session->getEntities();
+            if (null !== $entities) {
+                return $entities;
+            }
+            $types      = array();
+            if (null !== $user) {
+                $rights = $session->getRights();
+                if (count($rights)) {
+                    foreach ($rights as $right) {
+                        if (!ake($right->getAdmintable()->getName(), Data::$_rights)) {
+                            Data::$_rights[$right->getAdmintable()->getName()] = array();
+                        }
+                        Data::$_rights[$right->getAdmintable()->getName()][$right->getAdminaction()->getName()] = true;
+                        if (!Arrays::inArray($right->getAdmintable()->getName(), $types)) {
+                            array_push($types, $right->getAdmintable()->getName());
+                        }
+                    }
+                    asort($types);
+                }
+            }
+            $session->setEntities($types);
+            return $types;
         }
 
         public function preDispatch()
@@ -54,9 +80,7 @@
         public function logoutAction()
         {
             $_SESSION = array();
-            $route = new Route;
-            $route->setAction('login');
-            $this->forward($route);
+            Router::redirect(URLSITE . 'backadmin/login');
         }
 
         public function importAction()
@@ -125,6 +149,14 @@
                 } else {
                     $this->_noRight();
                 }
+            } else {
+                $session = session('admin');
+                $user = $session->getUser();
+                if (null !== $user) {
+                    $route = new Route;
+                    $route->setAction('dashboard');
+                    $this->forward($route);
+                }
             }
             $this->view->title = 'Se connecter';
         }
@@ -140,18 +172,8 @@
         {
             $session            = $this->checkSession();
             $this->view->user   = $session->getUser();
-            $acls               = $session->getUser()->getRights();
-            $types = array();
-            if (count($acls) && null !== $this->view->user) {
-                foreach ($acls as $type => $rights) {
-                    Data::$_rights[$type] = $rights;
-                    array_push($types, $type);
-                }
-            }
-            asort($types);
-            $this->view->types  = $types;
+            $this->view->types  = $this->getEntities($session);
             $this->view->title  = 'Tableau de bord';
-            $this->view->remain = round(100 - ((31 - date('d')) * 2.06), 2);
         }
 
         public function itemAction()
@@ -387,64 +409,6 @@
             return $session;
         }
 
-        private function model($type)
-        {
-            $file = APPLICATION_PATH . DS . 'entities' . DS . 'admin' . DS . ucfirst(Inflector::lower($type)) . '.php';
-            if (File::exists($file)) {
-                $model = include($file);
-                return $model;
-            }
-            return array('fields' => array());
-        }
-
-        private function addForm($type)
-        {
-            $model      = $this->model($type);
-            $fields     = $model['fields'];
-            $form       = array();
-            foreach ($fields as $key => $fieldInfos) {
-                $hidden = false;
-                if (ake('hidden', $fieldInfos)) {
-                    $hidden = $fieldInfos['hidden'];
-                }
-                if (ake('defaultValue', $fieldInfos)) {
-                    $value = $fieldInfos['defaultValue'];
-                }
-                $continue = true;
-                if (ake('onForm', $fieldInfos)) {
-                    $continue = $fieldInfos['onForm'];
-                }
-                if (true === $continue) {
-                    $form[] = Data::makeFormElement($key, null, $fieldInfos, $type, $hidden);
-                }
-            }
-            return $form;
-        }
-
-        private function editForm($type, $object)
-        {
-            $model      = $this->model($type);
-            $fields     = $model['fields'];
-            $form       = array();
-            foreach ($fields as $key => $fieldInfos) {
-                $hidden = false;
-                if (ake('hidden', $fieldInfos)) {
-                    $hidden = $fieldInfos['hidden'];
-                }
-                if (ake('defaultValue', $fieldInfos)) {
-                    $value = $fieldInfos['defaultValue'];
-                }
-                $continue = true;
-                if (ake('onForm', $fieldInfos)) {
-                    $continue = $fieldInfos['onForm'];
-                }
-                if (true === $continue) {
-                    $form[] = Data::makeFormElement($key, $object->$key, $fieldInfos, $type, $hidden);
-                }
-            }
-            return $form;
-        }
-
         public function emptyCacheAction()
         {
             $type = request()->getType();
@@ -457,6 +421,52 @@
                 }
             }
             Router::redirect(URLSITE . 'backadmin/item/' . $type);
+        }
+
+        public function cssAction()
+        {
+            $sql = new Querydata('typeasset');
+            $res = $sql->where('name = css')->get();
+            $css = $sql->first($res);
+
+            $sql = new Querydata('asset');
+            $res = $sql->where('typeasset = ' . $css->getId())->order('priority')->get();
+
+            $content = array();
+
+            if (count($res)) {
+                foreach ($res as $row) {
+                    $content[] = '// ' . $row->getName() . "\n" . $row->getCode();
+                }
+            }
+            header("content-type: text/css; charset: utf-8");
+            header("cache-control: must-revalidate");
+            $expire = "expires: " . gmdate("D, d M Y H:i:s", strtotime("+1 year")) . " GMT";
+            header($expire);
+            die(implode("\n", $content));
+        }
+
+        public function jsAction()
+        {
+            $sql = new Querydata('typeasset');
+            $res = $sql->where('name = javascript')->get();
+            $js = $sql->first($res);
+
+            $sql = new Querydata('asset');
+            $res = $sql->where('typeasset = ' . $js->getId())->order('priority')->get();
+
+            $content = array();
+
+            if (count($res)) {
+                foreach ($res as $row) {
+                    $content[] = '// ' . $row->getName() . "\n" . $row->getCode();
+                }
+            }
+            header("content-type: text/javascript; charset: utf-8");
+            header("cache-control: must-revalidate");
+            $expire = "expires: " . gmdate("D, d M Y H:i:s", strtotime("+1 year")) . " GMT";
+            header($expire);
+            die(implode("\n", $content));
         }
 
         public function postDispatch()

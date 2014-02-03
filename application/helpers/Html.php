@@ -16,13 +16,13 @@
         public static function isPage($page)
         {
             $url = static::url();
-            return strstr($url, $page);
+            return strstr($url, $page) ? true : false;
         }
 
         public static function isPost()
         {
             if (count($_POST)) {
-                if (!ake('app_language', $_POST)) {
+                if (!ake('app_language', $_POST) && !ake('cms_language', $_POST)) {
                     return true;
                 }
             }
@@ -94,21 +94,21 @@
         {
             $options = '';
             if (can($type, 'view')) {
-                $options .= '<td class="pull-center" style="text-align: center; font-size: 120%;"><a href="'.URLSITE.'backadmin/item_view/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '"><i title="afficher" class="icon-file"></i></a>&nbsp;&nbsp;&nbsp;';
+                $options .= '<td class="pull-center" style="text-align: center; font-size: 120%;"><a href="' . URLSITE . 'backadmin/item_view/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '"><i title="afficher" class="icon-file"></i></a>&nbsp;&nbsp;&nbsp;';
             }
             if (can($type, 'duplicate')) {
-                $options .= '<a href="'.URLSITE.'backadmin/item_duplicate/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '"><i title="dupliquer" class="icon-copy"></i></a>&nbsp;&nbsp;&nbsp;';
+                $options .= '<a href="' . URLSITE . 'backadmin/item_duplicate/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '"><i title="dupliquer" class="icon-copy"></i></a>&nbsp;&nbsp;&nbsp;';
             }
             if (can($type, 'edit')) {
-                $options .= '<a href="'.URLSITE.'backadmin/item_edit/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '"><i title="éditer" class="icon-edit"></i></a>&nbsp;&nbsp;&nbsp;';
+                $options .= '<a href="' . URLSITE . 'backadmin/item_edit/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '"><i title="éditer" class="icon-edit"></i></a>&nbsp;&nbsp;&nbsp;';
             }
             if (!strlen($plus)) {
                 if (can($type, 'delete')) {
-                    $options .= '<a href="#" onclick="if (confirm(\'Confirmez-vous la suppression de cet élément ?\')) document.location.href = \''.URLSITE.'backadmin/item_delete/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '\'; return false;"><i title="supprimer" class="icon-trash"></i></a></td>';
+                    $options .= '<a href="#" onclick="if (confirm(\'Confirmez-vous la suppression de cet élément ?\')) document.location.href = \'' . URLSITE . 'backadmin/item_delete/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '\'; return false;"><i title="supprimer" class="icon-trash"></i></a></td>';
                 }
             } else {
                 if (can($type, 'delete')) {
-                    $options .= '<a href="#" onclick="if (confirm(\'Confirmez-vous la suppression de cet élément ?\')) document.location.href = \''.URLSITE.'backadmin/item_delete/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '\'; return false;"><i title="supprimer" class="icon-trash"></i></a>' . $plus . '</td>';
+                    $options .= '<a href="#" onclick="if (confirm(\'Confirmez-vous la suppression de cet élément ?\')) document.location.href = \'' . URLSITE . 'backadmin/item_delete/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '\'; return false;"><i title="supprimer" class="icon-trash"></i></a>' . $plus . '</td>';
                 }
             }
             return $options;
@@ -132,7 +132,11 @@
         {
             $type       = $config['entity'];
             $db         = new Querydata($type);
-            $data       = $db->all()->order($config['sort'])->get();
+            if (!ake('sortOrder', $config)) {
+                $data   = $db->all()->order($config['sort'])->get();
+            } else {
+                $data   = $db->all()->order($config['sort'], $config['sortOrder'])->get();
+            }
             $settings   = ake($type, Data::$_settings) ? Data::$_settings[$type] : array();
             $require    = (true === $config['required']) ? 'required' : '';
             $val        = (ake($config['id'], $_POST)) ? $_POST[$config['id']] : '';
@@ -172,8 +176,11 @@
         {
             $type       = $config['entity'];
             $db         = new Querydata($type);
-
-            $data       = $db->all()->order($config['sort'])->get();
+            if (!ake('sortOrder', $config)) {
+                $data   = $db->all()->order($config['sort'])->get();
+            } else {
+                $data   = $db->all()->order($config['sort'], $config['sortOrder'])->get();
+            }
 
             $html = '<select id="' . $config['id'] . '">';
             $html .= '<option value="">Choisir</option>';
@@ -203,7 +210,7 @@
             $orderDirection = (null === request()->getOrderDirection()) ? (ake('orderListDirection', $settings)) ? $settings['orderListDirection'] : 'DESC' : request()->getOrderDirection();
 
 
-            $html = '<form action="'.URLSITE.'backadmin/item/' . $type . '" id="listForm" method="post">
+            $html = '<form action="' . URLSITE . 'backadmin/item/' . $type . '" id="listForm" method="post">
             <input type="hidden" name="page" id="page" value="' . $page . '" /><input type="hidden" name="order" id="order" value="' . $order . '" /><input type="hidden" name="order_direction" id="order_direction"  value="' . $orderDirection . '" /><input type="hidden" id="where" name="where" value="' . \Thin\Crud::checkEmpty('where') .'" /><input type="hidden" id="type_export" name="type_export" value="" />
             <table style="clear: both;" class="table table-striped tablesorter table-bordered table-condensed table-hover">
                         <thead>
@@ -276,7 +283,7 @@
                     $search .= '<div class="control-group">' . NL;
                     $search .= '<label class="control-label">' . \Thin\Html\Helper::display($label) . '</label>' . NL;
                     $search .= '<div class="controls" id="crudControl_' . $i . '">' . NL;
-                    $search .= '<select id="crudSearchOperator_' . $i . '">
+                    $search .= '<select style="width: 250px;" id="crudSearchOperator_' . $i . '">
                     <option value="=">=</option>
                     <option value="LIKE">Contient</option>
                     <option value="NOT LIKE">Ne contient pas</option>
@@ -289,10 +296,10 @@
                     </select>' . NL;
                     $contentSearch = ake('type', $infosField);
                     if (false === $contentSearch) {
-                        $search .= '<input type="text" id="crudSearchValue_' . $i . '" value="" />';
+                        $search .= '<input style="width: 40%;" type="text" id="crudSearchValue_' . $i . '" value="" />';
                     } else {
                         if ('data' == $infosField['type']) {
-                            $search  .= \ThinHelper\Html::formSearchSelectEntity(
+                            $confData  = \ThinHelper\Html::formSearchSelectEntity(
                                 array(
                                     'entity'    => $infosField['entity'],
                                     'id'        => 'crudSearchValue_' . $i,
@@ -301,10 +308,11 @@
                                     'fields'    => $infosField['fields']
                                 )
                             );
+                            $search  .= repl('<select ', '<select style="width: 40%;" ', $confData);
                         } elseif ('custom' == $infosField['type'] && ake('customSearch', $infosField)) {
                             $search  .= Data::evaluate($infosField['customSearch'], array('i' => $i));
                         } else {
-                            $search .= '<input type="text" id="crudSearchValue_' . $i . '" value="" />';
+                            $search .= '<input style="width: 40%;" type="text" id="crudSearchValue_' . $i . '" value="" />';
                         }
                     }
                     $search .= '&nbsp;&nbsp;<span class="btn btn-success" href="#" onclick="addRowSearch(\'' . $field . '\', ' . $i . '); return false;"><i class="icon-plus"></i></span>';

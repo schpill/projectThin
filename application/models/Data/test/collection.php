@@ -1,13 +1,14 @@
 <?php
     return array(
-            'fields' => array(
-                'name'    => array('label' => 'Nom')
+        'fields' => array(
+            'name'    => array('label' => 'Nom')
+        ),
+        'settings' => array(
+            'relationships' => array(
+                'objects' => array('type' => 'manyToMany', 'onDelete' => 'cascade'),
             ),
-            'settings' => array(
-                'relationships' => array(
-                    'produits' => array('type' => 'manyToMany', 'onDelete' => 'cascade'),
-                ),
-                'orderList' => 'name',
-                'orderListDirection'    => 'ASC',
-            ),
-        );
+            'orderList'             => 'name',
+            'checkTuple'            => 'name',
+            'orderListDirection'    => 'ASC',
+        ),
+    );

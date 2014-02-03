@@ -1,8 +1,6 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700);
-@import url(http://fonts.googleapis.com/css?family=Exo+2:400,900italic,900,800italic,800,700italic,600italic,700,600,500italic,400italic,500,300italic,300,200italic,200,100italic,100);
-@import url(brandon.css);
-@import url(tgt.css);
-@import url(fonts/azo.css);
+@import url('//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700');
+@import url('//fonts.googleapis.com/css?family=Exo+2:400,900italic,900,800italic,800,700italic,600italic,700,600,500italic,400italic,500,300italic,300,200italic,200,100italic,100');
+@import url('//fonts.googleapis.com/css?family=Oswald:400,300,700&amp;subset=latin,latin-ext');
 
 @font-face {
     font-family: 'trenchthin';

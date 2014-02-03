@@ -3,60 +3,6 @@
 
     class Admin
     {
-        public static function makeSaisons($j = null)
-        {
-            $field = (null === $j) ? 'num' : 'crudSearchValue_' . $j;
-            $html   = '';
-            if (null === $j) {
-            $html   .= '<div class="control-group">
-                                    <label class="control-label" for="' . $field . '">Numéro</label>
-                                    <div class="controls">';
-            }
-            $html   .= '<select required name="' . $field . '" id="' . $field . '"><option value="">Choisir</option>';
-            $num    = (null !== request()->getNum()) ? request()->getNum() : '';
-            for ($i = 1 ; $i <= 100 ; $i++) {
-                if ($i <> $num) {
-                    $html .= '<option value="Saison ' . $i . '">Saison ' . $i . '</option>';
-                } else {
-                    $html .= '<option value="Saison ' . $i . '" selected>Saison ' . $i . '</option>';
-                }
-            }
-            $html .= '</select>';
-            if (null === $j) {
-            $html .= '
-                                    </div>
-                                </div>';
-            }
-            return $html;
-        }
-
-        public static function makeEpisodes($j = null)
-        {
-            $field  = (null === $j) ? 'num' : 'crudSearchValue_' . $j;
-            $html   = '';
-            if (null === $j) {
-            $html   .= '<div class="control-group">
-                                    <label class="control-label" for="' . $field . '">Numéro</label>
-                                    <div class="controls">';
-            }
-            $html   .= '<select required name="' . $field . '" id="' . $field . '"><option value="">Choisir</option>';
-            $num    = (null !== request()->getNum()) ? request()->getNum() : '';
-            for ($i = 1 ; $i <= 300 ; $i++) {
-                if ($i <> $num) {
-                    $html .= '<option value="Episode ' . $i . '">Episode ' . $i . '</option>';
-                } else {
-                    $html .= '<option value="Episode ' . $i . '" selected>Episode ' . $i . '</option>';
-                }
-            }
-            $html .= '</select>';
-            if (null === $j) {
-                $html .= '
-                                    </div>
-                                </div>';
-            }
-            return $html;
-        }
-
         public static function vocabulary(array $data, $id, $label, $required = true, $i = null)
         {
             $html   = '';
@@ -410,5 +356,27 @@
                 }
             }
             return '';
+        }
+
+        public static function displayMedia($media, $arg1 = null, $arg2 = null)
+        {
+            $imgExts = array(
+                'jpg',
+                'jpeg',
+                'png',
+                'gif',
+                'bmp'
+            );
+            $mediaLower = \Thin\Inflector::lower($media);
+            $tab        = explode('/', $mediaLower);
+            $last       = \Thin\Arrays::last($tab);
+            $tabExts    = explode('.', $last);
+            $ext        = \Thin\Arrays::last($tabExts);
+
+            if (\Thin\Arrays::inArray($ext, $imgExts)) {
+                return '<a href="' . $media . '" target="_media"><img style="width: 150px;" src="' . $media . '" /></a>';
+            } else {
+                return '<a href="' . $media . '" target="_media">' . $last . '</a>';
+            }
         }
     }

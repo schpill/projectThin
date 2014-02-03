@@ -24,6 +24,7 @@
         <link href="<?php urlsite(); ?>assets/css/admin.min.css" media="screen" rel="stylesheet" type="text/css" />
         <link href="<?php urlsite(); ?>assets/css/responsive.css" media="screen" rel="stylesheet" type="text/css" />
         <link href="<?php urlsite(); ?>assets/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css" />
         <link href="<?php urlsite(); ?>assets/css/fontello.css" media="screen" rel="stylesheet" type="text/css" />
         <link href="<?php urlsite(); ?>assets/css/icomoon.css" rel="stylesheet" />
         <link href="<?php urlsite(); ?>assets/css/glyphicons.css" rel="stylesheet" />
@@ -32,14 +33,13 @@
         <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/0.0.11/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
         <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet" />
         <link href="<?php urlsite(); ?>assets/css/admin.css" media="screen" rel="stylesheet" type="text/css" />
-        <link href="<?php urlsite(); ?>assets/css/jquery.fancybox.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="//cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.css" media="screen" rel="stylesheet" type="text/css" />
         <script src="<?php urlsite(); ?>assets/js/jquery.min.js" type="text/javascript"></script>
         <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/locales/bootstrap-datepicker.fr.min.js" type="text/javascript"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/0.0.11/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
-        <script src="<?php urlsite(); ?>assets/js/jquery.fancybox.pack.js" type="text/javascript"></script>
-        <script src="<?php urlsite(); ?>assets/js/jquery.fancybox-media.js" type="text/javascript"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.pack.js" type="text/javascript"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
         <script src="<?php urlsite(); ?>assets/js/respond.js"></script>
         <script src="<?php urlsite(); ?>assets/js/css3.js"></script>
@@ -47,17 +47,62 @@
         <script src="<?php urlsite(); ?>assets/js/ph.js" type="text/javascript"></script>
         <script src="<?php urlsite(); ?>assets/js/script.js" type="text/javascript"></script>
         <script src="<?php urlsite(); ?>assets/js/web.js?<?php echo filemtime(container()->getServerDir() . DS . 'web' . DS . 'assets' . DS . 'js' . DS . 'web.js'); ?>" type="text/javascript"></script>
-        <script src="//cdn.wysibb.com/js/jquery.wysibb.min.js"></script>
+        <script src="<?php urlsite(); ?>assets/js/bb/jquery.wysibb.min.js"></script>
         <script src="<?php urlsite(); ?>assets/js/bbfr.js"></script>
-        <link rel="stylesheet" href="//cdn.wysibb.com/css/default/wbbtheme.css" type="text/css" />
+        <link rel="stylesheet" href="<?php urlsite(); ?>assets/js/bb/themes/default/wbbtheme.css" type="text/css" />
         <script>
             CURLANG = WBBLANG['fr'] || WBBLANG['en'] || CURLANG;
             $(document).ready(function() {
+                $('[rel=tooltip]').tooltip({
+                    placement: 'bottom'
+                });
+
                 $(".wysibb").wysibb();
+
+                $('.managerLink').fancybox({
+                    'width'     : 900,
+                    'height'    : 600,
+                    'type'      : 'iframe',
+                    'autoScale' : false
+                });
+
+                var offset      = 100;
+                var duration    = 250;
+
+                $(window).scroll(function() {
+                    if ($(this).scrollTop() > offset) {
+                        $('.secondRight').show();
+                        $('#start').css('margin-top', 140);
+                        $('#topOfTheTop').slideUp(duration);
+                    } else {
+                        $('#start').css('margin-top', 0);
+                        $('.secondRight').hide();
+                        $('#topOfTheTop').slideDown(duration);
+                    }
+                });
+
+                $('.goToTop').click(function(event) {
+                    event.preventDefault();
+                    $('html, body').animate({scrollTop: 0}, duration);
+                    return false;
+                })
             });
             var _Thin = new Thin();
+
+
         </script>
+        <style type="text/css" media="screen">
+            .thinEditor {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                height: 450px;
+            }
+        </style>
         <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+        <script src="<?php urlsite(); ?>assets/js/code/ace.js" type="text/javascript" charset="utf-8"></script>
         <script type="text/javascript" src="<?php urlsite(); ?>assets/js/web.js"></script>
         <script>
         tinymce.init({
@@ -67,23 +112,27 @@
             width: 800,
             height: 400,
             plugins: [
-                 "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+                 "code advlist autolink link image lists charmap print preview hr anchor pagebreak",
                  "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
                  "table contextmenu directionality emoticons paste textcolor responsivefilemanager"
-           ],
-           toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
-           toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
-           image_advtab: true ,
+            ],
+            toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+            toolbar2: "| code | responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+            image_advtab: true ,
+            language_url : '<?php urlsite(); ?>assets/editor/langs/fr_FR.js',
 
-           external_filemanager_path: "/assets/editor/filemanager/",
-           filemanager_title: "Gestion media" ,
-           external_plugins: { "responsivefilemanager" : "/assets/editor/js/plugin.min.js"}
+
+            external_filemanager_path: "<?php urlsite(); ?>assets/editor/filemanager/",
+
+            filemanager_title: "Gestion media" ,
+
+            external_plugins: { "responsivefilemanager" : "<?php urlsite(); ?>assets/editor/js/plugin.min.js"}
         });
         </script>
     </head>
     <body>
         <div id="mainMenu" class="navbar navbar-fixed-top">
-            <div class="container">
+            <div id="topOfTheTop" class="container">
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -92,9 +141,9 @@
                 <div class="nav-collapse collapse" id="navbar-main">
                     <ul class="nav navbar-nav">
                         <li>
-                            <h1 class="brand thinFont">
-                                <a href="<?php urlsite(); ?>backadmin/dashboard">
-                                    <i class="icon-cogs"></i> <?php echo $this->titleAdmin; ?> - Admin
+                            <h1>
+                                <a class="cmsLogo" href="<?php urlsite(); ?>backadmin/dashboard">
+                                    <?php echo $this->titleAdmin; ?> - Admin
                                 </a>
                             </h1>
                         </li>
@@ -102,41 +151,135 @@
                     <ul class="nav navbar-nav pull-right">
                         <?php $session = session('admin'); ?>
                         <?php if (null !== $session->getUser()): ?>
-                        <?php if (container()->getAction() != 'dashboard' && container()->getAction() != 'no-right'): ?>
-                        <li><a href="#" onclick="thinMenu(); return false;"><i class="icon-tasks"></i> Tables</a></li>
-                        <?php endif; ?>
-                        <li><a target="_site" href="<?php urlsite(); ?>"><i class="icon-external-link"></i> Afficher le site</a></li>
-                        <li><a href="<?php urlsite(); ?>backadmin/logout"><i class="icon-off"></i> Déconnexion</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle openHover" data-toggle="dropdown" href="#" onclick="return false;"><i class="icon-user"></i> <?php echo $session->getUser()->getFirstname(); ?> <?php echo $session->getUser()->getName(); ?> <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?php urlsite(); ?>backadmin/tasks"><i class="icon-tasks"></i> Mes tâches</a></li>
+                                <li><a href="<?php urlsite(); ?>backadmin/logout"><i class="icon-off"></i> Déconnexion</a></li>
+                            </ul>
+                        </li>
                         <?php endif; ?>
                     </ul>
                 </div>
             </div>
-        </div>
         <?php if (null !== $session->getUser()): ?>
-        <?php if (container()->getAction() != 'dashboard' && container()->getAction() != 'no-right'): ?>
-        <div id="thinLeftMenu">
-            <div class="row">
-                <div class="span12" style="font-size: 50px;"><a class="pull-right" href="#" onclick="thinMenu(); return false;" onmouseover="this.style.textDecoration = 'none'"><i class="icon-remove"></i></a></div>
-                <div class="span12">
-                    <?php $i = 0; foreach ($this->types as $type): ?>
-                    <?php if (ake($type, \Thin\Data::$_fields) && ake($type, \Thin\Data::$_rights)):
-                    $i++; ?>
-                    <div class="btn-group span3">
-                        <button class="btn btn-large btn-success dropdown-toggle openHover" data-toggle="dropdown"><?php echo ucfirst(\Thin\Inflector::lower(\Thin\Html\Helper::adminPlural($type))); ?> <span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                            <?php if(can($type, 'list')): ?><li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="icon-list"></i> Liste</a></li><?php endif; ?>
-                            <?php if(can($type, 'add')): ?><li><a href="<?php urlsite(); ?>backadmin/item_add/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="icon-plus"></i> Ajouter</a></li><?php endif; ?>
-                            <?php if(can($type, 'import')): ?><li><a href="<?php urlsite(); ?>backadmin/import-<?php echo \Thin\Html\Helper::display($type); ?>"><i class="icon-folder-open"></i> Importer</a></li><?php endif; ?>
-                            <?php if(can($type, 'empty_cache')): ?><li class="divider"></li>
-                            <li><a href="<?php urlsite(); ?>backadmin/emptyCache-<?php echo \Thin\Html\Helper::display($type); ?>"><i class="icon-trash"></i> Vider le cache</a></li><?php endif; ?>
-                        </ul>
-                    </div>
-                    <?php if (0 === $i % 3): ?></div></div><hr style="color: #2C3E50;" /><div class="row"><div class="span12"><?php endif; ?>
+            <div class="container">
+                <div class="nav-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle openHover" data-toggle="dropdown" href="#">
+                                <i class="fa fa-edit"></i> Contenus <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <?php $type = 'block'; ?>
+                                <?php if(can($type, 'list')): ?>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-files-o"></i> Blocs</a></li>
+                                <?php endif; ?>
+                                <?php $type = 'partial'; ?>
+                                <?php if(can($type, 'list')): ?>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-files-o"></i> Partiels</a></li>
+                                <?php endif; ?>
+                                <?php $type = 'tag'; ?>
+                                <?php if(can($type, 'list')): ?>
+                                <li class="divider"></li>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-tags"></i> Tags</a></li>
+                                <?php endif; ?>
+                                <?php $type = 'tagpage'; ?>
+                                <?php if(can($type, 'list')): ?>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-cog"></i> Tags par page</a></li>
+                                <?php endif; ?>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle openHover" data-toggle="dropdown" href="#">
+                                <i class="fa fa-cogs"></i> Données <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <?php $type = 'customtype'; ?>
+                                <?php if(can($type, 'list')): ?>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-list"></i> Gestion des tables</a></li>
+                                <?php endif; ?>
+                                <?php $cts = \Thin\Data::getAll('customtype'); ?>
+                                <?php if(count($cts)): ?>
+                                    <li class="divider"></li>
+                                    <?php foreach($cts as $ct):
+                                    $table = \Thin\Data::getIt('customtype', $ct);
+                                    $tableDisplay = ucfirst(repl('custom_', '', strtolower($table->getEntity())));
+                                    ?>
+                                        <li><a href="<?php urlsite(); ?>backadmin/item/custom_<?php echo \Thin\Html\Helper::display($table->getEntity()); ?>"><i class="fa fa-list"></i> <?php echo $tableDisplay; ?></a></li>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle openHover" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i> Outils <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <?php $type = 'option'; ?>
+                                <?php if(can($type, 'list')): ?>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-cogs"></i> Options du site</a></li>
+                                <?php endif; ?>
+                                <?php $type = 'snippet'; ?>
+                                <?php if(can($type, 'list')): ?>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-cogs"></i> Snippets</a></li>
+                                <?php endif; ?>
+                                <?php $type = 'collection'; ?>
+                                <?php if(can($type, 'list')): ?>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-cogs"></i> Collections</a></li>
+                                <?php endif; ?>
+                                <?php $type = 'object'; ?>
+                                <?php if(can($type, 'list')): ?>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-list"></i> Objets</a></li>
+                                <?php endif; ?>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle openHover" data-toggle="dropdown" href="#">
+                                <i class="fa fa-picture-o"></i> Médias <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?php urlsite(); ?>assets/editor/filemanager/dialog.php?type=0&amp;lang=fr_FR" class="managerLink"><i class="fa fa-cloud-upload fa-white"></i> Manager</a></li>
+                            </ul>
+                        </li>
+                        <?php if(can('adminright', 'list') && can('admintable', 'list') && can('adminuser', 'list')): ?>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle openHover" data-toggle="dropdown" href="#">
+                                <i class="fa fa-legal"></i> Administration <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display('adminuser'); ?>"><i class="fa fa-group"></i> Utilisateurs</a></li>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display('adminright'); ?>"><i class="fa fa-key"></i> Habilitations</a></li>
+                                <li class="divider"></li>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display('admintask'); ?>"><i class="fa fa-tasks"></i> Tâches</a></li>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display('admintasktype'); ?>"><i class="fa fa-cogs"></i> Types de tâches</a></li>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display('admintaskstatus'); ?>"><i class="fa fa-cogs"></i> Statuts des tâches</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle openHover" data-toggle="dropdown" href="#">
+                                <i class="fa fa-money"></i> Facturation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display('admincompany'); ?>"><i class="fa fa-ticket"></i> Sociétés</a></li>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display('adminclient'); ?>"><i class="fa fa-group"></i> Clients</a></li>
+                                <li class="divider"></li>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display('admininvoice'); ?>"><i class="fa fa-files-o"></i> Factures</a></li>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display('adminproduct'); ?>"><i class="icon-list"></i> Produits facturables</a></li>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display('admininvoicerow'); ?>"><i class="icon-plus"></i> Facturer</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                     <?php endif; ?>
-                    <?php endforeach; ?>
+                    <ul class="nav navbar-nav pull-right secondRight" style="display: none;">
+                        <li><a rel="tooltip" title="Tableau de bord" href="<?php urlsite(); ?>backadmin/dashboard"><i class="fa fa-home fa-white"></i></a></li>
+                        <li><a rel="tooltip" title="Mes tâches" href="<?php urlsite(); ?>backadmin/tasks"><i class="icon-tasks"></i></a></li>
+                        <li><a target="_site" rel="tooltip" title="Afficher le site" href="<?php echo repl('https', 'http', URLSITE); ?>"><i class="icon-external-link"></i></a></li>
+                        <li><a rel="tooltip" title="Déconnexion" href="<?php urlsite(); ?>backadmin/logout"><i class="icon-off"></i></a></li>
+                        <li rel="tooltip" title="Haut de page" class="goToTop"><a href="#" onclick="return false;"><i class="fa fa-arrow-circle-up fa-white"></i></a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="row-fluid"><div class="span12">&nbsp;</div></div>
+        <?php endif; ?>
         </div>
-        <?php endif; ?>
-        <?php endif; ?>
+        <div id="start">

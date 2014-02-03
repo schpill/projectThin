@@ -1,3 +1,4 @@
+@import url("//fonts.googleapis.com/css?family=Passion+One:400,700,900&amp;subset=latin,latin-ext");
 section {
     margin-top: 40px;
     padding-top: 50px;
@@ -907,7 +908,7 @@ ul.the-icons {
     font-size: 16px;
     line-height: 24px;
 }
-.icon-48 {
+.icon-48, .cmsLogo {
     width: 32px;
     height: 32px;
     padding:8px;
@@ -929,9 +930,10 @@ ul.the-icons {
     line-height: 60px;
 }
 
-h1,h2,h3,h4,h5,h6 {
-    font-family: tgt;
-    font-weight: 900;
+h1,h2,h3,h4,h5,h6, .cmsLogo {
+    font-family: 'Passion One';
+    text-transform:uppercase;
+    font-weight: 700;
 }
 
 .page-header h1 {
@@ -943,6 +945,24 @@ input,select,textarea {
     }
 .comments-form input {
     width: 20%;
-    }
+}
 
 .dropdown-menu > li > a {font-weight: bold;}
+
+* {
+    font-family: Oswald;
+    font-weight:300;
+    font-size:18px;
+}
+
+label {
+    text-transform: uppercase;
+}
+.control-label, .controls {
+    font-size: 18px !important;
+    text-align: left !important;
+}
+
+.page {
+    margin-top: 120px;
+}

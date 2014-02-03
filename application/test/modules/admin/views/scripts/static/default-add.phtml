@@ -3,7 +3,7 @@
     CURLANG = WBBLANG['fr'] || WBBLANG['en'] || CURLANG;
 </script>
 <!-- Main Content -->
-    <div id="content" role="main">
+    <div id="content" role="main" class="page">
         <section class="section">
             <div class="container">
                 <div class="page-header">
@@ -21,6 +21,7 @@
                                 <?php $label = (ake('label', $content)) ? $content['label'] : ucfirst(\Thin\Inflector::lower($field)); ?>
                                 <?php $placeholder = (ake('placeholder', $content)) ? $content['placeholder'] : $label; ?>
                                 <?php if (!ake('type', $content)): ?>
+                                <?php if (!ake('isTranslated', $content)): ?>
                                 <div class="control-group">
                                     <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
                                     <div class="controls">
@@ -28,39 +29,114 @@
                                     </div>
                                 </div>
                                 <?php endif; ?>
+                                <?php if (ake('isTranslated', $content)): ?>
+                                <?php if (true === $content['isTranslated']): ?>
+                                    <div class="control-group">
+                                        <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                                        <div class="controls">
+                                            <ul class="nav nav-tabs">
+                                            <?php $first = true; foreach($this->cms_languages as $lng): ?>
+                                                <li class="<?php if (true === $first): ?>active<?php endif; ?>"><a href="#<?php echo $field; ?>_<?php echo strtolower($lng); ?>" data-toggle="tab"><img src="<?php urlsite(); ?>assets/img/flags/<?php echo strtolower($lng); ?>.png"></a></li>
+                                            <?php $first = false; endforeach; ?>
+                                            </ul>
+                                            <div class="tabbable">
+                                                <div class="tab-content">
+                                                <?php $first = true; foreach($this->cms_languages as $lng): ?>
+                                                    <div class="tab-pane<?php if (true === $first): ?> active<?php endif; ?>" id="<?php echo $field; ?>_<?php echo strtolower($lng); ?>">
+                                                        <input type="text" <?php echo $required; ?> name="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" id="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" placeholder="<?php echo $placeholder; ?>" />
+                                                    </div>
+                                                <?php $first = false; endforeach; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                                <?php endif; ?>
+                                <?php endif; ?>
                                 <?php if (ake('type', $content)): ?>
                                     <?php if ('data' == $content['type']): ?>
-                                        <?php \ThinHelper\Html::formSelectEntity(
-                                                array(
-                                                    'entity' => $content['entity'],
-                                                    'required' => (!empty($required)) ? true : false,
-                                                    'id' => $field,
-                                                    'label' => $label,
-                                                    'sort' => $content['sort'],
-                                                    'fields' => $content['fields']
-                                                )
-                                            );
+                                        <?php
+                                        $config = array(
+                                            'entity'    => $content['entity'],
+                                            'required'  => (!empty($required)) ? true : false,
+                                            'id'        => $field,
+                                            'label'     => $label,
+                                            'sort'      => $content['sort'],
+                                            'fields'    => $content['fields']
+                                        );
+                                        if (ake('sortOrder', $content)) {
+                                            $config['sortOrder'] = $content['sortOrder'];
+                                        }
+                                        \ThinHelper\Html::formSelectEntity($config);
                                         ?>
                                     <?php endif; ?>
                                     <?php if ('custom' == $content['type']): ?>
                                         <?php echo \Thin\Data::evaluate($content['custom']); ?>
                                     <?php endif; ?>
-                                    <?php if ('image' == $content['type']): $settings = ake('settings', $content) ? $content['settings'] : array(); ?>
+                                    <?php if ('image' == $content['type']): ?>
                                         <?php \ThinHelper\Html::formUploadImage($label, $field, false, null, $this->type); ?>
                                     <?php endif; ?>
-                                    <?php if ('file' == $content['type']): $settings = ake('settings', $content) ? $content['settings'] : array(); ?>
+                                    <?php if ('file' == $content['type']): ?>
                                         <?php \ThinHelper\Html::formUploadFile($label, $field, false, null, $this->type); ?>
                                     <?php endif; ?>
-                                    <?php if ('textarea' == $content['type']): ?>
+
+                                    <?php if ('code' == $content['type']): ?>
                                         <div class="control-group">
                                             <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
                                             <div class="controls">
                                                 <div class="sep"></div>
-                                                <textarea <?php echo $required; ?> style="width: 500px; height; 250px;" name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>"></textarea>
+                                                <input type="hidden" id="<?php echo $field; ?>" name="<?php echo $field; ?>" />
+                                                <pre <?php echo $required; ?> class="thinEditor" id="<?php echo $field; ?>_editor"></pre>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            var editor_<?php echo $field; ?> = ace.edit("<?php echo $field; ?>_editor");
+                                            editor_<?php echo $field; ?>.setFontSize(22);
+                                            editor_<?php echo $field; ?>.setTheme("ace/theme/monokai");
+                                            editor_<?php echo $field; ?>.getSession().setMode("ace/mode/php");
+                                            $('#form_add').submit(function(event) {
+                                                var contents = editor_<?php echo $field; ?>.getSession().getValue();
+                                                $('#<?php echo $field; ?>').val(contents);
+                                            });
+                                        </script>
+                                    <?php endif; ?>
+
+                                    <?php if ('textarea' == $content['type']): ?>
+                                    <?php if (!ake('isTranslated', $content)): ?>
+                                        <div class="control-group">
+                                            <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                                            <div class="controls">
+                                                <div class="sep"></div>
+                                                <textarea <?php echo $required; ?> style="width: 100%; height: 400px;" name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>"></textarea>
                                             </div>
                                         </div>
                                     <?php endif; ?>
+                                    <?php if (ake('isTranslated', $content)): ?>
+                                    <?php if (true === $content['isTranslated']): ?>
+                                        <div class="control-group">
+                                            <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                                            <div class="controls">
+                                                <ul class="nav nav-tabs">
+                                                <?php $first = true; foreach($this->cms_languages as $lng): ?>
+                                                    <li class="<?php if (true === $first): ?>active<?php endif; ?>"><a href="#<?php echo $field; ?>_<?php echo strtolower($lng); ?>" data-toggle="tab"><img src="<?php urlsite(); ?>assets/img/flags/<?php echo strtolower($lng); ?>.png"></a></li>
+                                                <?php $first = false; endforeach; ?>
+                                                </ul>
+                                                <div class="tabbable">
+                                                    <div class="tab-content">
+                                                    <?php $first = true; foreach($this->cms_languages as $lng): ?>
+                                                        <div class="tab-pane<?php if (true === $first): ?> active<?php endif; ?>" id="<?php echo $field; ?>_<?php echo strtolower($lng); ?>">
+                                                            <textarea <?php echo $required; ?> style="width: 100%; height: 400px;" name="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" id="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" placeholder="<?php echo $placeholder; ?>"></textarea>
+                                                        </div>
+                                                    <?php $first = false; endforeach; ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php endif; ?>
+                                    <?php endif; ?>
                                     <?php if ('editor' == $content['type']): ?>
+                                    <?php if (!ake('isTranslated', $content)): ?>
                                         <div class="control-group">
                                             <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
                                             <div class="controls">
@@ -69,7 +145,40 @@
                                             </div>
                                         </div>
                                     <?php endif; ?>
+                                    <?php if (ake('isTranslated', $content)): ?>
+                                    <?php if (true === $content['isTranslated']): ?>
+                                        <div class="control-group">
+                                            <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                                            <div class="controls">
+                                                <ul class="nav nav-tabs">
+                                                <?php $first = true; foreach($this->cms_languages as $lng): ?>
+                                                    <li class="<?php if (true === $first): ?>active<?php endif; ?>"><a href="#<?php echo $field; ?>_<?php echo strtolower($lng); ?>" data-toggle="tab"><img src="<?php urlsite(); ?>assets/img/flags/<?php echo strtolower($lng); ?>.png"></a></li>
+                                                <?php $first = false; endforeach; ?>
+                                                </ul>
+                                                <div class="tabbable">
+                                                    <div class="tab-content">
+                                                    <?php $first = true; foreach($this->cms_languages as $lng): ?>
+                                                        <div class="tab-pane<?php if (true === $first): ?> active<?php endif; ?>" id="<?php echo $field; ?>_<?php echo strtolower($lng); ?>">
+                                                            <textarea <?php echo $required; ?> class="thinWysiwyg" name="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" id="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]"></textarea>
+                                                        </div>
+                                                    <?php $first = false; endforeach; ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php endif; ?>
+                                    <?php endif; ?>
+                                    <?php if ('password' == $content['type']): ?>
+                                    <div class="control-group">
+                                        <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                                        <div class="controls">
+                                            <input type="password" <?php echo $required; ?> name="<?php echo $field; ?>" id="<?php echo $field; ?>" />
+                                        </div>
+                                    </div>
+                                    <?php endif; ?>
                                     <?php if ('date' == $content['type']): ?>
+                                    <?php if (!ake('isTranslated', $content)): ?>
                                         <div class="control-group">
                                             <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
                                             <div class="controls">
@@ -77,7 +186,32 @@
                                             </div>
                                         </div>
                                     <?php endif; ?>
+                                    <?php if (ake('isTranslated', $content)): ?>
+                                    <?php if (true === $content['isTranslated']): ?>
+                                        <div class="control-group">
+                                            <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                                            <div class="controls">
+                                                <ul class="nav nav-tabs">
+                                                <?php $first = true; foreach($this->cms_languages as $lng): ?>
+                                                    <li class="<?php if (true === $first): ?>active<?php endif; ?>"><a href="#<?php echo $field; ?>_<?php echo strtolower($lng); ?>" data-toggle="tab"><img src="<?php urlsite(); ?>assets/img/flags/<?php echo strtolower($lng); ?>.png"></a></li>
+                                                <?php $first = false; endforeach; ?>
+                                                </ul>
+                                                <div class="tabbable">
+                                                    <div class="tab-content">
+                                                    <?php $first = true; foreach($this->cms_languages as $lng): ?>
+                                                        <div class="tab-pane<?php if (true === $first): ?> active<?php endif; ?>" id="<?php echo $field; ?>_<?php echo strtolower($lng); ?>">
+                                                            <input class="datepicker" type="text" <?php echo $required; ?> name="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" id="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" placeholder="<?php echo $placeholder; ?>" />
+                                                        </div>
+                                                    <?php $first = false; endforeach; ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php endif; ?>
+                                    <?php endif; ?>
                                     <?php if ('html' == $content['type']): ?>
+                                    <?php if (!ake('isTranslated', $content)): ?>
                                         <div class="control-group">
                                             <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
                                             <div class="controls">
@@ -90,6 +224,35 @@
                                                 $("#<?php echo $field; ?>").wysibb();
                                             });
                                         </script>
+                                    <?php endif; ?>
+                                    <?php if (ake('isTranslated', $content)): ?>
+                                    <?php if (true === $content['isTranslated']): ?>
+                                        <div class="control-group">
+                                            <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                                            <div class="controls">
+                                                <ul class="nav nav-tabs">
+                                                <?php $first = true; foreach($this->cms_languages as $lng): ?>
+                                                    <li class="<?php if (true === $first): ?>active<?php endif; ?>"><a href="#<?php echo $field; ?>_<?php echo strtolower($lng); ?>" data-toggle="tab"><img src="<?php urlsite(); ?>assets/img/flags/<?php echo strtolower($lng); ?>.png"></a></li>
+                                                <?php $first = false; endforeach; ?>
+                                                </ul>
+                                                <div class="tabbable">
+                                                    <div class="tab-content">
+                                                    <?php $first = true; foreach($this->cms_languages as $lng): ?>
+                                                        <div class="tab-pane<?php if (true === $first): ?> active<?php endif; ?>" id="<?php echo $field; ?>_<?php echo strtolower($lng); ?>">
+                                                            <textarea style="width: 100%;" name="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" id="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" placeholder="<?php echo $placeholder; ?>"></textarea>
+                                                        </div>
+                                                        <script>
+                                                            $(document).ready(function() {
+                                                                $("#<?php echo $field; ?>[<?php echo strtolower($lng); ?>]").wysibb();
+                                                            });
+                                                        </script>
+                                                    <?php $first = false; endforeach; ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php endif; ?>
                                     <?php endif; ?>
                                 <?php endif; ?>
                             <?php endforeach; ?>
@@ -107,4 +270,3 @@
         </section>
     </div>
 <?php includes('partials/footer/classic.phtml'); ?>
-
