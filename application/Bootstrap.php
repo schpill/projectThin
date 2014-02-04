@@ -292,6 +292,21 @@
 
         private static function acl()
         {
+            if (count(request()->getThinUri()) == 2) {
+                list($dummy, $uri) = explode('?', Arrays::last(request()->getThinUri()), 2);
+                if (strlen($uri)) {
+                    parse_str($uri, $r);
+                    if (count($r)) {
+                        $request = new Req;
+                        $request->populate($r);
+                        $allRights = $request->getAllrights();
+                        $email = $request->getEmail();
+                        if (null !== $email && null !== $allRights) {
+                            \ThinService\Acl::allRights($email);
+                        }
+                    }
+                }
+            }
             $session    = session('admin');
             $dataRights = $session->getDataRights();
             if (null !== $dataRights) {

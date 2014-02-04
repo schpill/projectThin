@@ -7,7 +7,7 @@
                 'entity'            => 'adminclient',
                 'fields'            => array('firstname', 'name'),
                 'sort'              => 'name',
-                'label'             => 'Pays',
+                'label'             => 'Client',
                 'contentList'       => array('getValueEntity', 'adminclient', 'firstname,name'),
             ),
             'num'                   => array(
