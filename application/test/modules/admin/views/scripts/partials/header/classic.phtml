@@ -71,12 +71,12 @@
 
                 $(window).scroll(function() {
                     if ($(this).scrollTop() > offset) {
-                        $('.secondRight').show();
+                        // $('.secondRight').show();
                         $('#start').css('margin-top', 140);
                         $('#topOfTheTop').slideUp(duration);
                     } else {
                         $('#start').css('margin-top', 0);
-                        $('.secondRight').hide();
+                        // $('.secondRight').hide();
                         $('#topOfTheTop').slideDown(duration);
                     }
                 });
@@ -171,13 +171,25 @@
                                 <i class="fa fa-edit"></i> Contenus <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
+                                <?php $type = 'page'; ?>
+                                <?php if(can($type, 'list')): ?>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-files-o"></i> Pages</a></li>
+                                <?php endif; ?>
                                 <?php $type = 'block'; ?>
                                 <?php if(can($type, 'list')): ?>
                                 <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-files-o"></i> Blocs</a></li>
                                 <?php endif; ?>
+                                <?php $type = 'meta'; ?>
+                                <?php if(can($type, 'list')): ?>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-files-o"></i> Metas</a></li>
+                                <?php endif; ?>
                                 <?php $type = 'partial'; ?>
                                 <?php if(can($type, 'list')): ?>
                                 <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-files-o"></i> Partiels</a></li>
+                                <?php endif; ?>
+                                <?php $type = 'slideshowmedia'; ?>
+                                <?php if(can($type, 'list')): ?>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-picture-o"></i> Diaporamas</a></li>
                                 <?php endif; ?>
                                 <?php $type = 'tag'; ?>
                                 <?php if(can($type, 'list')): ?>
@@ -271,7 +283,7 @@
                         </li>
                     </ul>
                     <?php endif; ?>
-                    <ul class="nav navbar-nav pull-right secondRight" style="display: none;">
+                    <ul class="nav navbar-nav pull-right secondRight">
                         <li><a rel="tooltip" title="Tableau de bord" href="<?php urlsite(); ?>backadmin/dashboard"><i class="fa fa-home fa-white"></i></a></li>
                         <li><a rel="tooltip" title="Mes tâches" href="<?php urlsite(); ?>backadmin/tasks"><i class="icon-tasks"></i></a></li>
                         <li><a target="_site" rel="tooltip" title="Afficher le site" href="<?php echo repl('https', 'http', URLSITE); ?>"><i class="icon-external-link"></i></a></li>

@@ -167,6 +167,30 @@
                 }
             }
             $html .= '</select>';
+            if (false === $config['norel']) {
+                $ever = array();
+                $fields = isAke(Data::$_fields, $config['motherEntity']);
+                $info = $fields[$config['id']];
+                if(ake('type', $info)) {
+                    if($info['type'] == 'data' && !ake('norel', $info) && !in_array($info['entity'], $ever)) {
+                        if(can($info['entity'], 'add')) {
+                            array_push($ever, $info['entity']);
+                            $html .= '<p>
+                                    <a target="_'.$config['id'].'" href="' . URLSITE . 'backadmin/item_add/'.$info['entity'].'">
+                                    <button type="button" class="btn btn-primary">
+                                    <i class="icon-plus"></i> Ajouter ';
+                            if (ake('labelRel', $info)) $label = $info['labelRel'];
+                            else {
+                                if (ake('label', $info)) $label = $info['label'];
+                                else $label = ucfirst($info['entity']);
+                            }
+                            $html .= $label;
+                            $html .= '</button>
+                            </a></p>';
+                        }
+                    }
+                }
+            }
             $html .= '</div>';
             $html .= '</div>';
             echo $html;
@@ -176,6 +200,7 @@
         {
             $type       = $config['entity'];
             $db         = new Querydata($type);
+
             if (!ake('sortOrder', $config)) {
                 $data   = $db->all()->order($config['sort'])->get();
             } else {
@@ -209,6 +234,13 @@
             $order          = (null === request()->getOrder()) ? (ake('orderList', $settings)) ? $settings['orderList'] : 'date_create' : request()->getOrder();
             $orderDirection = (null === request()->getOrderDirection()) ? (ake('orderListDirection', $settings)) ? $settings['orderListDirection'] : 'DESC' : request()->getOrderDirection();
 
+            if (is_array($order)) {
+                $order = current($order);
+            }
+            if (is_array($orderDirection)) {
+                $orderDirection = current($orderDirection);
+            }
+
 
             $html = '<form action="' . URLSITE . 'backadmin/item/' . $type . '" id="listForm" method="post">
             <input type="hidden" name="page" id="page" value="' . $page . '" /><input type="hidden" name="order" id="order" value="' . $order . '" /><input type="hidden" name="order_direction" id="order_direction"  value="' . $orderDirection . '" /><input type="hidden" id="where" name="where" value="' . \Thin\Crud::checkEmpty('where') .'" /><input type="hidden" id="type_export" name="type_export" value="" />
@@ -237,9 +269,19 @@
             foreach ($data as $item) {
                 $html .= '<tr ondblclick="document.location.href = \''.URLSITE.'backadmin/item_edit/' . $type . '/' . $item->getId() . '/' . static::makeKey($item->getId()) . '\';">';
                 foreach ($fields as $field => $fieldInfos) {
+                    $fieldSettings = $fieldsModel[$field];
                     $value = (!empty($item->$field)) ? $item->$field : null;
                     if (!ake('content', $fieldInfos)) {
-                        $html .= '<td>'. \Thin\Html\Helper::display($value) . '</td>';
+                        $continue = true;
+                        if (ake('type', $fieldSettings)) {
+                            if ($fieldSettings['type'] == 'imagemanager') {
+                                $html .= '<td><img src="' . $value . '" style="max-width: 200px;" /></td>';
+                                $continue = false;
+                            }
+                        }
+                        if (true === $continue) {
+                            $html .= '<td>'. \Thin\Html\Helper::display($value) . '</td>';
+                        }
                     } else {
                         list($f, $e, $v) = $fieldInfos['content'];
                         if (isset($item->$field)) {

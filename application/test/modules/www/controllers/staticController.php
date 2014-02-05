@@ -31,9 +31,16 @@
         }
 
 
+        public function pageAction()
+        {
+            $this->view->page       = container()->getPage();
+            $this->view->title      = cms_info('meta', 'title', $this->view->page);
+        }
+
         public function homeAction()
         {
-            $this->view->title      = 'Accueil';
+            $this->view->page       = container()->getPage();
+            $this->view->title      = cms_info('meta', 'title', $this->view->page);
         }
 
         public function postDispatch()

@@ -1,32 +1,47 @@
 <?php
     return array(
         /* Les champs */
-        'fields'                => array(
-            'name'              => array(
-                'label'         => 'Nom',
+        'fields'                    => array(
+            'page'                  => array(
+                'type'              => 'data',
+                'entity'            => 'page',
+                'fields'            => array('name'),
+                'sort'              => 'name',
+                'label'             => 'Page',
+                'contentList'       => array('getValueEntity', 'page', 'name')
             ),
-            'value'             => array(
-                'label'         => 'Contenu',
-                'type'          => 'editor',
-                'isTranslated'  => true,
-                'canBeNull'     => true,
-                'notRequired'   => true,
-                'notExportable' => true,
-                'noList'        => true
+            'name'                  => array(
+                'label'             => 'Nom',
+            ),
+            'value'                 => array(
+                'label'             => 'Contenu',
+                'type'              => 'editor',
+                'isTranslated'      => true,
+                'canBeNull'         => true,
+                'notRequired'       => true,
+                'notExportable'     => true,
+                'noList'            => true
             ),
         ),
         /* les parametres */
-        'settings'              => array(
+        'settings'                  => array(
             /* les indexes */
-            'indexes'           => array(
+            'indexes'               => array(
+                'page'              => array(
+                    'type'          => 'multiple'
+                ),
             ),
             /* les relations */
-            'relationships'     => array(
+            'relationships'         => array(
+                'page'              => array(
+                    'type'          => 'manyToOne',
+                    'onDelete'      => 'cascade'
+                ),
             ),
-            'singular'           => 'Bloc',
-            'plural'             => 'Blocs',
-            'checkTuple'         => 'name',
-            'orderList'          => 'name',
-            'orderListDirection' => 'ASC'
+            'singular'              => 'Bloc',
+            'plural'                => 'Blocs',
+            'checkTuple'            => array('name', 'page'),
+            'orderList'             => 'name',
+            'orderListDirection'    => 'ASC'
         ),
     );

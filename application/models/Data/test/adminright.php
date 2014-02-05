@@ -16,6 +16,7 @@
                 'fields'            => array('name'),
                 'sort'              => 'name',
                 'label'             => 'Table',
+                'norel'             => true,
                 'contentList'       => array('getValueEntity', 'admintable', 'name'),
             ),
             'adminaction'           => array(

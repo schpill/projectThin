@@ -33,6 +33,27 @@
                                     <i class="icon-plus"></i> Ajouter <?php echo \Thin\Html\Helper::adminSingular($this->type); ?>
                                 </button>
                             </a>
+                            <?php $ever = array(); foreach ($fields as $field => $info): ?>
+                                <?php if(ake('type', $info)): ?>
+                                    <?php if($info['type'] == 'data' && !ake('norel', $info) && !in_array($info['entity'], $ever)): ?>
+                                        <?php if(can($info['entity'], 'add')): array_push($ever, $info['entity']); ?>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a target="_<?php echo $field; ?>" href="<?php urlsite(); ?>backadmin/item_add/<?php echo $info['entity']; ?>">
+                                                <button type="button" class="btn btn-primary">
+                                                    <i class="icon-plus"></i> Ajouter <?php
+                                                    if (ake('labelRel', $info)) $label = $info['labelRel'];
+                                                    else {
+                                                        if (ake('label', $info)) $label = $info['label'];
+                                                        else $label = ucfirst($info['entity']);
+                                                    }
+                                                    echo $label;
+                                                    ?>
+                                                </button>
+                                            </a>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
                         </p>
                         <?php endif; ?>
                         <?php if(can($this->type, 'import')): ?>

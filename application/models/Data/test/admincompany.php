@@ -59,6 +59,7 @@
                 'fields'            => array('name'),
                 'sort'              => 'name',
                 'label'             => 'Pays',
+                'norel'             => true,
                 'contentList'       => array('getValueEntity', 'admincountry', 'name'),
             ),
             'comment'               => array(

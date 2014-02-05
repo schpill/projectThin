@@ -58,19 +58,33 @@
                                         <?php
                                         $config =
                                             array(
-                                            'entity'    => $content['entity'],
-                                            'required'  => (!empty( $required)) ? true : false,
-                                            'id'        => $field,
-                                            'label'     => $label,
-                                            'sort'      => $content['sort'],
-                                            'fields'    => $content['fields'],
-                                            'value'     => htmlentities($this->item->$field)
+                                            'entity'        => $content['entity'],
+                                            'norel'         => ake('norel', $content),
+                                            'motherEntity'  => $this->type,
+                                            'required'      => (!empty( $required)) ? true : false,
+                                            'id'            => $field,
+                                            'label'         => $label,
+                                            'sort'          => $content['sort'],
+                                            'fields'        => $content['fields'],
+                                            'value'         => htmlentities($this->item->$field)
                                         );
                                         if (ake('sortOrder', $content)) {
                                             $config['sortOrder'] = $content['sortOrder'];
                                         }
                                         \ThinHelper\Html::formSelectEntity($config);
                                         ?>
+                                    <?php endif; ?>
+                                    <?php if ('imagemanager' == $content['type']): ?>
+                                    <?php if (!ake('isTranslated', $content)): ?>
+                                    <div class="control-group">
+                                        <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                                        <div class="controls">
+                                            <input onchange="upImage(this.id);" type="hidden" value="<?php echo $this->item->$field; ?>" <?php echo $required; ?> name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>" />
+                                            <img id="img_<?php echo $field; ?>" src="<?php echo $this->item->$field; ?>" style="max-width: 200px;" /><br />
+                                            <a id="link_<?php echo $field; ?>" class="btn managerLink btn-primary" type="button" href="<?php urlsite(); ?>assets/editor/filemanager/dialog.php?type=1&amp;lang=fr_FR&amp;field_id=<?php echo $field; ?>">Changer</a>
+                                        </div>
+                                    </div>
+                                    <?php endif; ?>
                                     <?php endif; ?>
                                     <?php if ('custom' == $content['type']): ?>
                                         <?php echo \Thin\Data::evaluate($content['custom'], $this->item->$field); ?>

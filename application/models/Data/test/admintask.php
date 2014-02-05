@@ -8,6 +8,7 @@
                 'entity'            => 'adminuser',
                 'fields'            => array('firstname', 'name'),
                 'sort'              => 'name',
+                'norel'             => true,
                 'contentList'       => array('getValueEntity', 'adminuser', 'firstname,name'),
             ),
             'adminuser'             => array(
@@ -15,6 +16,7 @@
                 'type'              => 'data',
                 'entity'            => 'adminuser',
                 'fields'            => array('firstname', 'name'),
+                'labelRel'          => 'Utilisateur',
                 'sort'              => 'name',
                 'contentList'       => array('getValueEntity', 'adminuser', 'firstname,name'),
             ),
@@ -42,6 +44,7 @@
                 'sort'              => 'name',
                 'contentList'       => array('getValueEntity', 'admintask', 'name'),
                 'canBeNull'         => true,
+                'norel'             => true,
                 'notRequired'       => true,
                 'noList'            => true
             ),

@@ -22,11 +22,11 @@ $(document).ready(function(){
 		  callback: function(key, options) {
 		    switch (key) {
 			case "copy_url":
-			    var m ="";
-			    m+=$('#base_url').val()+$('#cur_dir').val();
-			    add=$trigger.find('a.link').attr('data-file');
-			    if (add!="" && add!=null) {
-				m+=add;
+			    var m = "";
+			    m += $('#base_url').val() + $('#cur_dir').val();
+			    add = $trigger.find('a.link').attr('data-file');
+			    if (add != "" && add != null) {
+				    m += add;
 			    }
 			    bootbox.alert('URL:<br/><br/><input type="text" style="height:30px; width:100%;" value="'+m+'" />');
 			    break;
@@ -382,7 +382,7 @@ $(document).ready(function(){
 	if(!Modernizr.csstransforms) { // Test if CSS transform are supported
 
 		$('figure').bind('mouseover',function(){
-			if ($('#view').val()==0) {
+			if ($('#view').val() == 0) {
 				$(this).find('.box:not(.no-effect)').animate({top: "-30px"} ,{queue:false,duration:300});
 			}
 		});
@@ -398,10 +398,9 @@ $(document).ready(function(){
 	$(window).resize(function(){fix_colums(28); });
 	fix_colums(14);
 
-	$('ul.grid').on('click','.link',function(){
+	$('ul.grid').on('click','.link', function() {
 		var _this = $(this);
-
-		window[_this.attr('data-function')](_this.attr('data-file'),_this.attr('data-field_id'));
+		window[_this.attr('data-function')](_this.attr('data-file'), _this.attr('data-field_id'));
 	});
 
 
@@ -409,10 +408,10 @@ $(document).ready(function(){
 
 function fix_colums(adding) {
 
-    var width=$('.breadcrumb').width()+adding;
-    $('.uploader').css('width',width);
-    if($('#view').val()>0){
-	if ($('#view').val()==1) {
+    var width=$('.breadcrumb').width() + adding;
+    $('.uploader').css('width', width);
+    if($('#view').val() > 0){
+	if ($('#view').val() == 1) {
 	    $('ul.grid li, ul.grid figure').css( "width", '100%');
 	}else{
 	    var col=Math.floor(width/380);
@@ -456,16 +455,16 @@ function apply(file,external){
     var ext_audio=new Array('ogg','mp3','wav');
     var ext_video=new Array('mp4','ogg','webm');
     if($.inArray(ext, ext_img) > -1){
-        fill='<img src="'+base_url+path+file+'" alt="'+alt_name+'" />';
+        fill = '<img src="' + base_url + path + file + '" alt="' + alt_name + '" />';
     }else{
 	if($.inArray(ext, ext_video) > -1){
-	    fill='<video controls source src="'+base_url+path+file+'" type="video/'+ext+'">'+alt_name+'</video>';
+	    fill = '<video controls source src="'+base_url+path+file+'" type="video/'+ext+'">'+alt_name+'</video>';
 	}else{
-	    if($.inArray(ext, ext_audio) > -1 ){
-		if (ext=='mp3') { ext='mpeg'; }
-		fill='<audio controls src="'+base_url+path+file+'" type="audio/'+ext+'">'+alt_name+'</audio>';
-	    }else{
-		fill='<a href="'+base_url+path+file+'" title="'+alt_name+'">'+alt_name+'</a>';
+	    if($.inArray(ext, ext_audio) > -1 ) {
+    		if (ext == 'mp3') { ext = 'mpeg'; }
+    		fill = '<audio controls src="'+base_url+path+file+'" type="audio/'+ext+'">'+alt_name+'</audio>';
+	    } else{
+		  fill = '<a href="'+base_url+path+file+'" title="'+alt_name+'">'+alt_name+'</a>';
 	    }
 	}
 
@@ -476,7 +475,7 @@ function apply(file,external){
 
 
 
-function apply_link(file,external){
+function apply_link(file, external){
     if ($('#popup').val()==1) var window_parent=window.opener; else var window_parent=window.parent;
     var path = $('#cur_dir').val();
     path = path.replace('\\', '/');

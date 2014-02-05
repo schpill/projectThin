@@ -132,6 +132,7 @@
             $adminTaskTypes     = Data::getAll('admintasktype');
             $adminCountries     = Data::getAll('admincountry');
             $options            = Data::getAll('option');
+            $bools              = Data::getAll('bool');
 
             if (!count($adminCountries)) {
                 $list = fgc("http://web.gpweb.co/u/45880241/cdn/pays.csv");
@@ -267,6 +268,22 @@
                 }
             }
 
+            if (!count($bools)) {
+                $bool1 = array(
+                    'name'  => 'Oui',
+                    'value' => 'true',
+                );
+                $bool2 = array(
+                    'name'  => 'Non',
+                    'value' => 'false',
+                );
+
+                Data::add('bool', $bool1);
+                Data::getAll('bool');
+                Data::add('bool', $bool2);
+                Data::getAll('bool');
+            }
+
             if (!count($options)) {
                 $option1 = array(
                     'name'  => 'default_language',
@@ -287,12 +304,23 @@
                 Data::getAll('option');
                 Data::add('option', $option3);
                 Data::getAll('option');
+
+                $page = array(
+                    'name'      => 'Accueil',
+                    'url'       => array('fr' => 'home'),
+                    'template'  => 'home',
+                    'parent'    => null,
+                    'hierarchy' => 1,
+                    'is_home'   => getBool('true')->getId()
+                );
+                Data::add('page', $page);
+                Data::getAll('page');
             }
         }
 
         private static function acl()
         {
-            if (count(request()->getThinUri()) == 2) {
+            if (count(request()->getThinUri()) == 2 && contain('?', $_SERVER['REQUEST_URI'])) {
                 list($dummy, $uri) = explode('?', Arrays::last(request()->getThinUri()), 2);
                 if (strlen($uri)) {
                     parse_str($uri, $r);
@@ -328,7 +356,7 @@
                     $rights = $sql->where('adminuser = ' . $user->getId())->get();
                     if (count($rights)) {
                         foreach ($rights as $right) {
-                            if (!ake($right->getAdmintable()->getName(), \Thin\Data::$_rights)) {
+                            if (!ake($right->getAdmintable()->getName(), Data::$_rights)) {
                                 Data::$_rights[$right->getAdmintable()->getName()] = array();
                             }
                             Data::$_rights[$right->getAdmintable()->getName()][$right->getAdminaction()->getName()] = true;

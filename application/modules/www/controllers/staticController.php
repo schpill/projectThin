@@ -33,6 +33,15 @@
 
         public function homeAction()
         {
+            $page = array(
+                'name'      => 'home',
+                'parent'    => null,
+                'is_home'   => getBool('true')
+            );
+            Data::add('page', $page);
+            Data::getAll('page');
+
+            $this->view->page       = cms_get_page('home');
             $this->view->title      = 'Accueil';
         }
 

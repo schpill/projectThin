@@ -13,10 +13,11 @@
             'adminproduct'           => array(
                 'type'              => 'data',
                 'entity'            => 'adminproduct',
-                'fields'            => array('num', 'price'),
+                'fields'            => array('name', 'price'),
                 'sort'              => 'name',
                 'label'             => 'Produit facturé',
-                'contentList'       => array('getValueEntity', 'adminproduct', 'num,price'),
+                'labelRel'          => 'Produit facturable',
+                'contentList'       => array('getValueEntity', 'adminproduct', 'name,price'),
             ),
             'qty'                   => array(
                 'label'             => 'Quantité',

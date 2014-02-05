@@ -1,7 +1,15 @@
 <?php includes('partials/header/classic.phtml'); ?>
-          <div class="row-fluid">
-            <div class="span12">
-              OK
-            </div>
+          <div class="container">
+            <h1><?php echo cms_info('meta', 'h1', $this->page); ?></h1>
+            <h2><?php echo cms_info('meta', 'h2', $this->page); ?></h2>
+            <h3><?php echo cms_info('meta', 'h3', $this->page); ?></h3>
+            <h4><?php echo cms_info('meta', 'h4', $this->page); ?></h4>
+            <h5><?php echo cms_info('meta', 'h5', $this->page); ?></h5>
+            <h6><?php echo cms_info('meta', 'h6', $this->page); ?></h6>
+              <div class="row">
+                <div class="span12">
+                  <?php echo cms_info('block', 'informations', $this->page); ?>
+                </div>
+              </div>
           </div>
 <?php includes('partials/footer/classic.phtml'); ?>
