@@ -32,7 +32,6 @@
 *.memory
 *.fake
 *.gpcache
-*.data
 *.ajf
 *.ajfoption
 *.ajfcache
@@ -59,3 +58,4 @@ Thumbs.db
 composer.lock
 web/assets/editor/source/*
 web/assets/editor/thumbs/*
+storage/data/*
