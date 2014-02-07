@@ -20,12 +20,13 @@
                                 <?php $required = (!ake('notRequired', $content)) ? 'required' : ''; ?>
                                 <?php $label = (ake('label', $content)) ? $content['label'] : ucfirst(\Thin\Inflector::lower($field)); ?>
                                 <?php $placeholder = (ake('placeholder', $content)) ? $content['placeholder'] : $label; ?>
+                                <?php $default = (ake('default', $content)) ? $content['default'] : null; ?>
                                 <?php if (!ake('type', $content)): ?>
                                 <?php if (!ake('isTranslated', $content)): ?>
                                 <div class="control-group">
                                     <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
                                     <div class="controls">
-                                        <input type="text" <?php echo $required; ?> name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>" />
+                                        <input value="<?php echo $default; ?>" type="text" <?php echo $required; ?> name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>" />
                                     </div>
                                 </div>
                                 <?php endif; ?>
@@ -43,7 +44,7 @@
                                                 <div class="tab-content">
                                                 <?php $first = true; foreach($this->cms_languages as $lng): ?>
                                                     <div class="tab-pane<?php if (true === $first): ?> active<?php endif; ?>" id="<?php echo $field; ?>_<?php echo strtolower($lng); ?>">
-                                                        <input type="text" <?php echo $required; ?> name="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" id="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" placeholder="<?php echo $placeholder; ?>" />
+                                                        <input value="<?php echo $default; ?>" type="text" <?php echo $required; ?> name="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" id="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" placeholder="<?php echo $placeholder; ?>" />
                                                     </div>
                                                 <?php $first = false; endforeach; ?>
                                                 </div>
@@ -64,6 +65,7 @@
                                             'id'            => $field,
                                             'label'         => $label,
                                             'sort'          => $content['sort'],
+                                            'value'         => $default,
                                             'fields'        => $content['fields']
                                         );
                                         if (ake('sortOrder', $content)) {
@@ -73,7 +75,6 @@
                                         ?>
                                     <?php endif; ?>
                                     <?php if ('imagemanager' == $content['type']): ?>
-                                    <?php if (!ake('isTranslated', $content)): ?>
                                     <div class="control-group">
                                         <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
                                         <div class="controls">
@@ -82,15 +83,32 @@
                                         </div>
                                     </div>
                                     <?php endif; ?>
+                                    <?php if ('videomanager' == $content['type']): ?>
+                                    <div class="control-group">
+                                        <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                                        <div class="controls">
+                                            <input onchange="upMedia(this.id);" value="<?php echo $default; ?>" <?php echo $required; ?> name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>" /><br />
+                                            <a id="link_<?php echo $field; ?>" class="btn managerLink btn-primary" type="button" href="<?php urlsite(); ?>assets/editor/filemanager/dialog.php?type=3&amp;lang=fr_FR&amp;field_id=<?php echo $field; ?>">Ajouter</a>
+                                        </div>
+                                    </div>
+                                    <?php endif; ?>
+                                    <?php if ('filemanager' == $content['type']): ?>
+                                    <div class="control-group">
+                                        <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                                        <div class="controls">
+                                            <input onchange="upMedia(this.id);" <?php echo $required; ?> name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>" /><br />
+                                            <a id="link_<?php echo $field; ?>" class="btn managerLink btn-primary" type="button" href="<?php urlsite(); ?>assets/editor/filemanager/dialog.php?type=2&amp;lang=fr_FR&amp;field_id=<?php echo $field; ?>">Ajouter</a>
+                                        </div>
+                                    </div>
                                     <?php endif; ?>
                                     <?php if ('custom' == $content['type']): ?>
                                         <?php echo \Thin\Data::evaluate($content['custom']); ?>
                                     <?php endif; ?>
                                     <?php if ('image' == $content['type']): ?>
-                                        <?php \ThinHelper\Html::formUploadImage($label, $field, false, null, $this->type); ?>
+                                        <?php \ThinHelper\Html::formUploadImage($label, $field, false, $default, $this->type); ?>
                                     <?php endif; ?>
                                     <?php if ('file' == $content['type']): ?>
-                                        <?php \ThinHelper\Html::formUploadFile($label, $field, false, null, $this->type); ?>
+                                        <?php \ThinHelper\Html::formUploadFile($label, $field, false, $default, $this->type); ?>
                                     <?php endif; ?>
 
                                     <?php if ('code' == $content['type']): ?>
@@ -98,7 +116,7 @@
                                             <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
                                             <div class="controls">
                                                 <div class="sep"></div>
-                                                <input type="hidden" id="<?php echo $field; ?>" name="<?php echo $field; ?>" />
+                                                <input type="hidden" id="<?php echo $field; ?>" id="<?php echo $field; ?>" name="<?php echo $field; ?>" />
                                                 <pre <?php echo $required; ?> class="thinEditor" id="<?php echo $field; ?>_editor"></pre>
                                             </div>
                                         </div>
@@ -120,7 +138,7 @@
                                             <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
                                             <div class="controls">
                                                 <div class="sep"></div>
-                                                <textarea <?php echo $required; ?> style="width: 100%; height: 400px;" name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>"></textarea>
+                                                <textarea <?php echo $required; ?> style="width: 100%; height: 400px;" name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>"><?php echo $default; ?></textarea>
                                             </div>
                                         </div>
                                     <?php endif; ?>
@@ -138,7 +156,7 @@
                                                     <div class="tab-content">
                                                     <?php $first = true; foreach($this->cms_languages as $lng): ?>
                                                         <div class="tab-pane<?php if (true === $first): ?> active<?php endif; ?>" id="<?php echo $field; ?>_<?php echo strtolower($lng); ?>">
-                                                            <textarea <?php echo $required; ?> style="width: 100%; height: 400px;" name="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" id="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" placeholder="<?php echo $placeholder; ?>"></textarea>
+                                                            <textarea <?php echo $required; ?> style="width: 100%; height: 400px;" name="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" id="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" placeholder="<?php echo $placeholder; ?>"><?php echo $default; ?></textarea>
                                                         </div>
                                                     <?php $first = false; endforeach; ?>
                                                     </div>
@@ -154,7 +172,7 @@
                                             <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
                                             <div class="controls">
                                                 <div class="sep"></div>
-                                                <textarea <?php echo $required; ?> class="thinWysiwyg" name="<?php echo $field; ?>" id="<?php echo $field; ?>"></textarea>
+                                                <textarea <?php echo $required; ?> class="thinWysiwyg" name="<?php echo $field; ?>" id="<?php echo $field; ?>"><?php echo $default; ?></textarea>
                                             </div>
                                         </div>
                                     <?php endif; ?>
@@ -172,7 +190,7 @@
                                                     <div class="tab-content">
                                                     <?php $first = true; foreach($this->cms_languages as $lng): ?>
                                                         <div class="tab-pane<?php if (true === $first): ?> active<?php endif; ?>" id="<?php echo $field; ?>_<?php echo strtolower($lng); ?>">
-                                                            <textarea <?php echo $required; ?> class="thinWysiwyg" name="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" id="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]"></textarea>
+                                                            <textarea <?php echo $required; ?> class="thinWysiwyg" name="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" id="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]"><?php echo $default; ?></textarea>
                                                         </div>
                                                     <?php $first = false; endforeach; ?>
                                                     </div>
@@ -186,7 +204,7 @@
                                     <div class="control-group">
                                         <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
                                         <div class="controls">
-                                            <input type="password" <?php echo $required; ?> name="<?php echo $field; ?>" id="<?php echo $field; ?>" />
+                                            <input value="<?php echo $default; ?>" type="password" <?php echo $required; ?> name="<?php echo $field; ?>" id="<?php echo $field; ?>" />
                                         </div>
                                     </div>
                                     <?php endif; ?>
@@ -195,7 +213,7 @@
                                         <div class="control-group">
                                             <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
                                             <div class="controls">
-                                                <input class="datepicker" type="text" <?php echo $required; ?> name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>" />
+                                                <input value="<?php echo $default; ?>" class="datepicker" type="text" <?php echo $required; ?> name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>" />
                                             </div>
                                         </div>
                                     <?php endif; ?>
@@ -213,7 +231,7 @@
                                                     <div class="tab-content">
                                                     <?php $first = true; foreach($this->cms_languages as $lng): ?>
                                                         <div class="tab-pane<?php if (true === $first): ?> active<?php endif; ?>" id="<?php echo $field; ?>_<?php echo strtolower($lng); ?>">
-                                                            <input class="datepicker" type="text" <?php echo $required; ?> name="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" id="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" placeholder="<?php echo $placeholder; ?>" />
+                                                            <input value="<?php echo $default; ?>" class="datepicker" type="text" <?php echo $required; ?> name="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" id="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" placeholder="<?php echo $placeholder; ?>" />
                                                         </div>
                                                     <?php $first = false; endforeach; ?>
                                                     </div>
@@ -229,7 +247,7 @@
                                             <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
                                             <div class="controls">
                                                 <div class="sep"></div>
-                                                <textarea style="width: 100%;" name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>"></textarea>
+                                                <textarea style="width: 100%;" name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>"><?php echo $default; ?></textarea>
                                             </div>
                                         </div>
                                         <script>
@@ -252,7 +270,7 @@
                                                     <div class="tab-content">
                                                     <?php $first = true; foreach($this->cms_languages as $lng): ?>
                                                         <div class="tab-pane<?php if (true === $first): ?> active<?php endif; ?>" id="<?php echo $field; ?>_<?php echo strtolower($lng); ?>">
-                                                            <textarea style="width: 100%;" name="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" id="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" placeholder="<?php echo $placeholder; ?>"></textarea>
+                                                            <textarea style="width: 100%;" name="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" id="<?php echo $field; ?>[<?php echo strtolower($lng); ?>]" placeholder="<?php echo $placeholder; ?>"><?php echo $default; ?></textarea>
                                                         </div>
                                                         <script>
                                                             $(document).ready(function() {

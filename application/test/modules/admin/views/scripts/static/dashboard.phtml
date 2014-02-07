@@ -16,7 +16,7 @@
                         <div class="widget-body text-left">
                         <?php $pages = Thin\Cms::getParents(); ?>
                         <?php if (count($pages)): ?>
-                            <ul>
+                            <ul style="list-style: upper-roman;">
                                 <?php foreach ($pages as $page): ?>
                                 <?php $children = Thin\Cms::getChildren($page); ?>
                                 <li>
@@ -27,17 +27,27 @@
                                         <i class="fa fa-envelope"></i>
                                     <?php endif; ?>
                                     <?php echo $page->getName(); ?>
-                                    <?php if (count($children )): ?>
-                                        <ul>
+                                    <?php if (count($children)): ?>
+                                        <ul style="list-style: decimal;">
                                         <?php foreach ($children as $child): ?>
                                         <?php $littleChildren = Thin\Cms::getChildren($child); ?>
                                             <li>
                                                 <?php echo $child->getName(); ?>
-                                                <?php if (count($littleChildren )): ?>
-                                                    <ul>
+                                                <?php if (count($littleChildren)): ?>
+                                                    <ul style="list-style: decimal;">
                                                         <?php foreach ($littleChildren as $littleChild): ?>
+                                                        <?php $babyChildren = Thin\Cms::getChildren($littleChild); ?>
                                                             <li>
                                                                 <?php echo $littleChild->getName(); ?>
+                                                                <?php if (count($babyChildren)): ?>
+                                                                    <ul style="list-style: decimal;">
+                                                                        <?php foreach ($babyChildren as $babyChild): ?>
+                                                                            <li>
+                                                                                <?php echo $babyChild->getName(); ?>
+                                                                            </li>
+                                                                        <?php endforeach; ?>
+                                                                    </ul>
+                                                                <?php endif; ?>
                                                             </li>
                                                         <?php endforeach; ?>
                                                     </ul>

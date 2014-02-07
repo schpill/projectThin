@@ -252,6 +252,18 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="<?php urlsite(); ?>assets/editor/filemanager/dialog.php?type=0&amp;lang=fr_FR" class="managerLink"><i class="fa fa-cloud-upload fa-white"></i> Manager</a></li>
+                                <?php $type = 'image'; ?>
+                                <?php if(can($type, 'list')): ?>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-list"></i> Images</a></li>
+                                <?php endif; ?>
+                                <?php $type = 'video'; ?>
+                                <?php if(can($type, 'list')): ?>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-list"></i> Vidéos</a></li>
+                                <?php endif; ?>
+                                <?php $type = 'file'; ?>
+                                <?php if(can($type, 'list')): ?>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-list"></i> Fichiers</a></li>
+                                <?php endif; ?>
                             </ul>
                         </li>
                         <?php if(can('adminright', 'list') && can('admintable', 'list') && can('adminuser', 'list')): ?>

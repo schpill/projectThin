@@ -12,11 +12,16 @@
             ),
             'position'              => array(
                 'label'             => 'position',
+                'default'           => 'auto',
                 'checkValue'        => function ($val) {
-                    if (is_numeric($val)) {
-                        return $val;
+                    if ('auto' == $val) {
+                        \Thin\Data::getAll('slideshowmedia');
+                        $sl = $_POST['slideshow'];
+                        $db = new \Thin\Querydata('slideshowmedia');
+                        $rows = $db->where('slideshow = ' . $sl)->get();
+                        return count($rows) + 1;
                     }
-                    return '1';
+                    return $val;
                 },
             ),
             'image'                 => array(
@@ -59,7 +64,8 @@
             'singular'              => 'Image de diaporama',
             'plural'                => 'Gestion des diaporamas',
             'checkTuple'            => array(
-                'position', 'slideshow'
+                'position',
+                'slideshow'
             ),
             'orderList'             => array('slideshow', 'position'),
             'orderListDirection'    => 'ASC',

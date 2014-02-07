@@ -57,3 +57,5 @@ Icon?
 ehthumbs.db
 Thumbs.db
 composer.lock
+web/assets/editor/source/*
+web/assets/editor/thumbs/*

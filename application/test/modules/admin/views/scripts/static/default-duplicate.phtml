@@ -78,7 +78,6 @@
                                         ?>
                                     <?php endif; ?>
                                     <?php if ('imagemanager' == $content['type']): ?>
-                                    <?php if (!ake('isTranslated', $content)): ?>
                                     <div class="control-group">
                                         <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
                                         <div class="controls">
@@ -87,6 +86,23 @@
                                         </div>
                                     </div>
                                     <?php endif; ?>
+                                    <?php if ('videomanager' == $content['type']): ?>
+                                    <div class="control-group">
+                                        <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                                        <div class="controls">
+                                            <input onchange="upMedia(this.id);" value="<?php echo $this->item->$field; ?>" <?php echo $required; ?> name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>" /><br />
+                                            <a id="link_<?php echo $field; ?>" class="btn managerLink btn-primary" type="button" href="<?php urlsite(); ?>assets/editor/filemanager/dialog.php?type=3&amp;lang=fr_FR&amp;field_id=<?php echo $field; ?>">Changer</a>
+                                        </div>
+                                    </div>
+                                    <?php endif; ?>
+                                    <?php if ('filemanager' == $content['type']): ?>
+                                    <div class="control-group">
+                                        <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                                        <div class="controls">
+                                            <input onchange="upMedia(this.id);" value="<?php echo $this->item->$field; ?>" <?php echo $required; ?> name="<?php echo $field; ?>" id="<?php echo $field; ?>" placeholder="<?php echo $placeholder; ?>" /><br />
+                                            <a id="link_<?php echo $field; ?>" class="btn managerLink btn-primary" type="button" href="<?php urlsite(); ?>assets/editor/filemanager/dialog.php?type=2&amp;lang=fr_FR&amp;field_id=<?php echo $field; ?>">Changer</a>
+                                        </div>
+                                    </div>
                                     <?php endif; ?>
                                     <?php if ('custom' == $content['type']): ?>
                                         <?php echo \Thin\Data::evaluate($content['custom'], $this->item->$field); ?>

@@ -333,13 +333,18 @@ $get_params = http_build_query(array(
 $class_ext = '';
 $src = '';
 
-if ($_GET['type']==1) 	 $apply = 'apply_img';
-elseif($_GET['type']==2) $apply = 'apply_link';
-elseif($_GET['type']==0 && $_GET['field_id'] == '') $apply = 'apply_none';
-elseif($_GET['type']==3) $apply = 'apply_video';
-else $apply = 'apply';
+if ($_GET['type'] == 1)
+$apply = 'apply_img';
+elseif($_GET['type']== 2)
+$apply = 'apply_link';
+elseif($_GET['type'] == 0 && $_GET['field_id'] == '')
+$apply = 'apply_none';
+elseif($_GET['type'] == 3)
+$apply = 'apply_video';
+else
+$apply = 'apply';
 
-$files = scandir($current_path.$subfolder.$subdir);
+$files = scandir($current_path . $subfolder . $subdir);
 $n_files = count($files);
 
 //php sorting

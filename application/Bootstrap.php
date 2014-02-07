@@ -297,6 +297,18 @@
                     'name'  => 'theme',
                     'value' => SITE_NAME,
                 );
+                $option4 = array(
+                    'name'  => 'menu_fixed',
+                    'value' => 'true',
+                );
+                $option5 = array(
+                    'name'  => 'show_logo',
+                    'value' => 'true',
+                );
+                $option6 = array(
+                    'name'  => 'company_name',
+                    'value' => 'Thin CMS',
+                );
 
                 Data::add('option', $option1);
                 Data::getAll('option');
@@ -304,12 +316,40 @@
                 Data::getAll('option');
                 Data::add('option', $option3);
                 Data::getAll('option');
+                Data::add('option', $option4);
+                Data::getAll('option');
+                Data::add('option', $option5);
+                Data::getAll('option');
+                Data::add('option', $option6);
+                Data::getAll('option');
+
+                $status1 = array(
+                    'name' => 'online',
+                );
+                $status2 = array(
+                    'name' => 'offline',
+                );
+                $status3 = array(
+                    'name' => 'maintenance',
+                );
+                Data::add('statuspage', $status1);
+                Data::getAll('statuspage');
+                Data::add('statuspage', $status2);
+                Data::getAll('statuspage');
+                Data::add('statuspage', $status3);
+                Data::getAll('statuspage');
+
+                $sql        = new Querydata('statuspage');
+                $res        = $sql->where('name = online')->get();
+                $status     = $sql->first($res);
 
                 $page = array(
                     'name'      => 'Accueil',
                     'url'       => array('fr' => 'home'),
                     'template'  => 'home',
                     'parent'    => null,
+                    'statuspage'=> $status->getId(),
+                    'date_out'  => null,
                     'hierarchy' => 1,
                     'is_home'   => getBool('true')->getId()
                 );

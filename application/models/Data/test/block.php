@@ -6,7 +6,7 @@
                 'type'              => 'data',
                 'entity'            => 'page',
                 'fields'            => array('name'),
-                'sort'              => 'name',
+                'sort'              => 'hierarchy',
                 'label'             => 'Page',
                 'contentList'       => array('getValueEntity', 'page', 'name')
             ),
