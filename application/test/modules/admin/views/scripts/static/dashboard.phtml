@@ -63,6 +63,35 @@
                         </div>
                     </div>
                 </div>
+                <div class="row"><a name="myTasks"></a>
+                    <div class="widget span9">
+                        <div class="widget-header">
+                            <h2>Liste des tâches</h2>
+                        </div>
+                        <div class="widget-body text-left">
+                        <?php
+                        $db = new Thin\Querydata('admintask');
+                        ?>
+                        <?php $tasks = $db->where('adminuser = ' . session('admin')->getUser()->getId())->order('end')->get(); ?>
+                        <?php if (count($tasks)): ?>
+                            <ul style="list-style: upper-roman;">
+                                <?php foreach ($tasks as $task): ?>
+                                <?php if ($task->getAdmintaskstatus()->getName() != 'Terminée'): ?>
+                                <li>
+                                    <a style="color: black;" href="<?php urlsite(); ?>backadmin/item_view/admintask/<?php echo $task->getId(); ?>/<?php echo ThinHelper\Html::makeKey($task->getId()); ?>?show_menu=false" class="framelink"><strong><?php echo $task->getName(); ?></strong></a><br />
+                                    Statut : <?php echo $task->getAdmintaskstatus()->getName(); ?><br />
+                                    <u><?php echo $task->getAdmintasktype()->getName(); ?></u><p />
+                                    <a href="<?php urlsite(); ?>backadmin/item_edit/admintask/<?php echo $task->getId(); ?>/<?php echo ThinHelper\Html::makeKey($task->getId()); ?>?show_menu=false" class="btn btn-primary framelink">A terminer pour le <?php echo $task->getEnd(); ?> <i class="fa fa-edit"></i></a>
+                                </li>
+                                <?php endif; ?>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php else: ?>
+                            Aucune tâche en cours.
+                        <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

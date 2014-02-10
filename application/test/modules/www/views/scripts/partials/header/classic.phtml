@@ -5,13 +5,11 @@
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" />
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
         <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css" />
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,300italic,700' rel='stylesheet' type='text/css' />
-        <link href="http://fonts.googleapis.com/css?family=Oswald:400,300,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css" />
-        <link href="http://fonts.googleapis.com/css?family=Passion+One:400,700,900&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css" />
+        <?php echo cms_google_fonts(); ?>
         <title><?php echo $this->title; ?></title>
         <?php echo cms_option('custom_css'); ?>
     </head>
-    <body>
+    <body data-spy="scroll">
         <?php cms_menu_auto(); ?>
         <?php echo cms_info('block', 'header', $this->page); ?>
         <div id="startPage" class="container">

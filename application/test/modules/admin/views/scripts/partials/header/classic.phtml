@@ -53,13 +53,43 @@
         <script>
             CURLANG = WBBLANG['fr'] || WBBLANG['en'] || CURLANG;
             $(document).ready(function() {
+                <?php if(true === container()->getNoMenu()): ?>
+                $('#mainMenu').hide();
+                <?php endif; ?>
+
+                $('.modalFrame').click(function() {
+                    var idModal = $(this).attr("id") + '_modal';
+                    $('#' + idModal).modal({
+                        show: true
+                    });
+                });
+
                 $('[rel=tooltip]').tooltip({
                     placement: 'bottom'
+                });
+                $('[rel=tooltip-bottom]').tooltip({
+                    placement: 'bottom'
+                });
+                $('[rel=tooltip-top]').tooltip({
+                    placement: 'top'
+                });
+                $('[rel=tooltip-left]').tooltip({
+                    placement: 'left'
+                });
+                $('[rel=tooltip-right]').tooltip({
+                    placement: 'right'
                 });
 
                 $(".wysibb").wysibb();
 
                 $('.managerLink').fancybox({
+                    'width'     : 900,
+                    'height'    : 600,
+                    'type'      : 'iframe',
+                    'autoScale' : false
+                });
+
+                $('.framelink').fancybox({
                     'width'     : 900,
                     'height'    : 600,
                     'type'      : 'iframe',
@@ -118,7 +148,13 @@
             ],
             toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
             toolbar2: "| code | responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
-            image_advtab: true ,
+
+            link_list: [
+                <?php $pages = Thin\Cms::getPages(); $i = 0; foreach ($pages as $page): ?>
+                {title: '<?php echo addslashes($page->getName()); ?>', value: '/<?php echo Thin\Cms::__($page->getUrl()); ?>'}<?php if($i + 1 < count($pages)): ?>,<?php endif; ?>
+                <?php $i++; endforeach; ?>
+            ],
+            image_advtab: true,
             language_url : '<?php urlsite(); ?>assets/editor/langs/fr_FR.js',
 
 
@@ -154,7 +190,7 @@
                         <li class="dropdown">
                             <a class="dropdown-toggle openHover" data-toggle="dropdown" href="#" onclick="return false;"><i class="icon-user"></i> <?php echo $session->getUser()->getFirstname(); ?> <?php echo $session->getUser()->getName(); ?> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?php urlsite(); ?>backadmin/tasks"><i class="icon-tasks"></i> Mes tâches</a></li>
+                                <li><a href="<?php urlsite(); ?>backadmin/dashboard#myTasks"><i class="icon-tasks"></i> Mes tâches</a></li>
                                 <li><a href="<?php urlsite(); ?>backadmin/logout"><i class="icon-off"></i> Déconnexion</a></li>
                             </ul>
                         </li>
@@ -232,6 +268,14 @@
                                 <?php if(can($type, 'list')): ?>
                                 <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-cogs"></i> Options du site</a></li>
                                 <?php endif; ?>
+                                <?php $type = 'adminformfield'; ?>
+                                <?php if(can($type, 'list')): ?>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-cogs"></i> Formulaires</a></li>
+                                <?php endif; ?>
+                                <?php $type = 'adminformaction'; ?>
+                                <?php if(can($type, 'list')): ?>
+                                <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-cogs"></i> Actions de formulaires</a></li>
+                                <?php endif; ?>
                                 <?php $type = 'snippet'; ?>
                                 <?php if(can($type, 'list')): ?>
                                 <li><a href="<?php urlsite(); ?>backadmin/item/<?php echo \Thin\Html\Helper::display($type); ?>"><i class="fa fa-cogs"></i> Snippets</a></li>
@@ -297,7 +341,7 @@
                     <?php endif; ?>
                     <ul class="nav navbar-nav pull-right secondRight">
                         <li><a rel="tooltip" title="Tableau de bord" href="<?php urlsite(); ?>backadmin/dashboard"><i class="fa fa-home fa-white"></i></a></li>
-                        <li><a rel="tooltip" title="Mes tâches" href="<?php urlsite(); ?>backadmin/tasks"><i class="icon-tasks"></i></a></li>
+                        <li><a rel="tooltip" title="Mes tâches" href="<?php urlsite(); ?>backadmin/dashboard#myTasks"><i class="icon-tasks"></i></a></li>
                         <li><a target="_site" rel="tooltip" title="Afficher le site" href="<?php echo repl('https', 'http', URLSITE); ?>"><i class="icon-external-link"></i></a></li>
                         <li><a rel="tooltip" title="Déconnexion" href="<?php urlsite(); ?>backadmin/logout"><i class="icon-off"></i></a></li>
                         <li rel="tooltip" title="Haut de page" class="goToTop"><a href="#" onclick="return false;"><i class="fa fa-arrow-circle-up fa-white"></i></a></li>

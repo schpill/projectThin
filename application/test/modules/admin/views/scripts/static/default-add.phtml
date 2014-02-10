@@ -166,6 +166,20 @@
                                     <?php endif; ?>
                                     <?php endif; ?>
                                     <?php endif; ?>
+                                    <?php if ('lighteditor' == $content['type']): ?>
+                                        <div class="control-group">
+                                            <label class="control-label" for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                                            <div class="controls">
+                                                <div class="sep"></div>
+                                                <textarea <?php echo $required; ?> name="<?php echo $field; ?>" id="<?php echo $field; ?>"><?php echo $default; ?></textarea>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            $(function(){
+                                                $('#<?php echo $field; ?>').editable({inlineMode: false, autosave:true})
+                                            });
+                                        </script>
+                                    <?php endif; ?>
                                     <?php if ('editor' == $content['type']): ?>
                                     <?php if (!ake('isTranslated', $content)): ?>
                                         <div class="control-group">
