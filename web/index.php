@@ -2,8 +2,17 @@
     namespace Thin;
 
     date_default_timezone_set('America/Montreal');
+
+    $serverName = $_SERVER["SERVER_NAME"];
+    $tab = explode(".", $serverName);
+    $siteName = null;
+    if (count($tab) > 2) {
+        $siteName = strtolower(current($tab));
+    }
+    $siteName = empty($siteName) ? (getenv('SITE_NAME') ? strtolower(getenv('SITE_NAME')) : 'default') : $siteName;
+
     // Define path to application directory
-    defined('SITE_NAME')        || define('SITE_NAME', (getenv('SITE_NAME') ? strtolower(getenv('SITE_NAME')) : 'default'));
+    defined('SITE_NAME')        || define('SITE_NAME', $siteName);
     defined('APPLICATION_PATH') || define('APPLICATION_PATH',   realpath(dirname(__FILE__) . '/../application'));
     defined('CONFIG_PATH')      || define('CONFIG_PATH',        realpath(dirname(__FILE__) . '/../application/config'));
     defined('CACHE_PATH')       || define('CACHE_PATH',         realpath(dirname(__FILE__) . '/../storage/cache'));

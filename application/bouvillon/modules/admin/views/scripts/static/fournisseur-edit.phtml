@@ -1,0 +1,270 @@
+<?php includes('partials/header/classic.phtml'); ?>
+<script>
+    CURLANG = WBBLANG['fr'] || WBBLANG['en'] || CURLANG;
+    $(document).ready(function() {
+        $("#tagline").wysibb();
+        $("#tagline_en").wysibb();
+        $("#description").wysibb();
+        $("#description_en").wysibb();
+        $("#resume").wysibb();
+        $("#resume_en").wysibb();
+        $("#services").wysibb();
+        $("#services_en").wysibb();
+    });
+</script>
+<!-- Main Content -->
+    <div id="content" role="main">
+        <section class="section">
+            <div class="container">
+                <div class="page-header">
+                    <h1>
+                        Mettre à jour un fournisseur
+                    </h1>
+                </div>
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span11">
+                        <form class="form-horizontal" action="<?php urlsite(); ?>backadmin/item_edit/<?php echo $this->type; ?>/<?php echo $this->item->getId(); ?>/<?php echo $this->key; ?>" id="form_edit" method="post">
+                            <fieldset>
+                                <legend>Informations administratives</legend>
+                                <div class="control-group">
+                                    <label class="control-label" for="name">Nom du fournisseur (Marque)</label>
+                                    <div class="controls">
+                                        <input type="text" value="<?php echo \Thin\Html\Helper::display($this->item->getName()); ?>" required name="name" id="name" placeholder="Nom du fournisseur" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="place">Ordre</label>
+                                    <div class="controls">
+                                        <input type="number" value="<?php echo \Thin\Html\Helper::display($this->item->getPlace()); ?>" required name="place" id="place" placeholder="Ordre d'affichage" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="average_discount">Rabais moyen (en %)</label>
+                                    <div class="controls">
+                                        <input type="text" value="<?php echo \Thin\Html\Helper::display($this->item->getAverageDiscount()); ?>" required name="average_discount" id="average_discount" placeholder="Rabais moyen (en %)" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="min_discount">Rabais minimum (en  $ CAD)</label>
+                                    <div class="controls">
+                                        <input type="text" value="<?php echo \Thin\Html\Helper::display($this->item->getMinDiscount()); ?>" required name="min_discount" id="min_discount" placeholder="Rabais minimum (en  $ CAD)" />
+                                    </div>
+                                </div>
+                                <?php \ThinHelper\Html::formUploadFile('PDF FR', 'brochure', false, $this->item->getBrochure()); ?>
+                                <?php \ThinHelper\Html::formUploadFile('PDF EN', 'brochure_en', false, $this->item->getBrochureEn()); ?>
+                                <div class="control-group">
+                                    <label class="control-label" for="description">Description FR</label>
+                                    <div class="controls">
+                                        <div class="sep"></div>
+                                        <textarea style="width: 100%;" name="description" id="description" placeholder="Description FR"><?php echo \Thin\Html\Helper::display($this->item->getDescription()); ?></textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="description_en">Description EN</label>
+                                    <div class="controls">
+                                        <div class="sep"></div>
+                                        <textarea style="width: 100%;" name="description_en" id="description_en" placeholder="Description EN"><?php echo \Thin\Html\Helper::display($this->item->getDescriptionEn()); ?></textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="resume">Extrait FR</label>
+                                    <div class="controls">
+                                        <div class="sep"></div>
+                                        <textarea style="width: 100%;" name="resume" id="resume" placeholder="Extrait FR"><?php echo \Thin\Html\Helper::display($this->item->getResume()); ?></textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="resume_en">Extrait EN</label>
+                                    <div class="controls">
+                                        <div class="sep"></div>
+                                        <textarea style="width: 100%;" name="resume_en" id="resume_en" placeholder="Extrait EN"><?php echo \Thin\Html\Helper::display($this->item->getResumeEn()); ?></textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="tagline">Tagline FR</label>
+                                    <div class="controls">
+                                        <div class="sep"></div>
+                                        <textarea style="width: 100%;" name="tagline" id="tagline" placeholder="Tagline FR"><?php echo \Thin\Html\Helper::display($this->item->getTagline()); ?></textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="tagline_en">Tagline EN</label>
+                                    <div class="controls">
+                                        <div class="sep"></div>
+                                        <textarea style="width: 100%;" name="tagline_en" id="tagline_en" placeholder="Tagline EN"><?php echo \Thin\Html\Helper::display($this->item->getTaglineEn()); ?></textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="services">Services FR</label>
+                                    <div class="controls">
+                                        <div class="sep"></div>
+                                        <textarea style="width: 100%;" name="services" id="services" placeholder="Services FR"><?php echo \Thin\Html\Helper::display($this->item->getServices()); ?></textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="services_en">Services EN</label>
+                                    <div class="controls">
+                                        <div class="sep"></div>
+                                        <textarea style="width: 100%;" name="services_en" id="services_en" placeholder="Services EN"><?php echo \Thin\Html\Helper::display($this->item->getServicesEn()); ?></textarea>
+                                    </div>
+                                </div>
+                                <?php \ThinHelper\Html::formSelectEntity(
+                                    array(
+                                        'entity' => 'categorie',
+                                        'required' => true,
+                                        'id' => 'category',
+                                        'label' => 'Catégorie',
+                                        'sort' => 'name',
+                                        'fields' => array('name'),
+                                        'value' => $this->item->getCategory()
+                                    )
+                                ); ?>
+                                <?php \ThinHelper\Html::formSelectEntity(
+                                    array(
+                                        'entity' => 'categorie',
+                                        'required' => false,
+                                        'id' => 'category2',
+                                        'label' => 'Catégorie 2',
+                                        'sort' => 'name',
+                                        'fields' => array('name'),
+                                        'value' => $this->item->getCategory2()
+                                    )
+                                ); ?>
+                                <div class="control-group">
+                                    <label class="control-label" for="zone">Zone de vente 1</label>
+                                    <div class="controls">
+                                        <select required name="zone" id="zone">
+                                            <option value="">Choisir</option>
+                                            <option value="1" <?php if($this->item->getZone() == 1): ?>selected<?php endif; ?>>Montréal et ses environs</option>
+                                            <option value="2" <?php if($this->item->getZone() == 2): ?>selected<?php endif; ?>>Québec et ses environs</option>
+                                            <option value="3" <?php if($this->item->getZone() == 3): ?>selected<?php endif; ?>>Toronto et ses environs</option>
+                                            <option value="4" <?php if($this->item->getZone() == 4): ?>selected<?php endif; ?>>Ottawa et ses environs</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="zone2">Zone de vente 2</label>
+                                    <div class="controls">
+                                        <select name="zone2" id="zone2">
+                                            <option value="">Choisir</option>
+                                            <option value="1" <?php if($this->item->getZone2() == 1): ?>selected<?php endif; ?>>Montréal et ses environs</option>
+                                            <option value="2" <?php if($this->item->getZone2() == 2): ?>selected<?php endif; ?>>Québec et ses environs</option>
+                                            <option value="3" <?php if($this->item->getZone2() == 3): ?>selected<?php endif; ?>>Toronto et ses environs</option>
+                                            <option value="4" <?php if($this->item->getZone2() == 4): ?>selected<?php endif; ?>>Ottawa et ses environs</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="zone3">Zone de vente 3</label>
+                                    <div class="controls">
+                                        <select name="zone3" id="zone3">
+                                            <option value="">Choisir</option>
+                                            <option value="1" <?php if($this->item->getZone3() == 1): ?>selected<?php endif; ?>>Montréal et ses environs</option>
+                                            <option value="2" <?php if($this->item->getZone3() == 2): ?>selected<?php endif; ?>>Québec et ses environs</option>
+                                            <option value="3" <?php if($this->item->getZone3() == 3): ?>selected<?php endif; ?>>Toronto et ses environs</option>
+                                            <option value="4" <?php if($this->item->getZone3() == 4): ?>selected<?php endif; ?>>Ottawa et ses environs</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="zone4">Zone de vente 4</label>
+                                    <div class="controls">
+                                        <select name="zone4" id="zone4">
+                                            <option value="">Choisir</option>
+                                            <option value="1" <?php if($this->item->getZone4() == 1): ?>selected<?php endif; ?>>Montréal et ses environs</option>
+                                            <option value="2" <?php if($this->item->getZone4() == 2): ?>selected<?php endif; ?>>Québec et ses environs</option>
+                                            <option value="3" <?php if($this->item->getZone4() == 3): ?>selected<?php endif; ?>>Toronto et ses environs</option>
+                                            <option value="4" <?php if($this->item->getZone4() == 4): ?>selected<?php endif; ?>>Ottawa et ses environs</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="contact">Contact</label>
+                                    <div class="controls">
+                                        <input type="text" value="<?php echo \Thin\Html\Helper::display($this->item->getContact()); ?>" required name="contact" id="contact" placeholder="Contact" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="email_contact1">Email Contact</label>
+                                    <div class="controls">
+                                        <input type="email" value="<?php echo \Thin\Html\Helper::display($this->item->getEmailContact()); ?>" name="email_contact" id="email_contact" placeholder="Email Contact" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="tel_contact1">Téléphone Contact</label>
+                                    <div class="controls">
+                                        <input type="text" value="<?php echo \Thin\Html\Helper::display($this->item->getTelContact()); ?>" name="tel_contact" id="tel_contact" placeholder="Téléphone Contact" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="website">Site web</label>
+                                    <div class="controls">
+                                        <input type="text" value="<?php echo \Thin\Html\Helper::display($this->item->getWebsite()); ?>" name="website" id="website" placeholder="Site web" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="address">Adresse</label>
+                                    <div class="controls">
+                                        <textarea name="address" id="address" required placeholder="Adresse"><?php echo \Thin\Html\Helper::display($this->item->getAddress()); ?></textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="zip">Code postal</label>
+                                    <div class="controls">
+                                        <input type="text" name="zip" id="zip" value="<?php echo \Thin\Html\Helper::display($this->item->getZip()); ?>" placeholder="Code postal" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="city">Ville</label>
+                                    <div class="controls">
+                                        <input type="text" name="city" id="city" value="<?php echo \Thin\Html\Helper::display($this->item->getCity()); ?>" required placeholder="Ville" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>Informations de connexion</legend>
+                                <div class="control-group">
+                                    <label class="control-label" for="username">Identifiant</label>
+                                    <div class="controls">
+                                        <input type="text" name="username" id="username" value="<?php echo \Thin\Html\Helper::display($this->item->getUsername()); ?>" required placeholder="Identifiant" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="password">Mot de passe</label>
+                                    <div class="controls">
+                                        <input type="password" value="<?php echo \Thin\Html\Helper::display($this->item->getPassword()); ?>" name="password" id="password" required placeholder="Mot de passe" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>Documents associés</legend>
+                                <?php \ThinHelper\Html::formUploadImage('Logo', 'logo', true, $this->item->getLogo()); ?>
+                                <?php \ThinHelper\Html::formUploadImage('Image N°1 (200X250)', 'image1', false, $this->item->getImage1()); ?>
+                                <?php \ThinHelper\Html::formUploadImage('Image N°2 (600X300)', 'image2', false, $this->item->getImage2()); ?>
+                                <?php \ThinHelper\Html::formUploadImage('Image N°3 (600X300)', 'image3', false, $this->item->getImage3()); ?>
+                                <?php \ThinHelper\Html::formUploadImage('Image N°4 (600X300)', 'image4', false, $this->item->getImage4()); ?>
+                                <?php \ThinHelper\Html::formUploadImage('Image N°5 (600X300)', 'image5', false, $this->item->getImage5()); ?>
+                                <?php \ThinHelper\Html::formUploadImage('Image N°6 (600X300)', 'image6', false, $this->item->getImage6()); ?>
+                                <?php \ThinHelper\Html::formUploadImage('Image N°7 (600X300)', 'image7', false, $this->item->getImage7()); ?>
+                                <?php \ThinHelper\Html::formUploadImage('Image N°8 (600X300)', 'image8', false, $this->item->getImage8()); ?>
+                                <?php \ThinHelper\Html::formUploadImage('Image N°9 (600X300)', 'image9', false, $this->item->getImage9()); ?>
+                                <?php \ThinHelper\Html::formUploadImage('Image N°10 (600X300)', 'image10', false, $this->item->getImage10()); ?>
+                                <?php \ThinHelper\Html::formUploadFile('Vidéo N°1', 'video1', false, $this->item->getVideo1()); ?>
+                                <?php \ThinHelper\Html::formUploadFile('Vidéo N°2', 'video2', false, $this->item->getVideo2()); ?>
+                                <?php \ThinHelper\Html::formUploadFile('Vidéo N°3', 'video3', false, $this->item->getVideo3()); ?>
+                            </fieldset>
+                                <div>
+                                    <div class="controls">
+                                        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                                        <button type="reset" class="btn btn-danger">Annuler</button>
+                                    </div>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+<?php includes('partials/footer/classic.phtml'); ?>
+
