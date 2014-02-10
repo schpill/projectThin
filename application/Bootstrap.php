@@ -80,6 +80,9 @@
 
         private static function test()
         {
+            // $db = new Querydata('page');
+            // $res = $db->getAll()->groupBy('name')->get();
+            // dieDump($res);
             // $etat = Data::last('etat');
             // $produit = Data::first('produit');
             // $produit->setEtat($etat);
