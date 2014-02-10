@@ -6,7 +6,7 @@
         {
             $ssl = Request::ssl();
             if (!$ssl) {
-                Router::ssl();
+                // Router::ssl();
             }
             $this->view->titleAdmin = "CMS";
             $tab = explode('/', $_SERVER['REQUEST_URI']);
