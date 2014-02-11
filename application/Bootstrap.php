@@ -31,40 +31,55 @@
 
             static::$app = $app;
 
+            static::app();
             static::loadConfigs();
             Cms::loadDatas();
             Cms::acl();
-            static::routes();
             static::dispatch();
             static::test();
             static::run();
         }
 
+        private static function app()
+        {
+            if (!is_dir(APPLICATION_PATH . DS . SITE_NAME)) {
+                mkdir(APPLICATION_PATH . DS . SITE_NAME, 0777, true);
+                mkdir(APPLICATION_PATH . DS . SITE_NAME . DS . 'app', 0777, true);
+                mkdir(APPLICATION_PATH . DS . SITE_NAME . DS . 'app' . DS . 'views', 0777, true);
+                $appTpl = fgc("http://web.gpweb.co/u/45880241/cdn/app.tpl");
+                File::create(APPLICATION_PATH . DS . SITE_NAME . DS . 'app' . DS . 'app.php', $appTpl);
+                $headerTpl = fgc("http://web.gpweb.co/u/45880241/cdn/homeHeader.tpl");
+                File::create(APPLICATION_PATH . DS . SITE_NAME . DS . 'app' . DS . 'views' . DS . 'header.phtml', $headerTpl);
+                $footerTpl = fgc("http://web.gpweb.co/u/45880241/cdn/homeFooter.tpl");
+                File::create(APPLICATION_PATH . DS . SITE_NAME . DS . 'app' . DS . 'views' . DS . 'footer.phtml', $footerTpl);
+                $homeTpl = fgc("http://web.gpweb.co/u/45880241/cdn/home.tpl");
+                File::create(APPLICATION_PATH . DS . SITE_NAME . DS . 'app' . DS . 'views' . DS . 'home.phtml', $homeTpl);
+                File::create(APPLICATION_PATH . DS . SITE_NAME . DS . 'app' . DS . 'views' . DS . '404.phtml', $homeTpl);
+            }
+            $app = APPLICATION_PATH . DS . SITE_NAME . DS . 'app' . DS . 'app.php';
+            require_once($app);
+        }
+
         private static function loadConfigs()
         {
-            Config::load('application');
-            Config::load('models', false);
-            Config::load('routes', false);
+            $configContainer = container()->getAppConfig();
+            $iniData = empty($configContainer) ? array() : $configContainer;
 
-            $iniData    = include(APPLICATION_PATH . DS . 'config' . DS . SITE_NAME . DS . 'ini.php');
+            if (File::exists(APPLICATION_PATH . DS . 'config' . DS . SITE_NAME . DS . 'ini.php')) {
+                $iniData += include(APPLICATION_PATH . DS . 'config' . DS . SITE_NAME . DS . 'ini.php');
+            }
 
-            $envIni     = APPLICATION_PATH . DS . 'config' . DS . SITE_NAME . DS . Inflector::lower(APPLICATION_ENV) . '.php';
+            $envIni = APPLICATION_PATH . DS . 'config' . DS . SITE_NAME . DS . Inflector::lower(APPLICATION_ENV) . '.php';
             if (File::exists($envIni)) {
                 $iniData += include($envIni);
             }
 
-            $ini        = new Iniconfig;
+            $ini = new Iniconfig;
 
             $ini->populate($iniData);
             container()->setConfig($ini);
             container()->setServerDir(repl(DS . 'application', '', APPLICATION_PATH));
             container()->setMultiSite(true);
-        }
-
-        private static function routes()
-        {
-            // container()->addRoute(time());
-            // container()->addRoute(rand(5, 1566698));
         }
 
         private static function dispatch()

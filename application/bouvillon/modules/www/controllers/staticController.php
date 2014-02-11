@@ -30,6 +30,10 @@
 
         }
 
+        public function testAction()
+        {
+
+        }
 
         public function pageAction()
         {
