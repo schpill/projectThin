@@ -1,0 +1,211 @@
+body {
+    margin-top: 0;
+    background: #2F404A;
+    color: #fff;
+    font-family: Questrial;
+    font-size: 18px;
+}
+
+header, footer {
+    background: #011724;
+    font-family: Oswald;
+}
+
+header {
+    border-bottom: solid 2px #067DBC;
+}
+footer {
+    border-top: solid 2px #067DBC;
+}
+
+strong {
+    font-family: Oswald;
+}
+
+.logo, h1,h2,h3,h4,h5,h6 {
+    font-family: Passion One;
+    text-transform: uppercase;
+}
+
+a {
+    color: #067DBC;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.white {
+    color: #fff;
+}
+.logo {
+    position: relative;
+    top: 8px;
+    left: 15px;
+    font-size: 2em;
+    line-height: 20px;
+}
+
+a.noHover:hover {
+    text-decoration: none;
+}
+
+.menu a {
+    font-size: 25px;
+    letter-spacing: .1em;
+}
+
+.menu a:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+.menu li, .footer li {
+    margin-right: 20px;
+}
+
+.menu li:last-child, .footer li:last-child {
+    margin-right: 0;
+}
+
+.footer a {
+    color: #fff;
+}
+
+.footer a:hover {
+    color: #067DBC;
+}
+
+.menu {
+    padding-top: 15px;
+}
+
+.menu .active a  {
+    color: #fff;
+}
+
+.menu ul{
+    margin: 0;
+    padding: 0;
+    float: left;
+    list-style: none;
+}
+
+.menu ul li a:active, .menu ul li.active a:active{
+    color: #ccc;
+}
+
+.menu ul ul{
+    position:                           absolute;
+    visibility:                         hidden;
+    opacity:                            0;
+    padding-top:                        4px;
+    background:                         #067DBC;
+    border-bottom:                      solid 2px #fff;
+    -webkit-border-bottom-right-radius: 3px;
+    -webkit-border-bottom-left-radius:  3px;
+    -moz-border-radius:                 0 0 3px 3px;
+    border-radius:                      0 0 3px 3px;
+    -webkit-transition:                 all 210ms linear 20ms;
+    -moz-transition:                    all 210ms linear 20ms;
+    -ms-transition:                     all 210ms linear 20ms;
+    -o-transition:                      all 210ms linear 20ms;
+    transition:                         all 210ms linear 20ms;
+}
+.menu ul li:hover > ul{
+    visibility: visible;
+    opacity:  1;
+}
+
+.menu ul ul li{
+    cursor: pointer;
+    border: solid 1px #008cea;
+    border-bottom: none;
+    padding: 6px;
+}
+.menu ul ul li a {
+    padding-right: 0;
+    font-size: 13px;
+    color: #fff;
+    line-height: 32px;
+    text-transform: none;
+}
+.menu ul ul li span{
+    position: absolute;
+    top: 0;
+    right: 10px;
+
+}
+
+.menu ul ul li a:active{
+    color: #CCC;
+}
+
+.menu ul ul ul{
+    top: -1px;
+    left: 100%;
+    padding: 0;
+}
+
+.slider {
+    max-height: 600px;
+    width: 100% !important;
+    overflow: hidden;
+}
+
+.slideTitle {
+    position: relative;
+    top: -760px;
+    left: 150px;
+    background: #067DBC;
+    background-image:-moz-linear-gradient(top, #011724, #067DBC);
+    background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#011724), to(#067DBC));
+    background-image:-webkit-linear-gradient(top, #011724, #067DBC);
+    background-image:-o-linear-gradient(top, #011724, #067DBC);
+    background-image:linear-gradient(to bottom, #011724, #067DBC);
+    font-family: Passion One;
+    padding: .3em;
+    font-size: 4em;
+    line-height: 3em;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    border-radius:4px;
+    -webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    -moz-box-shadow:inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+}
+.slideText {
+    position: relative;
+    top: -760px;
+    left: 150px;
+    background: #011724;
+    border: solid 3px #067DBC;
+    padding: .3em;
+    font-size: 2em;
+    width: 45%;
+    -webkit-border-radius:8px;
+    -moz-border-radius:8px;
+    border-radius:8px;
+}
+
+@media screen and (max-width: 1100px) {
+    .menu a {
+        font-size: 14px;
+        letter-spacing: 0;
+    }
+    footer {
+        font-size: 14px;
+    }
+    .logo {
+        font-size: 24px;
+        line-height: 0;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .slideTitle {display: none;}
+    .slideText {display: none;}
+}

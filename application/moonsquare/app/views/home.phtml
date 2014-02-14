@@ -1,16 +1,69 @@
 <?php displays('header.phtml'); ?>
-<div class="container">
-<h1><?php echo $this->title; ?></h1>
-    <div class="row">
-        <div class="col-md-4">
-            <?php echo $this->content; ?>
-        </div>
-        <div class="col-md-4">
-            <?php echo $this->content; ?>
-        </div>
-        <div class="col-md-4">
-            <?php echo $this->content; ?>
+<section id="slider" class="section">
+    <div id="slide_0" class="slider hide"
+        data-img="<?php urlsite(); ?>assets/themes/moonsquare/img/slide1.jpg"
+        data-duration="10"
+        data-title="titre"
+        data-text="texte">
+    </div>
+    <div id="slide_1" class="slider hide"
+        data-img="<?php urlsite(); ?>assets/themes/moonsquare/img/slide2.jpg"
+        data-duration="10"
+        data-title="titre 2"
+        data-text="texte 2"
+    >
+    </div>
+    <div id="slide_2" class="slider hide"
+        data-img="<?php urlsite(); ?>assets/themes/moonsquare/img/slide3.jpg"
+        data-duration="10"
+        data-title="titre 3"
+        data-text="texte 3"
+    >
+    </div>
+    <div id="slide_3" class="slider hide"
+        data-img="<?php urlsite(); ?>assets/themes/moonsquare/img/slide4.jpg"
+        data-duration="10"
+        data-title="titre 4"
+        data-text="texte 4"
+    >
+    </div>
+    <div id="slide_4" class="slider hide"
+        data-img="<?php urlsite(); ?>assets/themes/moonsquare/img/slide5.jpg"
+        data-duration="10"
+        data-title="titre 5"
+        data-text="texte 5"
+    >
+    </div>
+</section>
+<section id="infos">
+    <div class="inner">
+        <div class="section">
+            <div class="row12">
+                <blockquote>
+                    Lorem ipsum aedequit fiscat.<br />
+                    Lorem ipsum aedequit fiscat.<br />
+                    Lorem ipsum aedequit fiscat.<br />
+                    Lorem ipsum aedequit fiscat.<br />
+                    Lorem ipsum aedequit fiscat.<br />
+                    Lorem ipsum aedequit fiscat.<br />
+                    Lorem ipsum aedequit fiscat.
+                </blockquote>
+            </div>
         </div>
     </div>
-</div>
+</section>
+<section id="content" class="hide">
+    <div class="inner">
+        <div class="section">
+            <div class="row12">
+                <h1><?php echo $this->title; ?></h1>
+            </div>
+        </div>
+        <div class="section">
+            <div class="row12">
+                <?php echo $this->content; ?>
+            </div>
+        </div>
+    </div>
+</section>
 <?php displays('footer.phtml'); ?>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -8,15 +8,11 @@
         <meta name="keywords" content="" />
         <meta name="author" content="Thin framework" />
         <title><?php echo $this->title; ?></title>
-
-        <!-- Bootstrap core CSS -->
-        <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" />
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
         <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="http://cdn.cityzend.com/u/45880241/cdn/css/simple.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="<?php urlsite(); ?>assets/themes/moonsquare/css/style.css" media="screen" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:400,300,700,900,600|Oswald:400,300,700,900,600|Passion+One:400,300,700,900,600|Questrial:400,300,700,900,600&amp;subset=latin,latin-ext" />
-
-        <!--[if lt IE 9]><![endif]-->
-
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
             <script src="http://cdn.cityzend.com/u/45880241/cdn/js/ie8-responsive-file-warning.js"></script>
@@ -28,13 +24,71 @@
           _gaq.push(['_setAccount', '']);
           _gaq.push(['_trackPageview']);
           (function() {
-            var ga = document.createElement('script'); ga.async = true;
+            var ga = document.createElement('script');
+            ga.async = true;
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
           })();
         </script>
-        <style>
-            *,label, input, button, select, textarea {font-family: Questrial,Oswald; font-size: 18px;}
-        </style>
     </head>
     <body>
+        <header class="fixed-top">
+            <div class="inner">
+                <div class="section">
+                    <div class="row3">
+                        <a class="noHover" href="<?php urlsite(); ?>">
+                            <img style="max-width: 40px;" src="<?php urlsite(); ?>assets/themes/moonsquare/img/logoMS.png" />
+                            <span class="logo hidden-phone hidden-tablet">&nbsp;m<span class="white">oo</span>nsquare</span>
+                        </a>
+                    </div>
+                    <div class="row9">
+                        <div class="section menu">
+                            <ul class="inline hidden-phone">
+                                <li class="active" id="infos_a">
+                                    <a class="go" href="#infos">
+                                        LINK
+                                    </a>
+                                    <ul>
+                                        <li><a href="#">donec mollis</a>
+                                            <ul>
+                                                <li><a href="#">curabitur</a>
+                                                    <ul>
+                                                        <li><a href="#">curabitur</a>
+                                                            <ul>
+                                                                <li><a href="#">curabitur</a>
+
+                                                                </li>
+                                                                <li><a href="#">vivamusi</a></li>
+                                                                <li><a href="#">proin sed</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li><a href="#">vivamusi</a></li>
+                                                        <li><a href="#">proin sed</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="#">vivamusi</a></li>
+                                                <li><a href="#">proin sed</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">curabitur</a></li>
+                                        <li><a href="#">vivamusi</a></li>
+                                        <li><a href="#">proin sed</a></li>
+                                    </ul>
+                                </li>
+                                <li id="content_a">
+                                    <a class="go" href="#content">
+                                        LINK
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="section visible-phone text-center">
+                    <div class="row12"><i class="fa fa-tasks fa-white fa-2x"></i></div>
+                </div>
+            </div>
+
+        </header>
+        <section class="firstSection"></section>

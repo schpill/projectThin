@@ -1,17 +1,72 @@
+        <section class="lastSection"></section>
+        <footer class="fixed-bottom">
+            <div class="inner">
+                <div class="section text-center">
+                    <div class="row3">
+                        &reg; Moonsquare 1996 - <?php echo date('Y'); ?>
+                    </div>
+                    <div class="row6">
+                        <div class="section">
+                            <ul class="inline footer">
+                                <li>
+                                    <a rel="tooltip-top" href="">
+                                        <i class="fa fa-linkedin fa-wight fa-2x hidden-phone"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a rel="tooltip-top" href="">
+                                        <i class="fa fa-github fa-wight fa-2x hidden-phone"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a rel="tooltip-top" href="">
+                                        <i class="fa fa-twitter fa-wight fa-2x hidden-phone"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a rel="tooltip-top" href="">
+                                        <i class="fa fa-file fa-wight fa-2x hidden-phone"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row3">
+                        <ul class="inline footer">
+                            <li>
+                                <span rel="tooltip-top" title="Appelez-moi">
+                                    <i class="fa fa-phone fa-wight fa-2x hidden-phone"></i>&nbsp;&nbsp;&nbsp;+1 581 777 6770
+                                </span>
+                            </li>
+                            <li>
+                                <a rel="tooltip-top" title="Contactez-moi sur Skype" href="">
+                                    <i class="fa fa-skype fa-wight fa-2x hidden-phone"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a rel="tooltip-top" title="Envoyez-moi un courriel" href="">
+                                    <i class="fa fa-envelope fa-wight fa-2x hidden-phone"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.0/js/bootstrap.min.js"></script>
-        <script src="//cdn.cityzend.com/u/45880241/cdn/js/hover.js"></script>
         <script>
+        var lastSection = '#infos';
+        var lastLink = '#infos_a';
         $(document).ready(function() {
-            $('.openHover').dropdownHover().dropdown();
             $('[rel=tooltip-bottom]').tooltip({
                 placement: 'bottom'
             });
             $('[rel=tooltip-top]').tooltip({
-                placement: 'bottom'
+                placement: 'top'
             });
             $('[rel=tooltip-left]').tooltip({
                 placement: 'left'
@@ -19,6 +74,120 @@
             $('[rel=tooltip-right]').tooltip({
                 placement: 'right'
             });
+
+            $(".go").on('click', function(e) {
+                e.preventDefault();
+                var hash = this.hash;
+                if (hash != lastSection) {
+                    $(lastSection).fadeOut();
+                    $(hash).fadeIn();
+                    $(lastSection + '_a').attr('class', '');
+                    $(hash + '_a').attr('class', 'active');
+                    lastSection = hash;
+                    lastLink = hash + '_a';
+                    window.location.hash = hash;
+                }
+            });
+
+            var slides = [];
+            var maxSlides = 0;
+            var next = 0;
+            var timerOut;
+
+            $('.slider').each(function() {
+                slide(this);
+                maxSlides++;
+            });
+
+            function slide(elem)
+            {
+                var conf        = [];
+                var img         = $(elem).data('img');
+                var duration    = $(elem).data('duration');
+                var title       = $(elem).data('title');
+                var text        = $(elem).data('text');
+                conf.push(img);
+                conf.push(duration);
+                conf.push(title);
+                conf.push(text);
+                slides.push(conf);
+            }
+
+            slider();
+            var first = true;
+
+            function slider()
+            {
+                maxSlides = parseInt(maxSlides);
+                if (next > maxSlides - 1) next = 0;
+                index           = parseInt(next);
+                next            = parseInt(next + 1);
+                if (next > maxSlides - 1) next = 0;
+                var slide       = slides[index];
+                var div         = $('#slide_' + index);
+                var img         = slide[0];
+                var duration    = parseInt(slide[1] * 1000);
+                var title       = slide[2];
+                var text        = slide[3];
+                if (index > 0) {
+                    var old = parseInt(index - 1);
+                    var divOld = $('#slide_' + old);
+                } else {
+                    var divOld = $('#slide_' + (maxSlides - 1));
+                }
+                var oldHtml = div.html();
+                if (!oldHtml.match('img')) {
+                    var html = '<img class="imgSlide" src="' + img + '" />';
+                    html += '<span class="slideTitle">' + title + '</span>';
+                    html += '<div class="slideText">' + text + '</div>';
+                    div.html(html);
+                }
+                if (divOld.is(":visible")) {
+                    divOld.slideUp(450);
+                }
+                if (false === first) {
+                    div.slideDown(450);
+                } else {
+                    div.show();
+                }
+                first = false;
+                setTimeout(slider, duration);
+            }
+
+            function wait(oldDiv, newDiv)
+            {
+                if (oldDiv.is(":visible")) {
+                    return wait(oldDiv, newDiv);
+                }
+                fadeIn(document.getElementById(newDiv.attr('id')));
+            }
+            function fadeOut(element)
+            {
+                var op = 1;  // initial opacity
+                timerOut = setInterval(function () {
+                    if (op <= 0.1){
+                        clearInterval(timerOut);
+                        element.style.display = 'none';
+                    }
+                    element.style.opacity = op;
+                    element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+                    op -= op * 0.1;
+                }, 100);
+            }
+
+            function fadeIn(element)
+            {
+                var op = 0.1;  // initial opacity
+                var timerIn = setInterval(function () {
+                    if (op >= 0.9) {
+                        clearInterval(timerIn);
+                    }
+                    element.style.display = 'block';
+                    element.style.opacity = op;
+                    element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+                    op += op * 0.1;
+                }, 100);
+            }
         });
         </script>
     </body>

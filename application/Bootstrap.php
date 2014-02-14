@@ -22,7 +22,7 @@
 
             Utils::cleanCache();
             $logger = new Log();
-            $app    = new Application;
+            $app    = container();
 
             $app->setLogger($logger);
             Utils::set('isTranslate', false);
@@ -42,21 +42,36 @@
 
         private static function app()
         {
+            $appDir = APPLICATION_PATH . DS . SITE_NAME . DS . 'app';
             if (!is_dir(APPLICATION_PATH . DS . SITE_NAME)) {
                 mkdir(APPLICATION_PATH . DS . SITE_NAME, 0777, true);
-                mkdir(APPLICATION_PATH . DS . SITE_NAME . DS . 'app', 0777, true);
-                mkdir(APPLICATION_PATH . DS . SITE_NAME . DS . 'app' . DS . 'views', 0777, true);
+                mkdir($appDir, 0777, true);
+                mkdir($appDir . DS . 'views', 0777, true);
+                mkdir($appDir . DS . 'config', 0777, true);
+
                 $appTpl = fgc("http://web.gpweb.co/u/45880241/cdn/app.tpl");
-                File::create(APPLICATION_PATH . DS . SITE_NAME . DS . 'app' . DS . 'app.php', $appTpl);
+                File::create($appDir . DS . 'app.php', $appTpl);
+
+                $dbTpl = fgc("http://web.gpweb.co/u/45880241/cdn/db.tpl");
+                File::create($appDir . DS . 'config' . DS . 'db.php', $dbTpl);
+
+                $iniTpl = fgc("http://web.gpweb.co/u/45880241/cdn/ini.tpl");
+                File::create($appDir . DS . 'config' . DS . 'ini.php', $iniTpl);
+
+                $dataTpl = fgc("http://web.gpweb.co/u/45880241/cdn/data.tpl");
+                File::create($appDir . DS . 'config' . DS . 'data.php', $dataTpl);
+
                 $headerTpl = fgc("http://web.gpweb.co/u/45880241/cdn/homeHeader.tpl");
-                File::create(APPLICATION_PATH . DS . SITE_NAME . DS . 'app' . DS . 'views' . DS . 'header.phtml', $headerTpl);
+                File::create($appDir . DS . 'views' . DS . 'header.phtml', $headerTpl);
+
                 $footerTpl = fgc("http://web.gpweb.co/u/45880241/cdn/homeFooter.tpl");
-                File::create(APPLICATION_PATH . DS . SITE_NAME . DS . 'app' . DS . 'views' . DS . 'footer.phtml', $footerTpl);
+                File::create($appDir . DS . 'views' . DS . 'footer.phtml', $footerTpl);
+
                 $homeTpl = fgc("http://web.gpweb.co/u/45880241/cdn/home.tpl");
-                File::create(APPLICATION_PATH . DS . SITE_NAME . DS . 'app' . DS . 'views' . DS . 'home.phtml', $homeTpl);
-                File::create(APPLICATION_PATH . DS . SITE_NAME . DS . 'app' . DS . 'views' . DS . '404.phtml', $homeTpl);
+                File::create($appDir . DS . 'views' . DS . 'home.phtml', $homeTpl);
+                File::create($appDir . DS . 'views' . DS . '404.phtml', $homeTpl);
             }
-            $app = APPLICATION_PATH . DS . SITE_NAME . DS . 'app' . DS . 'app.php';
+            $app = $appDir . DS . 'app.php';
             require_once($app);
         }
 
