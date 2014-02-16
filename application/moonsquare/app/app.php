@@ -16,6 +16,30 @@
     /* SITE OPTIONS */
     options()->setDefaultLanguage('fr');
 
+    /* LANGUAGES */
+    $fileTranslations = dirname(__FILE__) . DS . 'config/translations.php';
+    if (File::exists($fileTranslations)) {
+        require_once $fileTranslations;
+    }
+
+    // $tree = new Tree('config');
+    // $tree->node('db')
+    // ->children()
+    //     ->setTest("test")
+    //     ->getSelf()
+    //     ->node('dkkd')
+    //         ->children()
+    //             ->setTest(15)
+    //             ->getFather()
+    //         ->children()
+    //             ->setTest2(45);
+    // $tree->node('db2')
+    // ->children()
+    //     ->setTest("testsqsq");
+
+    // dieDump($tree->getNode('db2')->getTree()->getTest());
+    // dieDump($tree->getNode('db')->getNode('dkkd')->getTree()->getTest());
+
     /* CONTROLLERS */
 
     /* 404 */
