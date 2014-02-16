@@ -17,10 +17,10 @@
     options()->setDefaultLanguage('fr');
 
     /* LANGUAGES */
-    $fileTranslations = dirname(__FILE__) . DS . 'config/translations.php';
-    if (File::exists($fileTranslations)) {
-        require_once $fileTranslations;
-    }
+    // $fileTranslations = dirname(__FILE__) . DS . 'config/translations.php';
+    // if (File::exists($fileTranslations)) {
+    //     require_once $fileTranslations;
+    // }
 
     // $tree = new Tree('config');
     // $tree->node('db')
