@@ -1,0 +1,22 @@
+<?php includes('partials/header/classic.phtml'); ?>
+    <div id="content" role="main">
+        <section class="section">
+            <div class="container">
+                <div class="row-fluid">
+                    <div class="span1">&nbsp;</div>
+                    <div class="widget span10">
+                        <div class="widget-header clearfix">
+                            <h3><i class="icon-list"></i>&nbsp;&nbsp;&nbsp;&nbsp;Afficher un fournisseur</h3>
+                        </div>
+    <div class="widget-body">
+            <legend>Nom</legend>
+            <pre class="prettyprint"><?php echo \Thin\Html\Helper::display($this->item->getName()); ?></pre>
+            <p />
+            <div>
+                <button id="printCrud" type="button" class="btn btn-warning" onclick="window.print();"><i class="icon-print icon-white"></i> Imprimer</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="backListCrud" type="button" class="btn btn-info" onclick="document.location.href = '<?php echo URLSITE . 'admin/item/' . $this->type; ?>';"><i class="icon-list icon-white"></i> Retour à la liste</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<?php includes('partials/footer/classic.phtml'); ?>

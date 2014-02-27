@@ -1,17 +1,14 @@
 <?php
     namespace Thin;
 
+    ini_set("memory_limit", '512M');
+
     /* CONFIG FILES */
     require_once 'config/ini.php';
     require_once 'config/db.php';
     require_once 'config/data.php';
 
     /* SITE CONFIGS */
-    $conf = array();
-    $dbTest = new database();
-    $dbTest->setUsername('root')->setPassword('root')->setAdapter('mysql')->setDatabase('test')->setHost('localhost');
-    $conf['test'] = $dbTest;
-    configs()->setDb($conf);
 
     /* SITE OPTIONS */
     options()->setDefaultLanguage('fr');

@@ -137,9 +137,12 @@
             } else {
                 $data   = $db->all()->order($config['sort'], $config['sortOrder'])->get();
             }
+
             $settings   = ake($type, Data::$_settings) ? Data::$_settings[$type] : array();
+            $_settings  = Data::$_fields[$config['motherEntity']][$config['id']];
             $require    = (true === $config['required']) ? 'required' : '';
             $val        = (ake($config['id'], $_POST)) ? $_POST[$config['id']] : '';
+
 
             if (ake('value', $config)) {
                 $val = $config["value"];
@@ -152,6 +155,7 @@
             $html .= '<option value="">Choisir</option>';
             if (count($data)) {
                 $fields = $config['fields'];
+                $closure = (ake('closureEntity', $_settings)) ? $_settings['closureEntity'] : self::defaultClosure();
                 foreach ($data as $item) {
                     $itemId = $item->getId();
                     $option = '';
@@ -160,9 +164,9 @@
                     }
                     $option = substr($option, 0, -1);
                     if ($val == $itemId)  {
-                        $html .= '<option selected value="' . $itemId . '">' . $option . '</option>';
+                        $html .= '<option selected value="' . $itemId . '">' . $closure($option, $itemId) . '</option>';
                     } else {
-                        $html .= '<option value="' . $itemId . '">' . $option . '</option>';
+                        $html .= '<option value="' . $itemId . '">' . $closure($option, $itemId) . '</option>';
                     }
                 }
             }
@@ -176,7 +180,7 @@
                         if(can($info['entity'], 'add')) {
                             array_push($ever, $info['entity']);
                             $html .= '<p>
-                                    <a target="_'.$config['id'].'" href="' . URLSITE . 'backadmin/item_add/'.$info['entity'].'">
+                                    <a target="_' . $config['id'] . '" href="' . URLSITE . 'backadmin/item_add/' . $info['entity'] . '">
                                     <button type="button" class="btn btn-primary">
                                     <i class="icon-plus"></i> Ajouter ';
                             if (ake('labelRel', $info)) $label = $info['labelRel'];
@@ -200,6 +204,8 @@
         {
             $type       = $config['entity'];
             $db         = new Querydata($type);
+            $settings   = ake($type, Data::$_settings) ? Data::$_settings[$type] : array();
+            $_settings  = ake($type, Data::$_fields[$config['motherEntity']]) ? Data::$_fields[$config['motherEntity']][$type] : array();
 
             if (!ake('sortOrder', $config)) {
                 $data   = $db->all()->order($config['sort'])->get();
@@ -211,6 +217,7 @@
             $html .= '<option value="">Choisir</option>';
             if (count($data)) {
                 $fields = $config['fields'];
+                $closure = (ake('closureEntity', $_settings)) ? $_settings['closureEntity'] : self::defaultClosure();
                 foreach ($data as $item) {
                     $itemId = $item->getId();
                     $option = '';
@@ -218,7 +225,7 @@
                         $option .= $item->$field . ' ';
                     }
                     $option = substr($option, 0, -1);
-                    $html .= '<option value="' . $itemId . '">' . $option . '</option>';
+                    $html .= '<option value="' . $itemId . '">' . $closure($option, $itemId) . '</option>';
                 }
             }
             $html .= '</select>';
@@ -343,11 +350,12 @@
                         if ('data' == $infosField['type']) {
                             $confData  = \ThinHelper\Html::formSearchSelectEntity(
                                 array(
-                                    'entity'    => $infosField['entity'],
-                                    'id'        => 'crudSearchValue_' . $i,
-                                    'label'     => $label,
-                                    'sort'      => $infosField['sort'],
-                                    'fields'    => $infosField['fields']
+                                    'entity'        => $infosField['entity'],
+                                    'id'            => 'crudSearchValue_' . $i,
+                                    'label'         => $label,
+                                    'sort'          => $infosField['sort'],
+                                    'motherEntity'  => $type,
+                                    'fields'        => $infosField['fields']
                                 )
                             );
                             $search  .= repl('<select ', '<select style="width: 40%;" ', $confData);
@@ -398,5 +406,13 @@
                 }
             }
             return '';
+        }
+
+        private static function defaultClosure()
+        {
+            $closure = function ($str, $id) {
+                return $str;
+            };
+            return $closure;
         }
     }

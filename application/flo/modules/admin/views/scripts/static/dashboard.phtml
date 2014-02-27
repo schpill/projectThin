@@ -1,0 +1,98 @@
+<?php includes('partials/header/classic.phtml'); ?>
+<!-- Main Content -->
+    <div id="content" role="main" class="page">
+        <div class="section">
+            <div class="container">
+                <div class="page-header">
+                    <h1>
+                        Tableau de Bord
+                    </h1>
+                </div>
+                <div class="row">
+                    <div class="widget span9">
+                        <div class="widget-header">
+                            <h2>Arborescence du site</h2>
+                        </div>
+                        <div class="widget-body text-left">
+                        <?php $pages = Thin\Cms::getParents(); ?>
+                        <?php if (count($pages)): ?>
+                            <ul style="list-style: upper-roman;">
+                                <?php foreach ($pages as $page): ?>
+                                <?php $children = Thin\Cms::getChildren($page); ?>
+                                <li>
+                                    <?php if(Thin\Cms::__($page->getUrl()) == 'home'): ?>
+                                        <i class="fa fa-home"></i>
+                                    <?php endif; ?>
+                                    <?php if(Thin\Cms::__($page->getUrl()) == 'contact'): ?>
+                                        <i class="fa fa-envelope"></i>
+                                    <?php endif; ?>
+                                    <?php echo $page->getName(); ?>
+                                    <?php if (count($children)): ?>
+                                        <ul style="list-style: decimal;">
+                                        <?php foreach ($children as $child): ?>
+                                        <?php $littleChildren = Thin\Cms::getChildren($child); ?>
+                                            <li>
+                                                <?php echo $child->getName(); ?>
+                                                <?php if (count($littleChildren)): ?>
+                                                    <ul style="list-style: decimal;">
+                                                        <?php foreach ($littleChildren as $littleChild): ?>
+                                                        <?php $babyChildren = Thin\Cms::getChildren($littleChild); ?>
+                                                            <li>
+                                                                <?php echo $littleChild->getName(); ?>
+                                                                <?php if (count($babyChildren)): ?>
+                                                                    <ul style="list-style: decimal;">
+                                                                        <?php foreach ($babyChildren as $babyChild): ?>
+                                                                            <li>
+                                                                                <?php echo $babyChild->getName(); ?>
+                                                                            </li>
+                                                                        <?php endforeach; ?>
+                                                                    </ul>
+                                                                <?php endif; ?>
+                                                            </li>
+                                                        <?php endforeach; ?>
+                                                    </ul>
+                                                <?php endif; ?>
+                                            </li>
+                                        <?php endforeach; ?>
+                                        </ul>
+                                    <?php endif; ?>
+                                </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="row"><a name="myTasks"></a>
+                    <div class="widget span9">
+                        <div class="widget-header">
+                            <h2>Liste des tâches</h2>
+                        </div>
+                        <div class="widget-body text-left">
+                        <?php
+                        $db = new Thin\Querydata('admintask');
+                        ?>
+                        <?php $tasks = $db->where('adminuser = ' . session('admin')->getUser()->getId())->order('end')->get(); ?>
+                        <?php if (count($tasks)): ?>
+                            <ul style="list-style: upper-roman;">
+                                <?php foreach ($tasks as $task): ?>
+                                <?php if ($task->getAdmintaskstatus()->getName() != 'Terminée'): ?>
+                                <li>
+                                    <a style="color: black;" href="<?php urlsite(); ?>backadmin/item_view/admintask/<?php echo $task->getId(); ?>/<?php echo ThinHelper\Html::makeKey($task->getId()); ?>?show_menu=false" class="framelink"><strong><?php echo $task->getName(); ?></strong></a><br />
+                                    Statut : <?php echo $task->getAdmintaskstatus()->getName(); ?><br />
+                                    <u><?php echo $task->getAdmintasktype()->getName(); ?></u><p />
+                                    <a href="<?php urlsite(); ?>backadmin/item_edit/admintask/<?php echo $task->getId(); ?>/<?php echo ThinHelper\Html::makeKey($task->getId()); ?>?show_menu=false" class="btn btn-primary framelink">A terminer pour le <?php echo $task->getEnd(); ?> <i class="fa fa-edit"></i></a>
+                                </li>
+                                <?php endif; ?>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php else: ?>
+                            Aucune tâche en cours.
+                        <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php includes('partials/footer/classic.phtml'); ?>

@@ -110,6 +110,37 @@
 
         private static function test()
         {
+//             @font-face {
+//             font-family: "proxima_nova";
+//             src: url("https://www.dropbox.com/static/fonts/proximanova/prox=
+// ima-nova-regular.otf") format("opentype");
+//             font-weight: normal;
+//          }
+            // $item = array(
+            //     'currency'           => 'CAD',
+            //     'quantity'           => 1,
+            //     'price'              => 100,
+            //     'name'               => 'Objet test',
+            //     'id'                 => '123456',
+            // );
+            // $items = array($item);
+            // $config = array(
+            //     'environment'        => 'development',
+            //     'returnUrl'          => 'http://www.gpweb.co/success',
+            //     'cancelUrl'          => 'http://www.gpweb.co/cancel',
+            //     'currency'           => 'CAD',
+            //     'total'              => 135,
+            //     'subtotal'           => 100,
+            //     'tax'                => 20,
+            //     'shipping'           => 15,
+            //     'discount_amount'    => 10,
+            //     'description'        => 'Liste de vos achats',
+            //     'items'              => $items,
+            //     'clientId'           => 'AR1gYxBYuhVXGHInUsHgSXTZ_OBWj9AsGNPg--92OPZqLsD089GsFfeb8CHB',
+            //     'clientSecret'       => 'EDh0XRCYD34dDH-n3ad6n-AzYOm3Ko_6AlcwUhMGrJG_5r9lMoKXqBR5hl-7'
+            // );
+            // $url = Paypal::getUrlPaypalPayment($config);
+            // die($url);
             // $db = new Querydata('page');
             // $res = $db->getAll()->groupBy('name')->get();
             // dieDump($res);
