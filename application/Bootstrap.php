@@ -124,23 +124,33 @@
             //     'id'                 => '123456',
             // );
             // $items = array($item);
+
             // $config = array(
             //     'environment'        => 'development',
             //     'returnUrl'          => 'http://www.gpweb.co/success',
             //     'cancelUrl'          => 'http://www.gpweb.co/cancel',
             //     'currency'           => 'CAD',
             //     'total'              => 135,
+            //     'discount_amount'    => 10,
             //     'subtotal'           => 100,
             //     'tax'                => 20,
             //     'shipping'           => 15,
-            //     'discount_amount'    => 10,
             //     'description'        => 'Liste de vos achats',
             //     'items'              => $items,
             //     'clientId'           => 'AR1gYxBYuhVXGHInUsHgSXTZ_OBWj9AsGNPg--92OPZqLsD089GsFfeb8CHB',
             //     'clientSecret'       => 'EDh0XRCYD34dDH-n3ad6n-AzYOm3Ko_6AlcwUhMGrJG_5r9lMoKXqBR5hl-7'
             // );
-            // $url = Paypal::getUrlPaypalPayment($config);
-            // die($url);
+            // $urls = Paypal::getUrlPaypalPayment($config);
+            // token=EC-2EL34077U2935391T&PayerID=GKA3B3WH7ASZ6
+            // https://api.sandbox.paypal.com/v1/payments/payment/PAY-2HA413672C0466420KMIPWWA/execute
+            // dieDump($urls);
+            // dieDump(Paypal::execPayment(array(
+            //     'clientId'           => 'AR1gYxBYuhVXGHInUsHgSXTZ_OBWj9AsGNPg--92OPZqLsD089GsFfeb8CHB',
+            //     'clientSecret'       => 'EDh0XRCYD34dDH-n3ad6n-AzYOm3Ko_6AlcwUhMGrJG_5r9lMoKXqBR5hl-7',
+            //     'environment'        => 'development',
+            //     'PayerID' => 'GKA3B3WH7ASZ6',
+            //     'execute' => 'https://api.sandbox.paypal.com/v1/payments/payment/PAY-7FW43718AD309424BKMIP5JI/execute',
+            // )));
             // $db = new Querydata('page');
             // $res = $db->getAll()->groupBy('name')->get();
             // dieDump($res);
@@ -169,7 +179,7 @@
             // $test = Data::newApikey(array('key' => 'cool', 'resource' => 'OK'));
             // $test->save();
             // dieDump($test);
-            // $videos = Youtube::getVideosByUser('TheKARAOKEChannel');
+            // $videos = Youtube::getVideosByUser('TheKARAOKEChannel');dieDump($videos);
             // foreach ($videos as $video) {
             //     Data::add('youtube', $video, 'youtube_id');
             // }
@@ -188,7 +198,7 @@
             // $c = Data::getAll('film');
             // $obj = Data::getObject(current($c));
             // dieDump($obj->genre);
-            // $test = mail('gplusquellec@gmail.com', 'test', 'test', "From:gp<hp@free.fr>");
+            // $test = Utils::mail('gplusquellec@gmail.com', 'test', 'test', "From:gp<hp@free.fr>");
             // $truc = new Truc;
             // $truc->app = 15;
             // $truc->boot = function () use ($truc) {
