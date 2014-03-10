@@ -13,6 +13,10 @@
             ),
             /* les relations */
             'relationships'         => array(
+                'adminrights'       => array(
+                    'type'          => 'manyToMany',
+                    'onDelete'      => 'cascade'
+                ),
             ),
             'singular'              => 'droit',
             'plural'                => 'droits',

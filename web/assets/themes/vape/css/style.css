@@ -1,1 +1,380 @@
-@import url(http://fonts.googleapis.com/css?family=Volkhov:400,400italic,700,700italic|Questrial:400,300,700,900,600&amp;subset=latin,latin-ext);
+@import url(http://fonts.googleapis.com/css?family=Vollkorn:400,400italic,700,700italic|Montserrat:400,700|Oswald:400,300,700,900,600|Questrial:400,300,700,900,600&amp;subset=latin,latin-ext);
+
+::-moz-selection { color: #fff;  background: #222; }
+::selection      { color: #fff;  background: #222; }
+
+body {
+    color: #222;
+    font-size: 14px;
+    font-family: 'Vollkorn', 'Times New Roman', cursive;
+}
+
+.top {
+    margin-top: 20px;
+}
+
+.boxLogo {
+    padding: 25px;
+    border: solid 1px #222;
+}
+
+a {
+    color: #222;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #222;
+    text-decoration: underline;
+}
+
+.logo {
+    float:left;
+    font-family: Oswald;
+    border: solid 2px #222;
+    font-weight: 900;
+    font-size: 25px;
+    line-height: 25px;
+    color: #fff;
+    background: #222;
+    text-align: center;
+    padding: 8px;
+}
+
+.logo a, .logo a:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+.titleFont {
+    font-family: Montserrat;
+}
+
+.logoText {
+    padding: 8px;
+    float:left;
+    border: solid 2px #222;
+    font-family: Montserrat;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 25px;
+}
+
+.logoText a, .logoText a:hover {
+    text-decoration: none;
+    color: #222;
+}
+
+.logoText::-moz-selection { color: #222;  background: #fff; }
+.logoText::selection      { color: #222;  background: #fff; }
+
+header .menu {
+    font-family: "Montserrat";
+    list-style: none outside none;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+    position: absolute;
+    right: 0;
+}
+
+header .menu > li {
+    float: left;
+    margin-right: 15px;
+}
+
+header .menu > li:last-child {
+    margin-right: 0;
+}
+
+header .menu a {
+    text-decoration: none;
+    color: #222;
+}
+
+header .menu a:hover {
+    border-bottom: solid 2px #53669D;
+    color: #222;
+}
+
+.sep {
+    height: 30px;
+}
+
+.dropMenu ul {
+    margin: 0;
+    padding: 0;
+    float: left;
+    list-style: none;
+}
+
+.dropMenu ul li {
+    position: relative;
+    float: left;
+}
+
+.dropMenu ul li a {
+    display: block;
+    height: 42px;
+    padding: 0 20px;
+    font: 15px/45px 'Montserrat', sans-serif;
+    color: #222;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: #fff;
+    -webkit-transition:background 190ms ease-in, color 190ms ease-in;
+    -moz-transition:background 190ms ease-in, color 190ms ease-in;
+    -ms-transition:background 190ms ease-in, color 190ms ease-in;
+    -o-transition:background 190ms ease-in, color 190ms ease-in;
+    transition:background 190ms ease-in, color 190ms ease-in;
+}
+
+.dropMenu ul:hover li.active > a {
+    background: #222;
+    color: #fff;
+}
+.dropMenu ul li.active > a, .dropMenu ul li:hover > a, .dropMenu ul li.active:hover > a {
+    background: #222;
+    color: #fff;
+}
+
+.dropMenu ul li a:active, .dropMenu ul li.active a:active {
+    background: #222;
+    color: #fff;
+}
+
+.dropMenu ul ul {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    padding-top: 4px;
+    border-bottom: solid 2px #888;
+}
+.dropMenu ul li:hover > ul {
+    visibility: visible;
+    opacity: 1;
+}
+
+.dropMenu ul ul li {
+    cursor: pointer;
+    border: solid 1px #888;
+    border-bottom: none;
+}
+.dropMenu ul ul li a {
+    min-width: 134px;
+    height: 31px;
+    padding-right: 0;
+    font-size: 13px;
+    line-height: 32px;
+    text-transform: none;
+}
+
+.dropMenu ul ul li span {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 16px;
+}
+
+.dropMenu ul ul li:hover > a {
+    background: #222;
+    color: #fff;
+}
+
+.dropMenu ul ul li a:active {
+    color: #fff;
+}
+
+.dropMenu ul ul ul {
+    top: -1px;
+    left: 100%;
+    padding: 0;
+}
+
+.dropMenu input#dropdown, .dropMenu label {
+    display: none;
+    position: absolute;
+    top: 5px;
+    right: 14px;
+    min-width: 46px;
+    min-height: 35px;
+}
+
+.dropMenu input#dropdown {
+    opacity: 0;
+}
+
+.dropMenu label {
+    background: #222 url(../img/list_icon.png) no-repeat center;
+    webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.dropMenu label:hover {
+    cursor: pointer;
+}
+
+.dropMenu input#dropdown:checked ~ ul {
+    display: block;
+}
+
+.dropMenu p {
+    display: none;
+    position: absolute;
+    top: 12px;
+    left: 14px;
+    margin: 0;
+    font: 19px 'Montserrat', Arial, Helvetica, sans-serif;
+    color:#222;
+}
+
+@media only screen and (max-width: 1024px) {
+    .dropMenu {
+        width: 95%;
+    }
+
+    .dropMenu ul ul {
+        margin: 0;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .dropMenu input, .dropMenu label, .dropMenu p {
+        display: block;
+    }
+
+    .dropMenu {
+        width: 62%;
+        min-height: 46px;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .dropMenu ul {
+        margin-top: 46px;
+        display: none;
+    }
+
+    .dropMenu ul li {
+        width: 100%;
+    }
+
+    .dropMenu ul li a {
+        min-height: 40px;
+        line-height: 42px;
+        font-size: 18px;
+    }
+
+    .dropMenu ul ul {
+        width: 100%;
+        display: block;
+        position: static;
+        visibility: visible;
+        opacity: 1;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        border: none;
+        background: none;
+    }
+
+    .dropMenu ul ul li {
+        width: 100%;
+        border: none;
+    }
+
+    .dropMenu ul ul li a {
+        width: auto;
+        padding: 0;
+        text-align: center;
+        color: #222;
+    }
+
+    .dropMenu ul ul li:hover a {
+        background: #222;
+        color: #fff;
+    }
+
+    .dropMenu ul ul ul, .dropMenu ul ul li a span {
+        width: auto;
+        padding: 0;
+        text-align: center;
+    }
+}
+@media only screen and (max-width: 480px) {
+    .dropMenu{
+        width: 92%;
+    }
+}
+
+.connexion, .contact {
+    display: none;
+}
+
+.white {
+    color: #fff;
+}
+
+.bgDark {
+    background: #222;
+}
+
+.upper {
+    text-transform: uppercase;
+}
+
+#scrollToTop {
+    width: 50px;
+    height: 50px;
+    background: #222;
+    display: none;
+    padding: 1em;
+    position: fixed;
+    bottom: 2em;
+    right: 0px;
+    color: #fff;
+    cursor: pointer;
+}
+
+#scrollToTop i {
+    position: absolute;
+    top: 20%;
+}
+
+footer {
+    background: #666;
+    color: #fff;
+    min-height: 100px;
+    padding-top: 30px;
+}
+
+.socialNetwork ul {
+    margin: 0;
+    padding: 0;
+    float: left;
+    list-style: none;
+}
+
+.socialNetwork ul li {
+    position: relative;
+    float: left;
+    margin-right: 1.5em;
+    padding: 1em;
+    border: solid 1px;
+    width: 5em;
+    background: #222;
+    cursor: pointer;
+}
+
+.socialNetwork ul li:hover {
+    border: solid 1px #222;
+    background: #fff;
+    color: #222;
+}
+
+.socialNetwork ul li:hover i {
+    color: #222;
+}

@@ -110,6 +110,27 @@
 
         private static function test()
         {
+            // $db = new Querydata;
+            // // $tables = $db->getTables();
+            // $fields = array(
+            //     'name'  => array('cantBeNull' => true),
+            //     'value' => array('cantBeNull' => true)
+            // );
+            // $settings = array(
+            //     'checkTuple' => 'name'
+            // );
+            // $t = $db->table('truc', $fields, $settings);
+            // $db = new Querydata('trucc');
+            // dieDump($db->insert(array(array('papa' => 'fdfd', 'value' => 'hghg'))));
+            // $db = dm('adminright');
+            // $res = $db->join('admintable', 'name = admintable')->order('adminaction')->get();
+            // foreach ($res as $row) {
+            //     var_dump($row->getAdminaction()->getName());
+            // }exit;
+            // $db = dm('adminaction');
+            // $res = $db->where('name = list')->get();
+            // $action = $db->first($res);
+            // dieDump($action->getAdminrights());
 //             @font-face {
 //             font-family: "proxima_nova";
 //             src: url("https://www.dropbox.com/static/fonts/proximanova/prox=

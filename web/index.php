@@ -5,10 +5,11 @@
 
     $serverName = $_SERVER["SERVER_NAME"];
     $tab = explode(".", $serverName);
-    $siteName = null;
-    if (count($tab) > 2) {
+    $siteName = getenv('ACCESS_SITE_NAME');
+    if (count($tab) > 2 && null == $siteName) {
         $siteName = strtolower(current($tab));
     }
+
     $siteName = empty($siteName) ? (getenv('SITE_NAME') ? strtolower(getenv('SITE_NAME')) : 'default') : $siteName;
 
     // Define path to application directory

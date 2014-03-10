@@ -13,7 +13,7 @@
         <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" />
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
         <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:400,300,700,900,600|Oswald:400,300,700,900,600|Passion+One:400,300,700,900,600|Questrial:400,300,700,900,600&amp;subset=latin,latin-ext" />
+        <link rel="stylesheet" type="text/css" href="<?php $this->asset('css/style.css'); ?>?<?php echo time(); ?>" />
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -21,17 +21,101 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="<?php $this->asset('js/web.js'); ?>"></script>
         <script>
-          var _gaq = _gaq || [];
-          _gaq.push(['_setAccount', '']);
-          _gaq.push(['_trackPageview']);
-          (function() {
-            var ga = document.createElement('script');
-            ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(ga, s);
-          })();
+            var app = new app;
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', '']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+                var ga = document.createElement('script');
+                ga.async = true;
+                ga.src = (
+                    'https:' == document.location.protocol
+                    ? 'https://ssl'
+                    : 'http://www'
+                ) + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
         </script>
     </head>
     <body>
+    <section class="bgDark white connexion">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <div class="">
+                        connexion
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <header class="container">
+        <div class="row">
+            <a href="<?php urlsite(); ?>">
+                <div class="col-md-4 top logoDiv">
+                    <div class="logo">RDLV</div>
+                    <div class="logoText hidden-xs hidden-md">rue de la vape</div>
+                </div>
+            </a>
+            <div class="col-md-8 text-right hidden-xs">
+                <ul class="menu titleFont">
+                    <li><a href="#" onclick="app.showSlide('.connexion');"><lang args="'key' => 'header.connection'">connexion</lang></a></li>
+                    <li><a href=""><lang args="'key' => 'header.inscription'">inscription</lang></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="sep"></div>
+        <div id="navigation" class="row">
+            <nav class="dropMenu col-md-12">
+                <p>Menu</p>
+                <input type="checkbox" id="dropdown">
+                <label for="dropdown" onclick></label>
+                <ul>
+                    <li class="active"><a href="<?php urlsite(); ?>">Home</a></li>
+                    <li><a href="#">Portfolio +</a>
+                        <ul>
+                            <li><a href="#">donec mollis<span>+</span></a>
+                                <ul>
+                                    <li><a href="#">curabitur</a></li>
+                                    <li><a href="#">vivamusi</a></li>
+                                    <li><a href="#">proin sed</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">curabitur</a></li>
+                            <li><a href="#">vivamusi</a></li>
+                            <li><a href="#">proin sed</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Services +</a>
+                        <ul>
+                            <li><a href="#">aenean</a></li>
+                            <li><a href="#">supedis<span>+</span></a>
+                                <ul>
+                                    <li><a href="#">vestibulum</a></li>
+                                    <li><a href="#">faucibus</a></li>
+                                    <li><a href="#">hendrerit<span>+</span></a>
+                                        <ul>
+                                            <li><a href="#">praesent id</a></li>
+                                            <li><a href="#">dictum</a></li>
+                                            <li><a href="#">cras</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">netus et</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">urna vitae</a></li>
+                            <li><a href="#">nulla</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#contact" onclick="app.goDiv('#contact');">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div id="divContent">
