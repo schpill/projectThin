@@ -7,7 +7,12 @@
         'value' => array('cantBeNull' => true)
     );
     $conf = array(
-        'checkTuple' => 'name'
+        'checkTuple'    => 'name',
+        'functions'     =>  array(
+            'test'    => function ($obj) {
+                return 'Super';
+            },
+        )
     );
     data('option', $fields, $conf);
 

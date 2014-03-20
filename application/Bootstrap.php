@@ -110,6 +110,52 @@
 
         private static function test()
         {
+            // $d = new Duproprio;
+            // $q = "SELECT * FROM proprietes WHERE LENGTH(city) > 0 ORDER BY price DESC";
+            // $res = $d->getDb()->query($q);
+            // while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
+            //     $obj = Data::row('propriete', $row);
+            //     $s = $obj->save();
+            //     print_r($s);
+            //     exit;
+            // }
+            // exit;
+            // $d->getAds();dieDump($d);
+            // set_time_limit(0);
+            // $db = dm("propriete");
+            // $all = $db->all()->setCache(true)->get();
+            // foreach ($all as $obj) {
+            //     $d->addDb($obj);
+            // }
+            // exit;
+            // $evers = array();
+            // $deleted = array();
+            // foreach ($all as $property) {
+            //     if ($property instanceof Container) {
+            //         $partnerId = $property->getPartnerId();
+            //         if (Arrays::in($partnerId, $evers)) {
+            //             array_push($deleted, $property->id);
+            //             $property->delete();
+            //         } else {
+            //             array_push($evers, $partnerId);
+            //         }
+            //     }
+            // }
+            // dieDump($db->first($all)->_fields);
+            // dieDump($all);
+            // $d = new Duproprio;
+            // $p = $d->extract(6880);
+            // dieDump($p);
+            // $c = new Centris;
+            // echo time();
+            // $db = dm('adminright');
+            // $res = $db->join('admintable', 'name = admintable')->order('adminaction')->get();
+            // foreach ($res as $row) {
+            //     var_dump($row->getAdminaction()->getName());
+            // }echo time();exit;
+            // $db = dm('adminaction');
+            // dieDump($db->all()->order(array('name', 'id'))->get());
+            // // $kv = new Keyvalue();
             // $db = new Querydata;
             // // $tables = $db->getTables();
             // $fields = array(

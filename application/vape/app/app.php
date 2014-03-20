@@ -4,10 +4,11 @@
     use Swift_Mailer as Mailer;
     use Swift_Message as Message;
 
-    ini_set("memory_limit", '512M');
+    ini_set("memory_limit", '2000M');
 
     /* CONFIG FILES */
     require_once 'config/ini.php';
+    require_once 'config/activeRecord.php';
     require_once 'config/db.php';
     require_once 'config/data.php';
 
@@ -67,6 +68,20 @@
     /* SITE OPTIONS */
     options()->setDefaultLanguage('fr');
 
+    $db = new Litedb('option');
+    // $all = $db->fetchAll()->groupBy('value')->fetch();
+    // $db->newRow()->setName('rv')->setValue(50)->save();
+    // $db->newRow()->setName('truc')->setValue(25)->save();
+    // $db->newRow()->setName('machin')->setValue(200)->save();
+    // $maj = $db->find(2)->setValue('fdfd')->save();
+    // $maj = $db->find(1)->delete();
+    // $db->find(1)->setName('parari')->save();
+    // $db->find(1)->delete();
+    $all = $db->find(1)->test();
+    dieDump($all);
+    // $new = $db->newRow()->setName('truc')->setValue(30);
+    // dieDump($new->save());
+
     // dieDump(\Flo\Services\Data::getTest());
     // $config = array(
     //     'host' => 'smtp.mandrillapp.com',
@@ -86,6 +101,16 @@
     //     $result = $mail->text($body)->sendText();
     // }
     // dieDump($result);
+
+    // $ar = ar('ajf', 'user');
+    // $o = $ar->find(1);
+    // ->where('partner_id > :partner_id', array('partner_id' => 0))
+    // ->where('partner_id < :partner_id', array('partner_id' => 1000))
+    // ->fetch();
+    // $o->setSkype('gerald_paris');
+    // foreach ($o->getPartner()->getUsers() as $user) {
+    //     dieDump($user->getPartner()->getUsers());
+    // }
 
     /* CONTROLLERS */
 
