@@ -67,8 +67,19 @@
 
     /* SITE OPTIONS */
     options()->setDefaultLanguage('fr');
+    // kv('test', time());
+    // dieDump(kv('test'));
+    // $redis = new Redis('127.0.0.1');
+    // dieDump($redis->set(array('cool', time())));
 
-    $db = new Litedb('option');
+    // $rand = function ($min, $max) {
+    //     return rand($min, $max);
+    // };
+
+    // container()->event('rand', $rand);
+    // dieDump(container()->rand(1000, 2000));
+
+    // $db = new Litedb('option');
     // $all = $db->fetchAll()->groupBy('value')->fetch();
     // $db->newRow()->setName('rv')->setValue(50)->save();
     // $db->newRow()->setName('truc')->setValue(25)->save();
@@ -77,8 +88,8 @@
     // $maj = $db->find(1)->delete();
     // $db->find(1)->setName('parari')->save();
     // $db->find(1)->delete();
-    $all = $db->find(1)->test();
-    dieDump($all);
+    // $all = $db->find(1)->test();
+    // dieDump($all);
     // $new = $db->newRow()->setName('truc')->setValue(30);
     // dieDump($new->save());
 
