@@ -9,8 +9,8 @@
     $conf = array(
         'checkTuple'    => 'name',
         'functions'     =>  array(
-            'test'    => function ($obj) {
-                return 'Super';
+            'test'      => function ($obj) {
+                return $obj->getId();
             },
         )
     );

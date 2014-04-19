@@ -67,6 +67,10 @@
 
     /* SITE OPTIONS */
     options()->setDefaultLanguage('fr');
+    // $redis = redis();
+    // $d = new \Datetime;
+    // $redis->set('test', time());
+    // dieDump($d->setTimestamp($redis->get("test")));
     // kv('test', time());
     // dieDump(kv('test'));
     // $redis = new Redis('127.0.0.1');
@@ -112,6 +116,18 @@
     //     $result = $mail->text($body)->sendText();
     // }
     // dieDump($result);
+    // $a = new Attributes('contact');
+    // $contact = $a->record()->setName('Michel')->setEmail('Michel@gmail.com')->setPhone('5817776779');
+    // $contact = $a->make($contact)->store();
+    // $contact = $a->save($a->make($contact));
+    // $res = $a->findOneByName('Gerald');
+    // $res = $a->order('date_create', 'DESC')->first();
+    // $res->trash();
+    // $a->delete($res);
+    // var_dump($res->display('name'));
+    // var_dump($res->getName());
+    // die(urlcencode('http://home.gpweb.co/browser.php?u=http://www.albumblog.com');
+    // dieDump($res->assoc());
 
     // $ar = ar('ajf', 'user');
     // $o = $ar->find(1);
@@ -122,7 +138,45 @@
     // foreach ($o->getPartner()->getUsers() as $user) {
     //     dieDump($user->getPartner()->getUsers());
     // }
+    // $db = new Sql('ajf', 'option');
+    // $n = $db->make()->setName('cool')->setValue('OK')->store();
 
+    // $n = $db->make()->setName('test4')->setValue('OK')->store();
+    // $res = $db->selectAll()->order('name')->fetch();
+    // $res = $db->selectAll()->groupBy('value')->fetch();
+    // $first = true;
+    // foreach ($res as $row) {
+    //     var_dump($row->display("name"));
+    //     $row->setName(time())->store();
+    //     // if($first) $row->trash();
+    //     $first = false;
+    // }
+    // $sum = $db->selectAll()->order(array('name'), array('DESC'))->sum('date_create');
+    // $avg = $db->selectAll()->order(array('name'), array('DESC'))->avg('date_create');
+    // $min = $db->selectAll()->order(array('name'), array('DESC'))->min('date_create');
+    // $max = $db->selectAll()->order(array('name'), array('DESC'))->max('date_create');
+    // $limit = $db->selectAll()->order(array('name'), array('DESC'))->limit(10)->fetch();
+    // var_dump($sum);
+    // var_dump($avg);
+    // var_dump($min);
+    // var_dump($max);
+    // print_r($limit);
+    exit;
+
+    // $rand = function($u, $d) {
+    //     return rand($u, $d);
+    // };
+
+    // $test = function() {
+    //     return 'OK';
+    // };
+
+    // event('rand', $rand);
+    // event('test', $test);
+    // $t1 = fire('test');
+    // $t = fire('rand', array(1000, 2000));
+    // var_dump(container()->test());
+    // dieDump(container()->rand(1000, 2000));
     /* CONTROLLERS */
 
     /* 500 */

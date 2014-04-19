@@ -12,8 +12,8 @@
 
     $relationships = array();
 
-    $relationships["ajf.user"] = array(
-        'partner_id'    => array(
+    $relationships["ajf.user"]      = array(
+        'partner_id'                => array(
             'type'                  => 'manyToOne',
             'fieldName'             => 'partner_id',
             'foreignEntity'         => 'ajf',
@@ -24,7 +24,7 @@
         )
     );
 
-    $relationships["ajf.partner"] = array(
+    $relationships["ajf.partner"]   = array(
         'users'                     => array(
             'type'                  => 'manyToMany',
             'fieldName'             => 'users',
