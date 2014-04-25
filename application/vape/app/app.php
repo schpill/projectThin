@@ -138,8 +138,8 @@
     // foreach ($o->getPartner()->getUsers() as $user) {
     //     dieDump($user->getPartner()->getUsers());
     // }
-    // $db = new Sql('ajf', 'option');
-    // $n = $db->make()->setName('cool')->setValue('OK')->store();
+    // $db = new Sql('option', 'ajf');
+    // $n = $db->make()->setName('test_' . time())->setValue('OK')->store();
 
     // $n = $db->make()->setName('test4')->setValue('OK')->store();
     // $res = $db->selectAll()->order('name')->fetch();
@@ -161,7 +161,7 @@
     // var_dump($min);
     // var_dump($max);
     // print_r($limit);
-    exit;
+    // exit;
 
     // $rand = function($u, $d) {
     //     return rand($u, $d);
@@ -177,6 +177,12 @@
     // $t = fire('rand', array(1000, 2000));
     // var_dump(container()->test());
     // dieDump(container()->rand(1000, 2000));
+
+    // $u = Forever::instance('user');
+    // $u->setLastVisit(time());
+    // container()->setForeverUser($u);
+    // dieDump($u);
+
     /* CONTROLLERS */
 
     /* 500 */
