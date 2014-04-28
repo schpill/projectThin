@@ -110,7 +110,12 @@
         // dieDump($c);
         $cars = $db->where('price > 20000')->order('id', 'ASC')->exec(true);
         foreach ($cars as $car) {
-            container()->dump($car->getPrice());
+            if ($car->getId() < 10) {
+                container()->dump($car->getId());
+                if ($car->getId() == 5) {
+                    $car->delete();
+                }
+            }
         }
         exit;
     }
