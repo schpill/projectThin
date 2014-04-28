@@ -21,6 +21,15 @@
     };
     container()->setTable($db);
 
+    event(
+        'dump',
+        function ($what) {
+            echo '<pre>';
+            print_r($what);
+            echo '</pre>';
+        }
+    );
+
     $rs = function($table, $field, $relation, $db = 'project') {
         $containerConfig = container()->getConfig();
         $models = $containerConfig->getModels();
@@ -67,6 +76,45 @@
 
     /* SITE OPTIONS */
     options()->setDefaultLanguage('fr');
+
+
+    function beforeTests()
+    {
+        $containerConfig    = null === container()->getConfig() ? new myConf : container()->getConfig();
+        $conf               = array();
+
+        $dbConf = new database();
+        $dbConf->setUsername('root')
+        ->setPassword('root')
+        ->setAdapter('mysql')
+        ->setDatabase("immosol")
+        ->setHost("localhost");
+        $conf['db'] = $dbConf;
+        $containerConfig->setDb($conf);
+
+        /* MODELS */
+        container()->setConfig($containerConfig);
+
+        $db = new Dbeav('car');
+
+        $car = array(
+            'brand' => 'Fiat',
+            'color' => 'blue',
+            'year'  => rand(1965, 2014),
+            'price' => time()
+        );
+        // $db->save($car);
+        // $c = $db->find(2);
+        // $c->setPrice(rand(12000, 25000))->setYear(rand(1965, 2014))->record();
+        // $c = $db->find(2);
+        // dieDump($c);
+        $cars = $db->where('price > 20000')->order('id', 'ASC')->exec(true);
+        foreach ($cars as $car) {
+            container()->dump($car->getPrice());
+        }
+        exit;
+    }
+
     // $redis = redis();
     // $d = new \Datetime;
     // $redis->set('test', time());
@@ -214,3 +262,4 @@
     };
     $home->setName('home')->setPath('')->setAction($action)->setRender('home');
     container()->route($home);
+    beforeTests();
