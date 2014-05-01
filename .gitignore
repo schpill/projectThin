@@ -42,6 +42,7 @@
 *.page
 *.tmp
 *.stop
+*.eav
 *.start
 *.timer
 

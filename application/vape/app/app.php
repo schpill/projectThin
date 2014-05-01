@@ -30,6 +30,29 @@
         }
     );
 
+    event('redis', function() {
+        static $i;
+        if (null === $i) {
+            $i = new \Redis();
+            $i->connect('localhost', 6379);
+            // $i = new \Predis\Client;
+        }
+        return $i;
+    });
+
+    event('log', function($str) {
+        error_log($str);
+    });
+
+    event('db', function($name) {
+        static $i = array();
+        $db = isAke($i, $name);
+        if (empty($db)) {
+            $i[$name] = $db = new Memorydb($name);
+        }
+        return $db;
+    });
+
     $rs = function($table, $field, $relation, $db = 'project') {
         $containerConfig = container()->getConfig();
         $models = $containerConfig->getModels();
@@ -95,29 +118,85 @@
         /* MODELS */
         container()->setConfig($containerConfig);
 
-        $db = new Dbeav('car');
+        // $db = container()->redis();
+        // $db->set('db_test::1', json_encode('papa'));
+        // $db->set('db_test::2', json_encode('maman'));
+        // $rows = $db->keys('db_test::*');
+        // foreach ($rows as $k => $row) {
+        //     $tab = json_decode($db->get($row), true);
+        //     var_dump($tab);
+        // }
+        // exit;
 
-        $car = array(
-            'brand' => 'Fiat',
-            'color' => 'blue',
-            'year'  => rand(1965, 2014),
-            'price' => time()
-        );
-        // $db->save($car);
+        // $db = new Dbeav('mytruck');
+        // Dbeav::configs('mytruck', 'cache', 'redis');
+        // Jsoneav::configs('truck', 'cache', 'redis');
+
+        // $functions = array();
+        // $functions['user'] = function() {
+        //     $db = $this->db('user');
+        //     return $db->find($this->getUser());
+        // };
+        // container()->db('book')->config('functions', $functions);
+
+        // $functions = array();
+        // $functions['books'] = function() {
+        //     $db = $this->db('book');
+        //     return $db->findObjectsByUser($this->getId());
+        // };
+        // container()->db('user')->config('functions', $functions);
+
+
+        // $dbUser = container()->db('user');$dbUser->setCache(true);
+        // $dbBook = container()->db('book');$dbBook->setCache(true);
+        // $u = $dbUser->create()->setName('Plusquellec')->setFirstname('Gérald')->setEmail('gplusquellec@free.fr')->save();
+        // $u->export();
+        // var_dump($dbUser->count());
+        // $b1 = $dbBook->create()->setUser(1)->setTitle('Les fleurs du mal')->setAuthor('Charles Baudelaire')->save();
+        // $b2 = $dbBook->create()->setUser(1)->setTitle('Les contemplations')->setAuthor('Victor Hugo')->save();
+        // var_dump($dbBook->count());
+        // $db->setCache(true);
+        // set_time_limit(0);
+        // $i = 0;
+        // $max = 1000;
+        // $max = 1;
+        // while ($i < $max) {
+        //     $i++;
+        //     $car = array(
+        //         'brand' => 'Fiat',
+        //         'color' => $i . 'blue',
+        //         'year'  => rand(1965, 2014),
+        //         'price' => rand(12000, 25000),
+        //         'stock' => rand(10, 200)
+        //     );
+        //     $r = $db->save($car);
+        // }
+        // die('coc');
+        // dieDump($db->all(true));
         // $c = $db->find(2);
         // $c->setPrice(rand(12000, 25000))->setYear(rand(1965, 2014))->record();
         // $c = $db->find(2);
-        // dieDump($c);
-        $cars = $db->where('price > 20000')->order('id', 'ASC')->exec(true);
-        foreach ($cars as $car) {
-            if ($car->getId() < 10) {
-                container()->dump($car->getId());
-                if ($car->getId() == 5) {
-                    $car->delete();
-                }
-            }
-        }
-        exit;
+        // dieDump($r);
+        // $r = rand(42000, 55000);
+        // var_dump($db->find(4)->getPrice());
+        // $v = $db->find(4)->setPrice($r)->setColor('white')->save();
+        // var_dump($r, $db->find(4)->getPrice());
+        // dieDump($db->find(58));
+        // $cars = $db->where('price > 10')->order('price', 'DESC')->export();
+        // dieDump(count($cars));
+        // var_dump(count($cars));
+        // dieDump(count($cars));
+        // $r = rand(50000, 75000);
+        // var_dump($r);
+        // var_dump(count($cars));
+        // foreach ($cars as $car) {
+        //     var_dump($car);
+        //     var_dump($db->toObject($car)->getId());
+        //     var_dump($db->toObject($car)->getPrice());
+        //     $db->toObject($car)->setPrice($r)->save();
+        //     exit;
+        // }
+        // exit;
     }
 
     // $redis = redis();
