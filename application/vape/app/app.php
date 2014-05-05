@@ -192,7 +192,7 @@
         // dieDump($u);
         // $u->export();
         var_dump($dbUser->countAll());
-        $max = 0;
+        $max = 1;
         for ($i = 0 ; $i < $max ; $i++) {
             $p = $dbProduct->create()
             ->setUser($u->getId())
@@ -373,4 +373,4 @@
         }
     }
 
-    // beforeTests();
+    beforeTests();
