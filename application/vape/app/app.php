@@ -30,12 +30,31 @@
         }
     );
 
+    event('entity', function() {
+        static $i;
+        if (null === $i) {
+            $i = new Kvdb();
+        }
+        return $i;
+    });
+
+    event('kvs', function() {
+        static $i;
+        if (null === $i) {
+            $i = new Kvdb();
+        }
+        return $i;
+    });
+
     event('redis', function() {
         static $i;
         if (null === $i) {
-            $i = new \Redis();
-            $i->connect('localhost', 6379);
-            // $i = new \Predis\Client;
+            if (!extension_loaded('redis')) {
+                $i = new \Predis\Client;
+            } else {
+                $i = new \Redis();
+                $i->connect('localhost', 6379);
+            }
         }
         return $i;
     });
@@ -49,6 +68,7 @@
         $db = isAke($i, $name);
         if (empty($db)) {
             $i[$name] = $db = new Memorydb($name);
+            // $i[$name] = $db = new Entitydb($name);
         }
         return $db;
     });
@@ -132,28 +152,58 @@
         // Dbeav::configs('mytruck', 'cache', 'redis');
         // Jsoneav::configs('truck', 'cache', 'redis');
 
-        // $functions = array();
-        // $functions['user'] = function() {
-        //     $db = $this->db('user');
-        //     return $db->find($this->getUser());
-        // };
-        // container()->db('book')->config('functions', $functions);
+        $functions = array();
+        $functions['user'] = function() {
+            $db = $this->db('user');
+            return $db->find($this->getUser());
+        };
+        container()->db('product')->config('functions', $functions);
+        // container()->db('product')->requires(array('stock'));
+        container()->db('product')->defaults(array('stock' => rand(125, 151)));
+        // container()->db('product')->uniques(array('stock'));
+        // container()->db('product')->controls(
+        //     array(
+        //         'token' => function ($val) {
+        //             var_dump($val);
+        //             return strrev($val);
+        //         },
+        //     )
+        // );
 
-        // $functions = array();
-        // $functions['books'] = function() {
-        //     $db = $this->db('book');
-        //     return $db->findObjectsByUser($this->getId());
-        // };
-        // container()->db('user')->config('functions', $functions);
+        $functions = array();
+        $functions['products'] = function($object = false) {
+            $db = $this->db('product');
+            return true === $object ? $db->findObjectsByUser($this->getId()) : $db->findByUser($this->getId());
+        };
+        container()->db('user')->config('functions', $functions);
 
 
-        // $dbUser = container()->db('user');$dbUser->setCache(true);
-        // $dbBook = container()->db('book');$dbBook->setCache(true);
-        // $u = $dbUser->create()->setName('Plusquellec')->setFirstname('Gérald')->setEmail('gplusquellec@free.fr')->save();
+        $dbUser = container()->db('user');
+        $dbUser->setCache(true);
+        $dbProduct = container()->db('product');
+
+        $dbProduct->setCache(true);
+        $u = $dbUser
+        ->create()
+        ->setName('Plusquellec')
+        ->setFirstname('Gérald')
+        ->setEmail('gplusquellec@free.fr')
+        ->save();
+        // dieDump($u);
         // $u->export();
-        // var_dump($dbUser->count());
-        // $b1 = $dbBook->create()->setUser(1)->setTitle('Les fleurs du mal')->setAuthor('Charles Baudelaire')->save();
-        // $b2 = $dbBook->create()->setUser(1)->setTitle('Les contemplations')->setAuthor('Victor Hugo')->save();
+        var_dump($dbUser->countAll());
+        $max = 0;
+        for ($i = 0 ; $i < $max ; $i++) {
+            $p = $dbProduct->create()
+            ->setUser($u->getId())
+            ->setToken(Utils::token())
+            ->setStock()
+            ->setPrice(rand(15000, 25000))
+            ->save();
+        }
+        // dieDump($p);
+        $res = $dbProduct->where('price > 2000')->order('price', 'desc')->first(true);
+        dieDump($res->user()->products());
         // var_dump($dbBook->count());
         // $db->setCache(true);
         // set_time_limit(0);
@@ -316,34 +366,11 @@
     // dieDump($u);
 
     /* CONTROLLERS */
+    $controllers = glob(realpath(dirname(__file__) . DS . 'controllers') . DS . '*.php');
+    if (count($controllers)) {
+        foreach ($controllers as $controller) {
+            include $controller;
+        }
+    }
 
-    /* 500 */
-    $page500   = new Route;
-    $action = function ($view) {
-        header('HTTP/1.0 500 Internal Server Error');
-        $view->title    = 'Erreur système';
-        $view->content  = 'Cette page comporte des erreurs!';
-    };
-    $page500->setName(500)->setPath('error')->setAction($action)->setRender('500');
-    container()->route($page500);
-
-    /* 404 */
-    $page404   = new Route;
-    $action = function ($view) {
-        header('HTTP/1.0 404 Not Found');
-        $view->title    = 'Page introuvable';
-        $view->content  = 'La page que vous cherchez n\'existe pas!';
-    };
-    $page404->setName(404)->setPath('404')->setAction($action)->setRender('404');
-    container()->route($page404);
-    container()->setNotFoundRoute($page404);
-
-    /* HOME */
-    $home   = new Route;
-    $action = function ($view) {
-        $view->title    = 'Accueil';
-        $view->content  = 'Bienvenue sur la page d\'accueil du site!';
-    };
-    $home->setName('home')->setPath('')->setAction($action)->setRender('home');
-    container()->route($home);
-    beforeTests();
+    // beforeTests();

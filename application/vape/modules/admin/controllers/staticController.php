@@ -13,7 +13,7 @@
             $type = Arrays::last($tab);
             $action = container()->getAction();
             if (!empty($action)) {
-                if (!Arrays::inArray($action, array('login', 'logout', 'dashboard', 'no-right'))) {
+                if (!Arrays::in($action, array('login', 'logout', 'dashboard', 'no-right'))) {
                     $session = $this->checkSession();
                     $this->view->user   = $session->getUser();
                     $this->view->types  = $this->getEntities($session);
@@ -22,7 +22,7 @@
                 $action = $tab[count($tab) - 3];
             }
 
-            if (Arrays::inArray($action, array('edit', 'duplicate', 'delete', 'view'))) {
+            if (Arrays::in($action, array('edit', 'duplicate', 'delete', 'view'))) {
                 $type = $tab[count($tab) - 2];
             }
             $file = APPLICATION_PATH . DS . 'entities' . DS . 'admin' . DS . ucfirst(Inflector::lower($type)) . '.php';
@@ -57,11 +57,11 @@
                 $rights = $session->getRights();
                 if (count($rights)) {
                     foreach ($rights as $right) {
-                        if (!ake($right->getAdmintable()->getName(), Data::$_rights)) {
+                        if (!Arrays::exists($right->getAdmintable()->getName(), Data::$_rights)) {
                             Data::$_rights[$right->getAdmintable()->getName()] = array();
                         }
                         Data::$_rights[$right->getAdmintable()->getName()][$right->getAdminaction()->getName()] = true;
-                        if (!Arrays::inArray($right->getAdmintable()->getName(), $types)) {
+                        if (!Arrays::in($right->getAdmintable()->getName(), $types)) {
                             array_push($types, $right->getAdmintable()->getName());
                         }
                     }
@@ -104,10 +104,10 @@
                     $this->view->file       = $ficTmp;
                     $this->view->row        = $row;
                     $this->view->separator  = request()->getSeparator();
-                    $this->view->fields     = ake($type, Data::$_fields) ? Data::$_fields[$type] : array();
+                    $this->view->fields     = Arrays::exists($type, Data::$_fields) ? Data::$_fields[$type] : array();
                 }
                 if (isset($_POST['file'])) {
-                    $fields     = ake($type, Data::$_fields) ? Data::$_fields[$type] : array();
+                    $fields     = Arrays::exists($type, Data::$_fields) ? Data::$_fields[$type] : array();
                     $file       = file($_POST['file']);
                     foreach ($file as $row) {
                         $row        = trim($row);
@@ -194,20 +194,20 @@
                 $this->view->viewRenderer(APPLICATION_PATH . DS . SITE_NAME . DS . 'modules' . DS . 'admin' . DS . 'views' . DS . 'scripts' . DS . 'static' . DS . 'default-list.phtml');
             }
 
-            $settings       = ake($type, Data::$_settings) ? Data::$_settings[$type] : array();
+            $settings       = Arrays::exists($type, Data::$_settings) ? Data::$_settings[$type] : array();
 
             $page           = (null === request()->getPage())        ? 1     : request()->getPage();
             $where          = (null === request()->getWhere())       ? null  : request()->getWhere();
             $typeExport     = (null === request()->getTypeExport())  ? null  : request()->getTypeExport();
-            $order          = (null === request()->getOrder())       ? (ake('orderList', $settings)) ? $settings['orderList'] : 'date_create' : request()->getOrder();
-            $orderDirection = (null === request()->getOrderDirection()) ? (ake('orderListDirection', $settings)) ? $settings['orderListDirection'] : 'DESC' : request()->getOrderDirection();
+            $order          = (null === request()->getOrder())       ? (Arrays::exists('orderList', $settings)) ? $settings['orderList'] : 'date_create' : request()->getOrder();
+            $orderDirection = (null === request()->getOrderDirection()) ? (Arrays::exists('orderListDirection', $settings)) ? $settings['orderListDirection'] : 'DESC' : request()->getOrderDirection();
 
             $whereData = '';
             if (!empty($where)) {
                 $whereData = $this->_parseQuery($where);
             }
 
-            $limit                  = (ake('itemsByPage', $settings)) ? $settings['itemsByPage'] : 25;
+            $limit                  = (Arrays::exists('itemsByPage', $settings)) ? $settings['itemsByPage'] : 25;
 
             $offset                 = ($page * $limit) - $limit;
 
@@ -255,13 +255,13 @@
             $this->view->data       = $paginator->getItemsByPage();
             $this->view->pagination = $paginator->links();
             $this->view->export     = array();
-            if (!ake('notExportablePdf', $settings)) {
+            if (!Arrays::exists('notExportablePdf', $settings)) {
                 $this->view->export[] = 'pdf';
             }
-            if (!ake('notExportableExcel', $settings)) {
+            if (!Arrays::exists('notExportableExcel', $settings)) {
                 $this->view->export[] = 'excel';
             }
-            if (!ake('notExportableCsv', $settings)) {
+            if (!Arrays::exists('notExportableCsv', $settings)) {
                 $this->view->export[] = 'csv';
             }
         }
@@ -416,7 +416,7 @@
                 $this->_noRight();
             }
             if (null !== $type) {
-                if (ake($type, Data::$_settings)) {
+                if (Arrays::exists($type, Data::$_settings)) {
                     Data::emptyCache($type);
                 }
             }
