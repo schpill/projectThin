@@ -23,12 +23,31 @@
 
     event(
         'dump',
-        function ($what) {
+        function ($what, $exit = false) {
             echo '<pre>';
             print_r($what);
             echo '</pre>';
+            if (true === $exit) {
+                exit;
+            }
         }
     );
+
+    event('textdb', function() {
+        static $i;
+        if (null === $i) {
+            $i = new Textdb();
+        }
+        return $i;
+    });
+
+    event('bucket', function() {
+        static $i;
+        if (null === $i) {
+            $i = new Bucket(SITE_NAME);
+        }
+        return $i;
+    });
 
     event('entity', function() {
         static $i;
@@ -68,6 +87,7 @@
         $db = isAke($i, $name);
         if (empty($db)) {
             $i[$name] = $db = new Memorydb($name);
+            // $i[$name] = $db = new Bucketdb($name);
             // $i[$name] = $db = new Entitydb($name);
         }
         return $db;
@@ -123,6 +143,14 @@
 
     function beforeTests()
     {
+        // dieDump(container()->bucket()->upload('http://symfony.com/pdf/Symfony_quick_tour_2.1_fr.pdf'));
+        // dieDump(container()->bucket()->data('http', 'TXt'));
+        // $u = Forever::instance('user');
+        // $u->setLastVisit(time());
+        // $u->setTruc('fddf');
+        // container()->setForeverUser($u);
+        // dieDump($u);
+        // $s = $_SERVER;
         $containerConfig    = null === container()->getConfig() ? new myConf : container()->getConfig();
         $conf               = array();
 
@@ -152,14 +180,14 @@
         // Dbeav::configs('mytruck', 'cache', 'redis');
         // Jsoneav::configs('truck', 'cache', 'redis');
 
-        $functions = array();
-        $functions['user'] = function() {
-            $db = $this->db('user');
-            return $db->find($this->getUser());
-        };
-        container()->db('product')->config('functions', $functions);
+        // $functions = array();
+        // $functions['user'] = function() {
+        //     $db = $this->db('user');
+        //     return $db->find($this->getUser());
+        // };
+        // container()->db('product')->config('functions', $functions);
         // container()->db('product')->requires(array('stock'));
-        container()->db('product')->defaults(array('stock' => rand(125, 151)));
+        // container()->db('product')->defaults(array('stock' => rand(125, 151)));
         // container()->db('product')->uniques(array('stock'));
         // container()->db('product')->controls(
         //     array(
@@ -170,40 +198,40 @@
         //     )
         // );
 
-        $functions = array();
-        $functions['products'] = function($object = false) {
-            $db = $this->db('product');
-            return true === $object ? $db->findObjectsByUser($this->getId()) : $db->findByUser($this->getId());
-        };
-        container()->db('user')->config('functions', $functions);
+        // $functions = array();
+        // $functions['products'] = function($object = false) {
+        //     $db = $this->db('product');
+        //     return true === $object ? $db->findObjectsByUser($this->getId()) : $db->findByUser($this->getId());
+        // };
+        // container()->db('user')->config('functions', $functions);
 
 
-        $dbUser = container()->db('user');
-        $dbUser->setCache(true);
-        $dbProduct = container()->db('product');
+        // $dbUser = container()->db('user');
+        // $dbUser->setCache(true);
+        // $dbProduct = container()->db('product');
 
-        $dbProduct->setCache(true);
-        $u = $dbUser
-        ->create()
-        ->setName('Plusquellec')
-        ->setFirstname('Gérald')
-        ->setEmail('gplusquellec@free.fr')
-        ->save();
+        // $dbProduct->setCache(true);
+        // $u = $dbUser
+        // ->create()
+        // ->setName('Plusquellec')
+        // ->setFirstname('Gérald')
+        // ->setEmail('gplusquellec@free.fr')
+        // ->save();
         // dieDump($u);
         // $u->export();
-        var_dump($dbUser->countAll());
-        $max = 1;
-        for ($i = 0 ; $i < $max ; $i++) {
-            $p = $dbProduct->create()
-            ->setUser($u->getId())
-            ->setToken(Utils::token())
-            ->setStock()
-            ->setPrice(rand(15000, 25000))
-            ->save();
-        }
+        // var_dump($dbUser->countAll());
+        // $max = 1;
+        // for ($i = 0 ; $i < $max ; $i++) {
+        //     $p = $dbProduct->create()
+        //     ->setUser($u->getId())
+        //     ->setToken(Utils::token())
+        //     ->setStock()
+        //     ->setPrice(rand(15000, 25000))
+        //     ->save();
+        // }
         // dieDump($p);
-        $res = $dbProduct->where('price > 2000')->order('price', 'desc')->first(true);
-        dieDump($res->user()->products());
+        // $res = $dbProduct->where('price > 2000')->order('price', 'desc')->first(true);
+        // dieDump($res->user()->products());
         // var_dump($dbBook->count());
         // $db->setCache(true);
         // set_time_limit(0);
@@ -359,11 +387,6 @@
     // $t = fire('rand', array(1000, 2000));
     // var_dump(container()->test());
     // dieDump(container()->rand(1000, 2000));
-
-    // $u = Forever::instance('user');
-    // $u->setLastVisit(time());
-    // container()->setForeverUser($u);
-    // dieDump($u);
 
     /* CONTROLLERS */
     $controllers = glob(realpath(dirname(__file__) . DS . 'controllers') . DS . '*.php');
